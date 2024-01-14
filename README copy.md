@@ -38,3 +38,16 @@ cp .env.example .env.local
 ```sh
 npm run dev
 ```
+
+## When running this project, you can add the following.
+
+- Database - [PlanetScale](https://planetscale.com)
+- ORM - [Prisma](https://prisma.io)
+
+and so on.
+
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fthemanafov%2Fnextjs-dashboard-template)
+
+## License
+
+Licensed under the [MIT license](https://github.com/themanafov/nextjs-dashboard-template/blob/main/LICENSE).
