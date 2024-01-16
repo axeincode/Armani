@@ -1,9 +1,25 @@
 import React from "react";
+import { Typography } from "@material-tailwind/react";
+import { CompanyLogo } from "../company-logo";
+import { InputWithSearchAddon } from "../ui/input-search-addon";
 
 export const EditorTopNav = () => {
   return (
-    <div className="flex h-20 rounded border-solid border-4  border-gray-500">
-      <p>Top bar</p>
+    <div className="flex items-center justify-between h-16  bg-gray-800">
+      <InputWithSearchAddon onChange={() => {}} value="Search the deck" />
+      <div className="flex text-xs items-center justify-between gap-1">
+        <Typography
+          as="h4"
+          color="white"
+          className="text-xs md:text-base font-bold"
+        >
+          THE ATRIUM
+        </Typography>
+        <Typography color="white" className="mt-1 text-xs">
+          BOSTON MA
+        </Typography>
+      </div>
+      <CompanyLogo inverse={true} variant="h6" iconSize="h-4 w-4" />
     </div>
   );
 };

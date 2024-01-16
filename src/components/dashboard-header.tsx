@@ -14,7 +14,12 @@ export default async function DashboardHeader({
   title,
   ...props
 }: DashboardHeaderProps) {
-  const user = {}; // await getCurrentUser();
+  const user = {
+    name: "John Doe",
+    email: "johnemail@gmail.com",
+    image:
+      "https://images.unsplash.com/photo-1612833603922-0d9a3c0d5a2f?ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8Z2lybCUyMG1hbnxlbnwwfHwwfHw%3D&ixlib=rb-1.2.1&w=1000&q=80",
+  }; // await getCurrentUser();
 
   return (
     <header

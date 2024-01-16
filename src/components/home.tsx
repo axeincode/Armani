@@ -1,3 +1,4 @@
+"use client";
 import {
   Card,
   CardHeader,
@@ -6,8 +7,8 @@ import {
   Typography,
   Button,
 } from "@material-tailwind/react";
-import { BuildingOffice2Icon } from "@heroicons/react/24/solid";
 import ButtonWithLink from "./ui/button-with-link";
+import { CompanyLogo } from "./company-logo";
 
 const content = [
   {
@@ -64,15 +65,7 @@ export function Home() {
           alt="nature image"
         />
         <div className="mt-[-20px] flex flex-1 justify-center shadow-inner">
-          <div className="bg-white px-8 flex flex-row gap-2">
-            <BuildingOffice2Icon className="h-10 w-10 text-amber-700" />
-            <Typography variant="h2" color="blue-gray" className="mb-2">
-              DIAMOND
-            </Typography>
-            <Typography variant="h2" color="amber" className="mb-2">
-              REALTY
-            </Typography>
-          </div>
+          <CompanyLogo inverse={false} variant="h2" iconSize="h-10 w-10" />
         </div>
       </div>
       <div className="container flex flex-1 flex-col h-full mx-[32px] lg:mx-48 mt-8">

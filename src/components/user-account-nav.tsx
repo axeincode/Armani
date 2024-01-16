@@ -1,18 +1,10 @@
 "use client";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "./ui/dropdown-menu";
+import { DropdownMenu, DropdownMenuTrigger } from "./ui/dropdown-menu";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
-import { User } from "next-auth";
-import { signOut } from "next-auth/react";
 import { getCapitalLettersOfName } from "@/lib/utils";
 
 interface UserAccountNavProps {
-  user: Pick<User, "name" | "image" | "email">;
+  user: Pick<any, "name" | "image" | "email">;
 }
 
 export default function UserAccountNav({ user }: UserAccountNavProps) {
@@ -26,7 +18,7 @@ export default function UserAccountNav({ user }: UserAccountNavProps) {
           </AvatarFallback>
         </Avatar>
       </DropdownMenuTrigger>
-      <DropdownMenuContent align="end">
+      {/* <DropdownMenuContent align="end">
         <div className="text-md p-2 flex flex-col">
           {user.name && <h3 className="font-medium">{user.name}</h3>}
           {user.email && <p className="text-sm text-gray-1">{user.email}</p>}
@@ -35,7 +27,7 @@ export default function UserAccountNav({ user }: UserAccountNavProps) {
         <DropdownMenuItem onClick={() => signOut({ callbackUrl: "/" })}>
           Log out
         </DropdownMenuItem>
-      </DropdownMenuContent>
+      </DropdownMenuContent> */}
     </DropdownMenu>
   );
 }

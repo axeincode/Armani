@@ -1,4 +1,6 @@
-import { EditorGrid, Sidebar, EditorTools } from "@/components";
+import { EditorGrid } from "@/components/editor";
+import { EditorTools } from "@/components/editor/editor-tools";
+import { Sidebar } from "@/components/editor/sidebar";
 
 // components
 export default function Page() {

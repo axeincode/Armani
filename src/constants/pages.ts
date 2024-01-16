@@ -1,0 +1,51 @@
+export const deckPageConfigs = [
+  {
+    id: 1,
+    title: "Deck Overview",
+    pageIndex: 1,
+    visible: true,
+    icon: "list",
+  },
+  {
+    id: 2,
+    title: "The Property",
+    pageIndex: 2,
+    visible: true,
+    icon: "home",
+  },
+  {
+    id: 3,
+    title: "The Market",
+    pageIndex: 3,
+    visible: true,
+    icon: "Mappin",
+  },
+  {
+    id: 4,
+    title: "Business Plan",
+    pageIndex: 4,
+    visible: true,
+    icon: "charts",
+  },
+  {
+    id: 5,
+    title: "Financials",
+    pageIndex: 5,
+    visible: true,
+    icon: "finance",
+  },
+  {
+    id: 6,
+    title: "Comps",
+    pageIndex: 6,
+    visible: true,
+    icon: "comps",
+  },
+  {
+    id: 7,
+    title: "Sponsorship",
+    pageIndex: 7,
+    visible: true,
+    icon: "users",
+  },
+];
