@@ -43,9 +43,13 @@ const useCallbackRefDimensions = (): {
   }, []);
 
   useEffect(() => {
-    window.addEventListener("resize", getDimensions);
+    if (typeof window === "undefined") return;
+    window && window.addEventListener("resize", getDimensions);
     // Return a function from the effect that removes the event listener
-    return () => window.removeEventListener("resize", getDimensions);
+    return () => {
+      if (typeof window === "undefined") return;
+      window && window.removeEventListener("resize", getDimensions);
+    };
   }, []);
 
   return { dimensions, ref, setRef };

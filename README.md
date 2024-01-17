@@ -1,10 +1,17 @@
-# Canari Solutions
+# Next.js Dashboard Template
+
+![Next.js Blog Template](https://nextjs-dash-template.vercel.app/dashboard.png)
+
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fthemanafov%2Fnextjs-dashboard-template)
+
+<div>An open source dashboard template made with Next.js 13</div>
+<a href="http://nextjs-dash-template.vercel.app/">Demo</a>
 
 ---
 
 ## Overview
 
-The project uses the following stack:
+This is a starter template using the following stack:
 
 - Framework - [Next.js 13](https://nextjs.org)
 - Styling - [Tailwind CSS](https://tailwindcss.com)
@@ -38,3 +45,28 @@ cp .env.example .env.local
 ```sh
 npm run dev
 ```
+
+## When running this project, you can add the following.
+
+- Database - [PlanetScale](https://planetscale.com)
+- ORM - [Prisma](https://prisma.io)
+
+and so on.
+
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fthemanafov%2Fnextjs-dashboard-template)
+
+## License
+
+Licensed under the [MIT license](https://github.com/themanafov/nextjs-dashboard-template/blob/main/LICENSE).
+
+## configs
+
+google:
+canari.dna@gmail.com
+DnAWebDevCanari1245
+
+firebase :
+https://console.firebase.google.com/project/canari-e0bb6/overview
+
+vercel:
+https://vercel.com/help?email=canari.dna%40gmail.com
