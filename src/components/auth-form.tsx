@@ -1,28 +1,51 @@
 "use client";
-import { GitHubLogoIcon } from "@radix-ui/react-icons";
 import { Button } from "./ui/button";
-import { signIn } from "next-auth/react";
-import { useState } from "react";
-import { Icons } from "./icons";
+import React from "react";
+import { signInWithGoogle, signOut } from "../lib/firebase/auth";
+import useUserSession from "@/lib/useUserSession";
+import { Typography } from "@material-tailwind/react";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
 
-export default function AuthForm() {
-  const [isLoading, setIsLoading] = useState<boolean>(false);
-  const login = async () => {
-    setIsLoading(true);
-    await signIn("github", {
-      redirect: false,
-      callbackUrl: "/dashboard",
-    });
-    setIsLoading(false);
+export default function AuthForm({ currentUser }: any) {
+  const user = useUserSession(currentUser?.toJSON());
+  const router = useRouter();
+  const handleSignIn = (event: any) => {
+    event.preventDefault();
+    signInWithGoogle();
   };
+
+  const handleSignOut = (event: any) => {
+    event.preventDefault();
+    signOut();
+  };
+
+  React.useEffect(() => {
+    if (user && user.email) {
+      // navigate to the dashboard page
+      router.push("/");
+    }
+  }, [user]);
+
   return (
-    <Button className="flex flex-row gap-2" onClick={login}>
-      {isLoading ? (
-        <Icons.spinner size={20} className="animate-spin" />
+    <>
+      {user ? (
+        <>
+          <Typography className="flex flex-row gap-2">
+            Signed in as {user?.email}
+          </Typography>
+          <Button className="flex justify-center" onClick={handleSignOut}>
+            <Link href={"/"}>Go to dashboard</Link>
+          </Button>
+          <Button className="flex justify-center" onClick={handleSignOut}>
+            {"Sign out"}
+          </Button>
+        </>
       ) : (
-        <GitHubLogoIcon width={20} height={20} />
+        <Button className="flex flex-row gap-2" onClick={handleSignIn}>
+          Sign in with Google
+        </Button>
       )}
-      Sign in with GitHub
-    </Button>
+    </>
   );
 }

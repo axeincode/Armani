@@ -3,8 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "author": {
-    "name": "Mehman Manafov",
-    "url": "https://x.com/themanafov"
+    "name": "Irfan Khan",
+    "url": "https://irfankhan.info"
   },
   "scripts": {
     "dev": "next dev",
@@ -13,6 +13,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@google-cloud/firestore": "^6.7.0",
     "@headlessui/react": "^1.7.17",
     "@heroicons/react": "^2.0.18",
     "@material-tailwind/react": "^2.1.8",
@@ -33,6 +34,8 @@
     "clsx": "^2.0.0",
     "eslint": "8.47.0",
     "eslint-config-next": "13.4.19",
+    "firebase": "^10.7.1",
+    "firebase-admin": "^11.10.1",
     "framer-motion": "^10.18.0",
     "immer": "^10.0.3",
     "lodash": "^4.17.21",
@@ -41,6 +44,7 @@
     "next-auth": "^4.23.1",
     "next-themes": "^0.2.1",
     "postcss": "^8.4.31",
+    "protobufjs": "^7.2.6",
     "react": "18.2.0",
     "react-colorful": "^5.6.1",
     "react-dnd": "^16.0.1",
@@ -49,6 +53,8 @@
     "react-moveable": "^0.56.0",
     "react-selecto": "^1.26.3",
     "react-use": "^17.4.3",
+    "request": "^2.88.2",
+    "rxjs": "^7.8.1",
     "scenejs": "^1.10.3",
     "swiper": "^11.0.5",
     "tailwind-merge": "^1.14.0",
@@ -60,6 +66,15 @@
   "devDependencies": {
     "@types/lodash": "^4.14.202",
     "@types/webfontloader": "^1.6.38",
-    "prettier": "^3.0.2"
+    "prettier": "^3.0.2",
+    "encoding": "^0.1.13"
+  },
+  "browser": {
+    "fs": false,
+    "os": false,
+    "path": false,
+    "child_process": false,
+    "net": false,
+    "tls": false
   }
 }

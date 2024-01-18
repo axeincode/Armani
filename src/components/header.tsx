@@ -15,6 +15,10 @@ import {
   Bars3Icon,
   MoonIcon,
 } from "@heroicons/react/24/solid";
+import { useRouter } from "next/navigation";
+import Link from "next/link";
+import useUserSession from "@/lib/useUserSession";
+import UserAccountNav from "./user-account-nav";
 
 const NAV_MENU = [
   {
@@ -54,8 +58,12 @@ function NavItem({ children, href }: NavItemProps) {
   );
 }
 
-export function Header() {
+export function Header({ currentUser }: any) {
+  const user = useUserSession(currentUser?.toJSON());
   const [open, setOpen] = React.useState(false);
+  const router = useRouter();
+
+  console.log("header user ", user);
 
   function handleOpen() {
     setOpen((cur) => !cur);
@@ -69,7 +77,7 @@ export function Header() {
   }, []);
 
   return (
-    <div className="px-0 sticky top-4 z-50 bg-gray-900">
+    <div className="px-0 sticky z-50 bg-gray-900">
       <div className="w-full flex flex-1">
         <MTNavbar
           blurred
@@ -83,10 +91,28 @@ export function Header() {
                 Canari Solutions
               </Typography>
             </div>
-            <div className="hidden items-center gap-4 lg:flex">
+            {/* <div className="hidden items-center gap-4 lg:flex">
               <UserCircleIcon className="h-10 w-10" />
-            </div>
-
+            </div> */}
+            {user ? (
+              <div className="hidden items-center gap-4 lg:flex">
+                <UserAccountNav
+                  user={{
+                    name: user?.displayName,
+                    image: user?.photoURL,
+                    email: user?.email,
+                  }}
+                />
+              </div>
+            ) : (
+              <div className="hidden items-center gap-4 lg:flex">
+                <Button variant="outlined" size="sm" color="white">
+                  <Link href="/signin" className="logo">
+                    Sign In
+                  </Link>
+                </Button>
+              </div>
+            )}
             <IconButton
               variant="text"
               color="gray"
