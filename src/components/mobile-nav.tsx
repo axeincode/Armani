@@ -20,7 +20,8 @@ export default function MobileNav() {
         <Icons.menu size={20} />
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end">
-        {dashboardConfig.sidebarNav.map((link, i) => {
+        {dashboardConfig.sidebarNav.map((link: any, i: number) => {
+          // @ts-ignore
           const Icon = Icons[link.icon];
           return (
             <DropdownMenuItem key={i} asChild>
@@ -28,7 +29,7 @@ export default function MobileNav() {
                 href={link.href}
                 className={cn(
                   "py-1 text-sm px-2 rounded-md flex flex-row gap-2 transition-colors items-center ",
-                  pathname === link.href ? "bg-gray-2" : "",
+                  pathname === link.href ? "bg-gray-2" : ""
                 )}
               >
                 <Icon size={16} />

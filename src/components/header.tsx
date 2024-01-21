@@ -16,7 +16,6 @@ import {
   MoonIcon,
 } from "@heroicons/react/24/solid";
 import { useRouter } from "next/navigation";
-import Link from "next/link";
 import useUserSession from "@/lib/useUserSession";
 import UserAccountNav from "./user-account-nav";
 
@@ -69,6 +68,10 @@ export function Header({ currentUser }: any) {
     setOpen((cur) => !cur);
   }
 
+  const handleOnSignIn = () => {
+    router.push("/signin");
+  };
+
   React.useEffect(() => {
     window.addEventListener(
       "resize",
@@ -106,10 +109,13 @@ export function Header({ currentUser }: any) {
               </div>
             ) : (
               <div className="hidden items-center gap-4 lg:flex">
-                <Button variant="outlined" size="sm" color="white">
-                  <Link href="/signin" className="logo">
-                    Sign In
-                  </Link>
+                <Button
+                  variant="outlined"
+                  size="sm"
+                  color="white"
+                  onClick={handleOnSignIn}
+                >
+                  Sign In
                 </Button>
               </div>
             )}

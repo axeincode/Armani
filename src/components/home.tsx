@@ -7,8 +7,8 @@ import {
   Typography,
   Button,
 } from "@material-tailwind/react";
-import ButtonWithLink from "./ui/button-with-link";
 import { CompanyLogo } from "./company-logo";
+import { AppInterface } from "../types/interface";
 
 const content = [
   {
@@ -55,46 +55,61 @@ const imageList = [
   "https://images.unsplash.com/photo-1479839672679-a46483c0e7c8?q=80&w=800&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D 300w",
 ];
 
-export function Home() {
-  return (
-    <div className="flex flex-1 flex-col h-full w-full">
-      <div className="flex flex-1 flex-col w-full">
-        <img
-          className="h-44 w-full object-cover object-center"
-          src="https://images.unsplash.com/photo-1699025087138-a764dee76ee4?q=80&w=870&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D 1900w"
-          alt="nature image"
-        />
-        <div className="mt-[-20px] flex flex-1 justify-center shadow-inner">
-          <CompanyLogo inverse={false} variant="h2" iconSize="h-10 w-10" />
+interface homeProps {
+  data: AppInterface[] | undefined;
+  handleOnEdit: (id: string) => void;
+}
+
+export function Home(props: homeProps) {
+  const { data, handleOnEdit } = props;
+
+  if (data) {
+    return (
+      <div className="flex flex-1 flex-col h-full w-full">
+        <div className="flex flex-1 flex-col w-full">
+          <img
+            className="h-44 w-full object-cover object-center"
+            src="https://images.unsplash.com/photo-1699025087138-a764dee76ee4?q=80&w=870&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D 1900w"
+            alt="nature image"
+          />
+          <div className="mt-[-20px] flex flex-1 justify-center shadow-inner">
+            <CompanyLogo inverse={false} variant="h2" iconSize="h-10 w-10" />
+          </div>
+        </div>
+        <div className="container flex flex-1 flex-col h-full mx-[32px] lg:mx-48 mt-8">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            {Array.from({ length: 4 }).map((_, i) => (
+              <div
+                key={i}
+                className="bg-white flex flex-col items-center justify-center"
+              >
+                <Card className="mt-6 w-96">
+                  <CardHeader color="blue-gray" className="relative h-56">
+                    <img src={imageList[i]} alt="card-image" />
+                  </CardHeader>
+                  <CardBody className="flex flex-col justify-center items-center">
+                    <Typography variant="h5" color="blue-gray" className="mb-1">
+                      {data[i].title}
+                    </Typography>
+                    <Typography>{content[i].subtitle}</Typography>
+                  </CardBody>
+                  <CardFooter className="pt-0 flex gap-2 justify-center items-center">
+                    <Button>View</Button>
+                    <Button
+                      onClick={() =>
+                        handleOnEdit("916a31b4-68df-4892-b3ef-a336bb849452")
+                      }
+                    >
+                      Edit
+                    </Button>
+                    <Button>More</Button>
+                  </CardFooter>
+                </Card>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
-      <div className="container flex flex-1 flex-col h-full mx-[32px] lg:mx-48 mt-8">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-          {Array.from({ length: 4 }).map((_, i) => (
-            <div
-              key={i}
-              className="bg-white flex flex-col items-center justify-center"
-            >
-              <Card className="mt-6 w-96">
-                <CardHeader color="blue-gray" className="relative h-56">
-                  <img src={imageList[i]} alt="card-image" />
-                </CardHeader>
-                <CardBody className="flex flex-col justify-center items-center">
-                  <Typography variant="h5" color="blue-gray" className="mb-1">
-                    {content[i].title}
-                  </Typography>
-                  <Typography>{content[i].subtitle}</Typography>
-                </CardBody>
-                <CardFooter className="pt-0 flex gap-2 justify-center items-center">
-                  <Button>View</Button>
-                  <ButtonWithLink to="/editor">Edit</ButtonWithLink>
-                  <Button>More</Button>
-                </CardFooter>
-              </Card>
-            </div>
-          ))}
-        </div>
-      </div>
-    </div>
-  );
+    );
+  } else return <div> Empty State</div>;
 }

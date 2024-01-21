@@ -1,21 +1,28 @@
 "use client";
 import React from "react";
 import { useWindowSize } from "react-use";
-import MoveableManager from "../moveable-manager";
 import useCallbackRefDimensions from "@/hooks/useCallbackRefDimensions";
 import { Button, IconButton } from "@material-tailwind/react";
 import { ArrowRightIcon, ArrowLeftIcon } from "@heroicons/react/24/outline";
 import { EditorPagination } from "./editor-pagination";
 import { EditorPages } from "./editor-pages";
 import { PageTitle } from "./page-title";
+import MoveablePlusManager from "../moveableplus-manager";
+import { IPageState } from "@/store";
 
-export const EditorMainArea = () => {
-  const totalPages = 7;
-  const [page, setPage] = React.useState<number>(1);
+export type EditorMainAreaProps = {
+  page: IPageState;
+  setPage: (page: number) => void;
+};
+
+export const EditorMainArea = ({ page, setPage }: EditorMainAreaProps) => {
+  const totalPages = page.totalPages;
+  const { currentPage } = page;
   const { width, height } = useWindowSize();
   const [targets, setTargets] = React.useState<HTMLElement[]>();
   const containerRef = React.useRef<HTMLDivElement>(null);
   const gridRef = React.useRef<HTMLDivElement>(null);
+  const mainAreaRef = React.useRef<HTMLDivElement>(null);
   const updateTarget = (target: HTMLElement[]) => {
     setTargets(target);
   };
@@ -68,13 +75,8 @@ export const EditorMainArea = () => {
       ref={containerRef}
       /// onClick={(e: React.SyntheticEvent<HTMLElement>) => updateTarget(e.target)}
     >
-      <PageTitle page={page} />
-      <div className="flex flex-grow relative">
-        <MoveableManager
-          container={containerRef}
-          targets={{ value: targets || [], setValue: updateTarget }}
-        />
-
+      <PageTitle page={currentPage} />
+      <div className="flex flex-grow relative" ref={mainAreaRef}>
         <div
           className="grid-container absolute flex flex-1 w-full h-full"
           ref={gridRef}
@@ -82,11 +84,12 @@ export const EditorMainArea = () => {
             pointerEvents: "none", // Ensure the grid doesn't interfere with dragging and resizing
           }}
         />
-
-        <EditorPages page={page} setRef={setRef} />
+        <MoveablePlusManager mainAreaRef={mainAreaRef}>
+          <EditorPages page={currentPage} setRef={setRef} />
+        </MoveablePlusManager>
       </div>
       <EditorPagination
-        page={page}
+        page={currentPage}
         totalPages={totalPages}
         setPage={setPageValue}
       />

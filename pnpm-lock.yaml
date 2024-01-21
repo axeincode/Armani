@@ -95,6 +95,9 @@ dependencies:
   next-themes:
     specifier: ^0.2.1
     version: 0.2.1(next@13.5.3)(react-dom@18.2.0)(react@18.2.0)
+  normalizr:
+    specifier: ^3.6.2
+    version: 3.6.2
   postcss:
     specifier: ^8.4.31
     version: 8.4.31
@@ -149,6 +152,9 @@ dependencies:
   typescript:
     specifier: 5.3.3
     version: 5.3.3
+  uuid:
+    specifier: ^9.0.1
+    version: 9.0.1
   webfontloader:
     specifier: ^1.6.28
     version: 1.6.28
@@ -157,6 +163,9 @@ devDependencies:
   '@types/lodash':
     specifier: ^4.14.202
     version: 4.14.202
+  '@types/uuid':
+    specifier: ^9.0.7
+    version: 9.0.7
   '@types/webfontloader':
     specifier: ^1.6.38
     version: 1.6.38
@@ -2116,6 +2125,10 @@ packages:
       '@types/mime': 3.0.4
       '@types/node': 20.5.1
     dev: false
+
+  /@types/uuid@9.0.7:
+    resolution: {integrity: sha512-WUtIVRUZ9i5dYXefDEAI7sh9/O7jGvHg7Df/5O/gtH3Yabe5odI3UWopVR1qbPXQtvOxWu3mM4XxlYeZtMWF4g==}
+    dev: true
 
   /@types/webfontloader@1.6.38:
     resolution: {integrity: sha512-kUaF72Fv202suFx6yBrwXqeVRMx7hGtJTesyESZgn9sEPCUeDXm2p0SiyS1MTqW74nQP4p7JyrOCwZ7pNFns4w==}
@@ -4896,6 +4909,10 @@ packages:
   /normalize-range@0.1.2:
     resolution: {integrity: sha512-bdok/XvKII3nUpklnV6P2hxtMNrCboOjAcyBuQnWEhO665FwrSNRxU+AqpsyvO6LgGYPspN+lu5CLtw4jPRKNA==}
     engines: {node: '>=0.10.0'}
+    dev: false
+
+  /normalizr@3.6.2:
+    resolution: {integrity: sha512-30qCybsBaCBciotorvuOZTCGEg2AXrJfADMT2Kk/lvpIAcipHdK0zc33nNtwKzyfQAqIJXAcqET6YgflYUgsoQ==}
     dev: false
 
   /oauth-sign@0.9.0:

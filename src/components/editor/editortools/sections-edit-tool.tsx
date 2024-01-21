@@ -13,8 +13,8 @@ export const SectionEditTools = () => {
   const [pagesToShow, setPagesToShow] = React.useState(2);
   const totalPages = deckPageConfigs.length;
 
-  const isLargeScreen = useMedia("(min-width: 1024px)");
-  const isMediumScreen = useMedia("(min-width: 768px)");
+  const isLargeScreen = useMedia("(min-width: 1024px)", false);
+  const isMediumScreen = useMedia("(min-width: 768px)", false);
 
   React.useEffect(() => {
     if (!isLargeScreen) setPagesToShow(1);

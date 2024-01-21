@@ -29,7 +29,7 @@ export default function Customers() {
               </TableRow>
             </TableHead>
             <TableBody>
-              {customersData.map((item) => (
+              {customersData.map((item: any) => (
                 <TableRow key={item.customer}>
                   <TableCell>{item.customer}</TableCell>
                   <TableCell>

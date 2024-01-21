@@ -1,10 +1,7 @@
 "use client";
 import React from "react";
 import { CloudArrowUpIcon } from "@heroicons/react/24/outline";
-
 import { Button, IconButton, Typography } from "@material-tailwind/react";
-import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/24/outline";
-import { useMedia } from "react-use";
 export const DataRoomEditTools = () => {
   const [color, setColor] = React.useState("#aabbcc");
   const [open, setOpen] = React.useState(false);

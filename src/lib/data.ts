@@ -1,6 +1,4 @@
-import { CustomersData, TotalMembers } from "@/types";
-
-export const totalMembersData: TotalMembers = [
+export const totalMembersData = [
   {
     date: "Jan",
     "Total members": 945,
@@ -51,7 +49,7 @@ export const totalMembersData: TotalMembers = [
   },
 ];
 
-export const customersData: CustomersData = [
+export const customersData = [
   {
     customer: "John Smith",
     status: "Enrolled",

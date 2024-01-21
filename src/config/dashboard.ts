@@ -1,6 +1,4 @@
-import { DashboardConfig } from "@/types";
-
-export const dashboardConfig: DashboardConfig = {
+export const dashboardConfig = {
   sidebarNav: [
     {
       title: "Home",

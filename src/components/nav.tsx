@@ -14,14 +14,15 @@ export default function Nav() {
     <div className="flex flex-col  gap-5 h-full">
       <h1 className="font-medium text-lg">Dashboard</h1>
       <nav className="flex flex-col  flex-1 gap-2">
-        {dashboardConfig.sidebarNav.map((link, i) => {
+        {dashboardConfig.sidebarNav.map((link: any, i: number) => {
+          // @ts-ignore
           const Icon = Icons[link.icon];
           return (
             <Link
               href={link.href}
               className={cn(
                 "py-1 text-sm px-2 rounded-lg flex flex-row gap-2 transition-colors items-center ",
-                pathname === link.href ? "bg-gray-2" : "",
+                pathname === link.href ? "bg-gray-2" : ""
               )}
               key={i}
             >

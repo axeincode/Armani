@@ -1,5 +1,7 @@
+'use client'
+
 import { useState, useEffect } from 'react';
-import { store$ } from './store';
+import { store$, updateStore } from './store';
 
 export const useStore = () => {
     const [state, setState] = useState(store$.getValue());
@@ -14,5 +16,5 @@ export const useStore = () => {
         };
     }, []);
 
-    return state;
+    return { state, updateStore };
 };

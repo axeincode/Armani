@@ -1,16 +1,57 @@
 // store.js
-import { BehaviorSubject } from 'rxjs';
+"use client";
 
-const initialState = {
-    // Your initial state here
+import { BehaviorSubject } from "rxjs";
+import { AppState } from "../types";
 
+const initialState: AppState = {
+  entities: {
+    App: [
+      {
+        title: "Isle Ridge Towers",
+        subtitle: "New York, NY",
+        visits: {
+          last7Days: 57,
+          last30Days: 122,
+          sinceStart: 480,
+        },
+      },
+      {
+        title: "The Atrium",
+        subtitle: "Boston, MA",
+        visits: {
+          last7Days: 57,
+          last30Days: 122,
+          sinceStart: 480,
+        },
+      },
+      {
+        title: "Beechside Apartments",
+        subtitle: "Miami, FL",
+        visits: {
+          last7Days: 57,
+          last30Days: 122,
+          sinceStart: 480,
+        },
+      },
+      {
+        title: "City Apartments",
+        subtitle: "New York, NY",
+        visits: {
+          last7Days: 57,
+          last30Days: 122,
+          sinceStart: 480,
+        },
+      },
+    ],
+  },
 };
 
-const subject = new BehaviorSubject(initialState);
+const subject = new BehaviorSubject<AppState>(initialState);
 
 export const store$ = subject;
 
-export const updateStore = (newState: any) => {
-    const currentState = subject.value;
-    subject.next({ ...currentState, ...newState });
+export const updateStore = (newState: Partial<AppState>) => {
+  const currentState = subject.value;
+  subject.next({ ...currentState, ...newState });
 };

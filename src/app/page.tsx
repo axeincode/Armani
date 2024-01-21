@@ -1,5 +1,6 @@
 // components
-import { Header, Footer, Home } from "@/components";
+import { Header, Footer } from "@/components";
+import { HomeContainer } from "@/container/home.container";
 import { getAuthenticatedAppForUser } from "@/lib/firebase/firebase";
 
 export default async function Page() {
@@ -7,7 +8,7 @@ export default async function Page() {
   return (
     <>
       <Header currentUser={currentUser} />
-      <Home />
+      <HomeContainer />
       <Footer />
     </>
   );

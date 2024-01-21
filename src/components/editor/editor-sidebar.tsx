@@ -26,6 +26,7 @@ import DragContainer from "../ui/drag-container";
 import { DragItemWrapper } from "../ui/drag-item-wrapper";
 import { cn } from "@/lib/utils";
 import { deckPageConfigs } from "@/constants/pages";
+import { IPageState } from "@/store";
 
 export interface Item {
   id: number;
@@ -76,7 +77,12 @@ const drawerItems: Item[] = [
   },
 ];
 
-export const EditorSidebar = () => {
+export type EditorSidebarProps = {
+  page: IPageState;
+  setPage: (page: number) => void;
+};
+
+export const EditorSidebar = ({ page, setPage }: EditorSidebarProps) => {
   const [showDrawer, setShowDrawer] = React.useState(false);
   const [menuItems, setMenuItems] = React.useState<Item[]>(drawerItems);
 
@@ -114,7 +120,11 @@ export const EditorSidebar = () => {
                   key={id}
                   moveCard={moveCard}
                 >
-                  <IconButton variant="text" size="sm">
+                  <IconButton
+                    variant="text"
+                    size="sm"
+                    onClick={() => setPage(index + 1)}
+                  >
                     <Icon className="h-6 w-6 text-white" />
                   </IconButton>
                 </DragItemWrapper>
@@ -148,7 +158,11 @@ export const EditorSidebar = () => {
                       key={id}
                       moveCard={moveCard}
                     >
-                      <ListItem key={id} className="text-white text-xs">
+                      <ListItem
+                        key={id}
+                        className="text-white text-xs"
+                        onClick={() => setPage(index + 1)}
+                      >
                         <ListItemPrefix>
                           <Icon className="h-5 w-5" />
                         </ListItemPrefix>
