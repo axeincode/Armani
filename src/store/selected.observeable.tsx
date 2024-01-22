@@ -12,7 +12,7 @@ export const useSelectedObserveable = () => {
     setNextState({ widget: selectedWidget, error: "" });
   };
 
-  const select = (selectedWidget: WidgetTypes | null) => {
+  const setSelectedWidget = (selectedWidget: WidgetTypes | null) => {
     selectedSubject.next({ widget: selectedWidget });
   };
 
@@ -36,7 +36,7 @@ export const useSelectedObserveable = () => {
 
   return {
     update,
-    select,
+    setSelectedWidget,
     unSelect,
     error,
     getObservable,

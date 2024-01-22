@@ -1,16 +1,21 @@
 "use client";
+import { WidgetTypes } from "@/types";
 import * as React from "react";
-import Moveable from "react-moveable";
+import Moveable, { OnDragStart } from "react-moveable";
 import Selecto from "react-selecto";
 
 export type MoveablePlusManagerProps = {
   children: React.ReactNode;
   mainAreaRef: React.RefObject<HTMLDivElement>;
+  onSelectMoveableStart: (widgetName: WidgetTypes) => void;
+  onUnselectMoveable: () => void;
 };
 
 export default function MoveablePlusManager({
   children,
   mainAreaRef,
+  onSelectMoveableStart,
+  onUnselectMoveable,
 }: MoveablePlusManagerProps) {
   const [targets, setTargets] = React.useState<Array<HTMLElement | SVGElement>>(
     []
@@ -42,12 +47,18 @@ export default function MoveablePlusManager({
         snapGridAll={true}
         verticalGuidelines={[50, 150, 250, 450, 550]}
         horizontalGuidelines={[0, 100, 200, 400, 500]}
+        preventClickDefault={true}
         onClickGroup={(e) => {
           selectoRef.current!.clickTarget(e.inputEvent, e.inputTarget);
         }}
-        onDragStart={(e) => {
-          console.log("onDragStart", e.target.tagName);
+        onDragStart={(e: any) => {
           console.log("onDragStart", e.target);
+          console.log("onDragStart", e.target.getAttribute("data-widget"));
+          const widgetName = e.target.getAttribute("data-widget");
+          if (widgetName === WidgetTypes.CARD) {
+            e.stop && e.stop();
+            onSelectMoveableStart(WidgetTypes.CARD);
+          }
           // if (
           //   ["input", "select"].indexOf(e.target.tagName.toLowerCase()) > -1
           // ) {
@@ -80,6 +91,8 @@ export default function MoveablePlusManager({
             targets!.some((t) => t === target || t.contains(target))
           ) {
             e.stop();
+          } else {
+            onUnselectMoveable();
           }
         }}
         onSelectEnd={(e) => {

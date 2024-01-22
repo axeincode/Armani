@@ -8,7 +8,13 @@ import { EditorPagination } from "./editor-pagination";
 import { EditorPages } from "./editor-pages";
 import { PageTitle } from "./page-title";
 import MoveablePlusManager from "../moveableplus-manager";
-import { IPageState } from "@/store";
+import {
+  IPageState,
+  useObservable,
+  usePageObserveable,
+  useSelectedObserveable,
+} from "@/store";
+import { WidgetTypes } from "@/types";
 
 export type EditorMainAreaProps = {
   page: IPageState;
@@ -27,6 +33,11 @@ export const EditorMainArea = ({ page, setPage }: EditorMainAreaProps) => {
     setTargets(target);
   };
   const { dimensions, setRef } = useCallbackRefDimensions();
+
+  const page$ = usePageObserveable();
+  const selectedWidgetObs$ = useSelectedObserveable();
+  const pageState = useObservable(page$.getObservable());
+  const selectedWidgetState = useObservable(selectedWidgetObs$.getObservable());
 
   const setPageValue = (page: number) => {
     if (page < 1) {
@@ -69,6 +80,14 @@ export const EditorMainArea = ({ page, setPage }: EditorMainAreaProps) => {
     }
   }, [width, height, dimensions]);
 
+  const handleOnMoveableSelect = (widgetName: WidgetTypes) => {
+    selectedWidgetObs$.setSelectedWidget(widgetName);
+  };
+
+  const handleOnMoveableUnselect = () => {
+    selectedWidgetObs$.unSelect();
+  };
+
   return (
     <div
       className="moveablecontainer relative flex-col flex flex-grow my-8 mx-12 gap-2"
@@ -84,7 +103,11 @@ export const EditorMainArea = ({ page, setPage }: EditorMainAreaProps) => {
             pointerEvents: "none", // Ensure the grid doesn't interfere with dragging and resizing
           }}
         />
-        <MoveablePlusManager mainAreaRef={mainAreaRef}>
+        <MoveablePlusManager
+          mainAreaRef={mainAreaRef}
+          onSelectMoveableStart={handleOnMoveableSelect}
+          onUnselectMoveable={handleOnMoveableUnselect}
+        >
           <EditorPages page={currentPage} setRef={setRef} />
         </MoveablePlusManager>
       </div>

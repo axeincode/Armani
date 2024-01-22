@@ -8,6 +8,7 @@ import {
   Button,
   Input,
 } from "@material-tailwind/react";
+import { WidgetTypes } from "@/types";
 
 export function CardWidget() {
   const handleOnInputClick = (e: React.MouseEvent<HTMLInputElement>) => {
@@ -15,7 +16,10 @@ export function CardWidget() {
   };
 
   return (
-    <Card className="w-96 target p-2 border-solid border-2 border-gray-600 m-0 mt-0 z-50">
+    <Card
+      className="w-96 target p-2 border-solid border-2 border-gray-600 m-0 mt-0 z-50"
+      data-widget={WidgetTypes.CARD}
+    >
       <CardHeader className="flex flex-col flex-grow -mt-0 min-w-0 min-h-0 m-0 gap-1">
         <Input
           label=""
