@@ -2,8 +2,24 @@
 import { EditorGrid, EditorTools, Sidebar } from "@/components";
 import React from "react";
 import Link from "next/link";
+import { FloatingDeleteButton } from "@/components/ui/floating-delete-button";
+import { useRouter, useParams } from "next/navigation";
+import { deleteDeck } from "@/lib/firebase/firestore/decks.firestore";
 
 export const EditorContainer = () => {
+  const router = useRouter();
+  // router get id
+  const params = useParams<{ id: string }>();
+  // states
+
+  const deleteDeckCallback = () => {
+    deleteDeck(params.id)
+      .then(() => {
+        router.push(`/`);
+      })
+      .catch((error) => {});
+  };
+
   return (
     <div className="flex flex-col flex-1 flex-grow w-full h-full">
       {/** header layout */}
@@ -24,6 +40,7 @@ export const EditorContainer = () => {
           Canari solutions
         </Link>
       </footer>
+      <FloatingDeleteButton onClick={deleteDeckCallback} />
     </div>
   );
 };

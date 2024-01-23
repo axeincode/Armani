@@ -8,6 +8,7 @@ import { useObservable } from "@/store";
 import React from "react";
 import { addNewDeck } from "@/lib/firebase/firestore/decks.firestore";
 import { v4 } from "uuid";
+import { FloatingCreateButton } from "@/components/ui/floating-create-button";
 
 export const HomeContainer = () => {
   const { state } = useStore();
@@ -44,11 +45,14 @@ export const HomeContainer = () => {
 
   let homeData: AppInterface[] | undefined = appSelector(state);
   return (
-    <Home
-      data={homeData}
-      handleOnEdit={handleOnEdit}
-      handleOnCreate={handleOnCreate}
-      isLoading={createDeckState?.isLoading}
-    />
+    <>
+      <Home
+        data={homeData}
+        handleOnEdit={handleOnEdit}
+        handleOnCreate={handleOnCreate}
+        isLoading={createDeckState?.isLoading}
+      />
+      <FloatingCreateButton onClick={createDeckCallback} />
+    </>
   );
 };

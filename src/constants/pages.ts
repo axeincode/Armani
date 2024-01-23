@@ -17,6 +17,7 @@ export const deckPageConfigs = [
     pageIndex: 0,
     visible: true,
     icon: Squares2X2Icon,
+    iconName: "Squares2X2Icon",
   },
   {
     id: 1,
@@ -24,6 +25,7 @@ export const deckPageConfigs = [
     pageIndex: 1,
     visible: true,
     icon: QueueListIcon,
+    iconName: "QueueListIcon",
   },
   {
     id: 2,
@@ -31,6 +33,7 @@ export const deckPageConfigs = [
     pageIndex: 2,
     visible: true,
     icon: BuildingOfficeIcon,
+    iconName: "BuildingOfficeIcon",
   },
   {
     id: 3,
@@ -38,6 +41,7 @@ export const deckPageConfigs = [
     pageIndex: 3,
     visible: true,
     icon: MapPinIcon,
+    iconName: "MapPinIcon",
   },
   {
     id: 4,
@@ -45,6 +49,7 @@ export const deckPageConfigs = [
     pageIndex: 4,
     visible: true,
     icon: CubeTransparentIcon,
+    iconName: "CubeTransparentIcon",
   },
   {
     id: 5,
@@ -52,6 +57,7 @@ export const deckPageConfigs = [
     pageIndex: 5,
     visible: true,
     icon: ChartBarIcon,
+    iconName: "ChartBarIcon",
   },
   {
     id: 6,
@@ -59,6 +65,7 @@ export const deckPageConfigs = [
     pageIndex: 6,
     visible: true,
     icon: GlobeAsiaAustraliaIcon,
+    iconName: "GlobeAsiaAustraliaIcon",
   },
   {
     id: 7,
@@ -66,5 +73,6 @@ export const deckPageConfigs = [
     pageIndex: 7,
     visible: true,
     icon: UsersIcon,
+    iconName: "UsersIcon",
   },
 ];
