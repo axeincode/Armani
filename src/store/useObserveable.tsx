@@ -1,3 +1,4 @@
+"use client";
 import React, { useLayoutEffect, useState } from "react";
 // import hash from 'hash-it';
 // import { BehaviorSubject } from 'rxjs';

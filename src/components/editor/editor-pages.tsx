@@ -1,3 +1,4 @@
+"use client";
 import React from "react";
 import { EditorTargetsContainer } from "./editor-targets-container";
 import { deckPageConfigs as pageConfigs } from "@/constants/pages";

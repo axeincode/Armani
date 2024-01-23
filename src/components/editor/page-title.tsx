@@ -1,3 +1,4 @@
+"use client";
 import React from "react";
 import { deckPageConfigs } from "@/constants/pages";
 import { Typography } from "@material-tailwind/react";

@@ -81,7 +81,7 @@ export const EditorMainArea = ({ page, setPage }: EditorMainAreaProps) => {
   }, [width, height, dimensions]);
 
   const handleOnMoveableSelect = (widgetName: WidgetTypes) => {
-    selectedWidgetObs$.setSelectedWidget(widgetName);
+    selectedWidgetObs$.setSelectedWidget(widgetName, "11111");
   };
 
   const handleOnMoveableUnselect = () => {
