@@ -13,9 +13,13 @@ import { getCapitalLettersOfName } from "@/lib/utils";
 
 interface UserAccountNavProps {
   user: Pick<User, "name" | "image" | "email">;
+  className?: string;
 }
 
-export default function UserAccountNav({ user }: UserAccountNavProps) {
+export default function UserAccountNav({
+  user,
+  className,
+}: UserAccountNavProps) {
   const handleSignOut = (event: any) => {
     event.preventDefault();
     signOut();
@@ -24,9 +28,9 @@ export default function UserAccountNav({ user }: UserAccountNavProps) {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger className="outline-none cursor-pointer" asChild>
-        <Avatar>
-          <AvatarImage src={user?.image as string} />
-          <AvatarFallback>
+        <Avatar className={className}>
+          <AvatarImage src={user?.image as string} className={className} />
+          <AvatarFallback className={className}>
             {user.name && getCapitalLettersOfName(user.name)}
           </AvatarFallback>
         </Avatar>

@@ -5,7 +5,7 @@ import Link from "next/link";
 
 export const EditorContainer = () => {
   return (
-    <div className="min-h-screen flex flex-col flex-1 flex-grow w-full h-full">
+    <div className="flex flex-col flex-1 flex-grow w-full h-full">
       {/** header layout */}
       <EditorTools />
       {/** content layout */}

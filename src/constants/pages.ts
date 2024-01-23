@@ -20,7 +20,7 @@ export const deckPageConfigs = [
   },
   {
     id: 1,
-    title: "Deck Overview",
+    title: "Deal Overview",
     pageIndex: 1,
     visible: true,
     icon: QueueListIcon,

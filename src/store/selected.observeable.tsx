@@ -3,17 +3,21 @@ import { BehaviorSubject } from "rxjs";
 
 const initialState = {
   widget: null,
+  id: "",
 };
 
 const selectedSubject = new BehaviorSubject<SelectedState>(initialState);
 
 export const useSelectedObserveable = () => {
-  const update = (selectedWidget: WidgetTypes | null) => {
-    setNextState({ widget: selectedWidget, error: "" });
+  const update = (selectedWidget: WidgetTypes | null, id: string) => {
+    setNextState({ widget: selectedWidget, error: "", id });
   };
 
-  const setSelectedWidget = (selectedWidget: WidgetTypes | null) => {
-    selectedSubject.next({ widget: selectedWidget });
+  const setSelectedWidget = (
+    selectedWidget: WidgetTypes | null,
+    id: string
+  ) => {
+    selectedSubject.next({ widget: selectedWidget, id });
   };
 
   const unSelect = () => {
@@ -22,7 +26,7 @@ export const useSelectedObserveable = () => {
 
   const error = (message: string) => {
     const state = selectedSubject.getValue();
-    setNextState({ widget: state.widget, error: message });
+    setNextState({ widget: state.widget, error: message, id: state.id });
   };
 
   const setNextState = (payload: SelectedState) => {

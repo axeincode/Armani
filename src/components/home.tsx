@@ -58,10 +58,12 @@ const imageList = [
 interface homeProps {
   data: AppInterface[] | undefined;
   handleOnEdit: (id: string) => void;
+  handleOnCreate: () => void;
+  isLoading: boolean;
 }
 
 export function Home(props: homeProps) {
-  const { data, handleOnEdit } = props;
+  const { data, handleOnEdit, handleOnCreate, isLoading } = props;
 
   if (data) {
     return (
@@ -107,6 +109,53 @@ export function Home(props: homeProps) {
                 </Card>
               </div>
             ))}
+
+            <Card className="mt-6 w-96 h-56 transition duration-300 ease-in-out hover:scale-110">
+              {isLoading && (
+                <div className="max-w-full animate-pulse">
+                  <CardHeader
+                    color="blue-gray"
+                    className="relative h-56 flex flex-col flex-grow justify-center items-center"
+                  >
+                    <Typography
+                      as="div"
+                      variant="h1"
+                      className="mb-4 h-3 w-56 rounded-full bg-gray-300"
+                    >
+                      &nbsp;
+                    </Typography>
+                    <Typography
+                      as="div"
+                      variant="h1"
+                      className="mb-4 h-3 w-56 rounded-full bg-gray-300"
+                    >
+                      &nbsp;
+                    </Typography>
+                    <Typography
+                      as="div"
+                      variant="h1"
+                      className="mb-4 h-3 w-56 rounded-full bg-gray-300"
+                    >
+                      &nbsp;
+                    </Typography>
+                  </CardHeader>
+                </div>
+              )}
+              {!isLoading && (
+                <CardHeader color="blue-gray" className="relative h-56">
+                  <div className="h-56 bg-blue-gray-100 flex justify-center items-center">
+                    <Button
+                      size="md"
+                      className="hover:scale-[1.02] focus:scale-[1.02] active:scale-100"
+                      ripple={false}
+                      onClick={handleOnCreate}
+                    >
+                      Create New
+                    </Button>
+                  </div>
+                </CardHeader>
+              )}
+            </Card>
           </div>
         </div>
       </div>
