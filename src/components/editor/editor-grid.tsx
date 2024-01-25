@@ -5,8 +5,13 @@ import { EditorMainArea } from "./editor-main-area";
 import { EditorTopNav } from "./editor-top-nav";
 import { useObservable, usePageObserveable } from "@/store";
 import { motion } from "framer-motion";
+import { EditorStateTypes } from "@/types/editor.types";
 
-export const EditorGrid = () => {
+export type EditorGridProps = {
+  editorState: EditorStateTypes;
+};
+
+export const EditorGrid = ({ editorState }: EditorGridProps) => {
   const editorRef = React.useRef<HTMLDivElement>(null);
   const page$ = usePageObserveable();
   const pageState = useObservable(page$.getObservable());
@@ -75,8 +80,16 @@ export const EditorGrid = () => {
       >
         <EditorTopNav />
         <div className="flex flex-grow bg-white">
-          <EditorSidebar page={pageState} setPage={setPage} />
-          <EditorMainArea page={pageState} setPage={setPage} />
+          <EditorSidebar
+            page={pageState}
+            setPage={setPage}
+            editorState={editorState}
+          />
+          <EditorMainArea
+            page={pageState}
+            setPage={setPage}
+            editorState={editorState}
+          />
         </div>
       </motion.div>
     </div>

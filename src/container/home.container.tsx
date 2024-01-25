@@ -1,14 +1,19 @@
 "use client";
-import { useCreateDeckObserveable, useStore } from "../store";
 import { appSelector } from "../selectors";
 import { Home } from "../components/home";
 import { AppInterface } from "../types/interface";
 import { useRouter } from "next/navigation";
-import { useObservable } from "@/store";
+import {
+  useObservable,
+  useDecksObserveable,
+  useCreateDeckObserveable,
+  useStore,
+} from "@/store";
 import React from "react";
-import { addNewDeck } from "@/lib/firebase/firestore/decks.firestore";
+import { addNewDeck, getDecks } from "@/lib/firebase/firestore/decks.firestore";
 import { v4 } from "uuid";
 import { FloatingCreateButton } from "@/components/ui/floating-create-button";
+import { normalizedAppData } from "@/types/editor.types";
 
 export const HomeContainer = () => {
   const { state } = useStore();
@@ -17,7 +22,19 @@ export const HomeContainer = () => {
   // states
   const [deckId, setDeckId] = React.useState<string | null>(null);
   const createDeck$ = useCreateDeckObserveable();
+  const decks$ = useDecksObserveable();
   const createDeckState = useObservable(createDeck$.getObservable());
+  const decksState = useObservable(decks$.getObservable());
+
+  // effects
+  React.useEffect(() => {
+    // get all decks
+    getDecks().then((decks) => {
+      const normalizeDecks = normalizedAppData(decks);
+      decks$.setInitialState(normalizeDecks);
+      console.log("normalizeDecks", normalizeDecks);
+    });
+  }, []);
 
   // callbacks
   const handleOnEdit = (id: string) => {
@@ -51,6 +68,7 @@ export const HomeContainer = () => {
         handleOnEdit={handleOnEdit}
         handleOnCreate={handleOnCreate}
         isLoading={createDeckState?.isLoading}
+        decks={decksState}
       />
       <FloatingCreateButton onClick={createDeckCallback} />
     </>

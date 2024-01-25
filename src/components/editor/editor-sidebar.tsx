@@ -1,4 +1,3 @@
-"use client";
 import React from "react";
 import {
   Bars3Icon,
@@ -28,6 +27,7 @@ import { DragItemWrapper } from "../ui/drag-item-wrapper";
 import { cn } from "@/lib/utils";
 import { deckPageConfigs } from "@/constants/pages";
 import { IPageState } from "@/store";
+import { EditorStateTypes } from "@/types/editor.types";
 
 export interface Item {
   id: number;
@@ -81,9 +81,14 @@ const drawerItems: Item[] = [
 export type EditorSidebarProps = {
   page: IPageState;
   setPage: (page: number) => void;
+  editorState: EditorStateTypes;
 };
 
-export const EditorSidebar = ({ page, setPage }: EditorSidebarProps) => {
+export const EditorSidebar = ({
+  page,
+  setPage,
+  editorState,
+}: EditorSidebarProps) => {
   const [showDrawer, setShowDrawer] = React.useState(false);
   const [menuItems, setMenuItems] = React.useState<Item[]>(drawerItems);
 

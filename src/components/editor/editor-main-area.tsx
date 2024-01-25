@@ -15,13 +15,19 @@ import {
   useSelectedObserveable,
 } from "@/store";
 import { WidgetTypes } from "@/types";
+import { EditorStateTypes } from "@/types/editor.types";
 
 export type EditorMainAreaProps = {
   page: IPageState;
   setPage: (page: number) => void;
+  editorState: EditorStateTypes;
 };
 
-export const EditorMainArea = ({ page, setPage }: EditorMainAreaProps) => {
+export const EditorMainArea = ({
+  page,
+  setPage,
+  editorState,
+}: EditorMainAreaProps) => {
   const totalPages = page.totalPages;
   const { currentPage } = page;
   const { width, height } = useWindowSize();

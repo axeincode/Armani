@@ -9,3 +9,4 @@ export interface AppInterface {
     subtitle: string,
     visits: Record<string, any>
 }
+

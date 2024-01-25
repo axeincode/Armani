@@ -9,6 +9,8 @@ import {
 } from "@material-tailwind/react";
 import { CompanyLogo } from "./company-logo";
 import { AppInterface } from "../types/interface";
+import { EditorStateTypes } from "@/types/editor.types";
+import { map } from "lodash";
 
 const content = [
   {
@@ -60,10 +62,11 @@ interface homeProps {
   handleOnEdit: (id: string) => void;
   handleOnCreate: () => void;
   isLoading: boolean;
+  decks: EditorStateTypes | undefined;
 }
 
 export function Home(props: homeProps) {
-  const { data, handleOnEdit, handleOnCreate, isLoading } = props;
+  const { data, handleOnEdit, handleOnCreate, isLoading, decks } = props;
 
   if (data) {
     return (
@@ -109,7 +112,40 @@ export function Home(props: homeProps) {
                 </Card>
               </div>
             ))}
-
+            {decks &&
+              map(decks.entities.decks, (deck, i) => (
+                <div
+                  key={i}
+                  className="bg-white flex flex-col items-center justify-center"
+                >
+                  <Card className="mt-6 w-96">
+                    <CardHeader color="blue-gray" className="relative h-56">
+                      <img src={deck.coverPhoto} alt="card-image" />
+                    </CardHeader>
+                    <CardBody className="flex flex-col justify-center items-center">
+                      <Typography
+                        variant="h5"
+                        color="blue-gray"
+                        className="mb-1"
+                      >
+                        {deck.title}
+                      </Typography>
+                      <Typography>{deck.subtitle}</Typography>
+                    </CardBody>
+                    <CardFooter className="pt-0 flex gap-2 justify-center items-center">
+                      <Button>View</Button>
+                      <Button
+                        onClick={() =>
+                          handleOnEdit("916a31b4-68df-4892-b3ef-a336bb849452")
+                        }
+                      >
+                        Edit
+                      </Button>
+                      <Button>More</Button>
+                    </CardFooter>
+                  </Card>
+                </div>
+              ))}
             <Card className="mt-6 w-96 h-56 transition duration-300 ease-in-out hover:scale-110">
               {isLoading && (
                 <div className="max-w-full animate-pulse">

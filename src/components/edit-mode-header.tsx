@@ -11,17 +11,21 @@ import {
   Bars3Icon,
   ArrowLeftCircleIcon,
 } from "@heroicons/react/24/solid";
+import { updateDeck } from "@/lib/firebase/firestore/decks.firestore";
 import { useRouter } from "next/navigation";
 import useUserSession from "@/lib/useUserSession";
 import UserAccountNav from "./user-account-nav";
 import Link from "next/link";
+import { useEditorObserveable, useObservable } from "@/store";
+import { deNormalizeEditorData } from "@/types/editor.types";
 
 export function EditModeHeader({ currentUser }: any) {
   const user = useUserSession(currentUser?.toJSON());
   const [open, setOpen] = React.useState(false);
   const router = useRouter();
 
-  console.log("header user ", user);
+  const editorDeck$ = useEditorObserveable();
+  const editorState = useObservable(editorDeck$.getObservable());
 
   function handleOpen() {
     setOpen((cur) => !cur);
@@ -37,6 +41,15 @@ export function EditModeHeader({ currentUser }: any) {
       () => window.innerWidth >= 960 && setOpen(false)
     );
   }, []);
+
+  // callbacks
+  const saveDeckCallback = () => {
+    if (!editorState) return;
+    const denormalizedDeck = deNormalizeEditorData(editorState);
+    updateDeck(denormalizedDeck?.id, {
+      ...denormalizedDeck,
+    });
+  };
 
   return (
     <div className="px-0 bg-gray-900">
@@ -64,8 +77,16 @@ export function EditModeHeader({ currentUser }: any) {
                   variant="text"
                   className="p-0 h-5 !text-xs text-white"
                 >
-                  <Button className="py-0 h-5 !text-xs text-white">Save</Button>
-                  <Button className="py-0 h-5 !text-xs text-white">
+                  <Button
+                    className="py-0 h-5 !text-xs text-white"
+                    onClick={saveDeckCallback}
+                  >
+                    Save
+                  </Button>
+                  <Button
+                    className="py-0 h-5 !text-xs text-white"
+                    onClick={saveDeckCallback}
+                  >
                     Publish
                   </Button>
                   <Button className="py-0 h-5 !text-xs text-white">{""}</Button>

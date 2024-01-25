@@ -1,10 +1,18 @@
 import React from "react";
 import { Typography, Input } from "@material-tailwind/react";
-import ColorPicker from "../../ui/color-picker";
+import { useEditorDecksObserveable, useEditorObserveable } from "@/store";
 
 export const BannerEditTools = () => {
-  const [color, setColor] = React.useState("#aabbcc");
-  const [open, setOpen] = React.useState(false);
+  const editor$ = useEditorObserveable();
+  const deckInfo = useEditorDecksObserveable();
+
+  const handleOnTitleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    editor$.updateDeckInfo(deckInfo?.id, "title", e.target.value);
+  };
+
+  const handleOnSubtitleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    editor$.updateDeckInfo(deckInfo?.id, "subtitle", e.target.value);
+  };
 
   return (
     <div className="flex overflow-hidden shadow-lg mr-1 bg-gray-100">
@@ -27,6 +35,8 @@ export const BannerEditTools = () => {
               className: "before:content-none after:content-none",
             }}
             containerProps={{ className: "!min-w-[10px] w-4 h-[4px] py-0" }}
+            onChange={handleOnTitleChange}
+            value={deckInfo?.title}
           />
         </div>
 
@@ -45,6 +55,8 @@ export const BannerEditTools = () => {
               className: "before:content-none after:content-none",
             }}
             containerProps={{ className: "!min-w-[10px] w-4 h-4" }}
+            onChange={handleOnSubtitleChange}
+            value={deckInfo?.subtitle}
           />
         </div>
 
