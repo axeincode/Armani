@@ -1,4 +1,3 @@
-"use client";
 import React from "react";
 import { Button, IconButton, Typography } from "@material-tailwind/react";
 import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/24/outline";
@@ -20,7 +19,7 @@ export const EditorPagination = ({
         <ChevronLeftIcon className="h-4 w-4" />
       </IconButton>
       <Typography variant="small" color="gray">
-        {page}/{totalPages}
+        {Number(page) + 1}/{totalPages}
       </Typography>
       <IconButton variant="text" size="sm" onClick={() => setPage(page + 1)}>
         <ChevronRightIcon className="h-4 w-4" />

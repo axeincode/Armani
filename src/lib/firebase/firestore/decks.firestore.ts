@@ -21,15 +21,17 @@ import { deckPageConfigs } from "@/constants/pages";
 /** Add new realestate deck with sample data */
 export async function addNewDeck(id: string) {
   const pages = deckPageConfigs.map((pageConfig) => {
+    const pageId = v4();
     return {
-      id: id,
-      pageId: v4(),
+      id: pageId,
+      pageId: pageId,
       type: "page",
       index: pageConfig.pageIndex,
       name: pageConfig.title,
       icon: pageConfig.iconName,
       status: "draft", // draft, published, archived
       widgets: [],
+      order: pageConfig.pageIndex,
     };
   });
 
@@ -52,7 +54,7 @@ export async function addNewDeck(id: string) {
     },
     coverPhoto:
       "https://images.unsplash.com/photo-1460472178825-e5240623afd5?q=80&w=800&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D 300w",
-    logo: "https://firebasestorage.googleapis.com/v0/b/real-estate-website-1.appspot.com/o/real-estate%2Flogo.png?alt=media&token=3b8b8b1e-7b9e-4b9e-9b0a-9b9b9b9b9b9b",
+    logo: null,
     disclaimer: {
       enabled: false,
       title: "Disclaimer",
@@ -77,10 +79,18 @@ export async function addNewDeck(id: string) {
 }
 
 // implement delete deck
-export async function deleteDeck(id: string) {
+export async function deleteDeck(deckId: string) {
   try {
-    await deleteDoc(doc(db, "decks", id));
-    return true;
+    const q = query(collection(db, "decks"), where("id", "==", deckId));
+    const querySnapshot = await getDocs(q);
+    if (!querySnapshot.empty) {
+      const id = querySnapshot.docs[0].id;
+      if (!id) throw new Error("Document not found");
+      await deleteDoc(doc(db, "decks", id));
+      return true;
+    } else {
+      return false;
+    }
   } catch (e) {
     console.log("There was an error deleting the document");
     console.error("Error deleting document: ", e);
@@ -137,6 +147,25 @@ export async function updateDeck(deckId: string, data: any) {
         ...data,
         updatedAt: Timestamp.fromDate(new Date()),
       });
+    }
+  } catch (e) {
+    console.log("There was an error updating the document");
+    console.error("Error updating document: ", e);
+    throw e;
+  }
+}
+
+export async function updateImageReference(deckId: any, publicImageUrl: any) {
+  try {
+    const q = query(collection(db, "decks"), where("id", "==", deckId));
+    const querySnapshot = await getDocs(q);
+    if (!querySnapshot.empty) {
+      const id = querySnapshot.docs[0].id;
+      if (!id) throw new Error("Document not found");
+      const deckRef = doc(db, "decks", id);
+      if (deckRef) {
+        await updateDoc(deckRef, { photo: publicImageUrl });
+      }
     }
   } catch (e) {
     console.log("There was an error updating the document");

@@ -3,9 +3,14 @@ import React, { useState, useEffect } from "react";
 import { EditorSidebar } from "./editor-sidebar";
 import { EditorMainArea } from "./editor-main-area";
 import { EditorTopNav } from "./editor-top-nav";
-import { useObservable, usePageObserveable } from "@/store";
+import {
+  useEditorPagesObserveable,
+  useObservable,
+  usePageObserveable,
+} from "@/store";
 import { motion } from "framer-motion";
 import { EditorStateTypes } from "@/types/editor.types";
+import { useCurrentPageObserveable } from "@/hooks/useCurrentPageObserveable";
 
 export type EditorGridProps = {
   editorState: EditorStateTypes;
@@ -14,7 +19,8 @@ export type EditorGridProps = {
 export const EditorGrid = ({ editorState }: EditorGridProps) => {
   const editorRef = React.useRef<HTMLDivElement>(null);
   const page$ = usePageObserveable();
-  const pageState = useObservable(page$.getObservable());
+  const currentPage$ = useCurrentPageObserveable();
+  const pages$ = useEditorPagesObserveable();
   const [scale, setScale] = useState(1);
   const [windowDimensions, setWindowDimensions] = useState({
     width: typeof window !== "undefined" ? window.innerWidth : 0,
@@ -27,7 +33,16 @@ export const EditorGrid = ({ editorState }: EditorGridProps) => {
   });
 
   const setPage = (page: number) => {
-    page$.setPage(page);
+    const getPage = Object.keys(pages$).filter((key) => {
+      return pages$[key].order === page;
+    })[0];
+    if (!getPage) return;
+    page$.setPageInfo({
+      currentPage: page,
+      totalPages: Object.keys(pages$).length,
+      pageName: pages$[getPage].pageName,
+      pageId: getPage,
+    });
   };
 
   useEffect(() => {
@@ -81,12 +96,12 @@ export const EditorGrid = ({ editorState }: EditorGridProps) => {
         <EditorTopNav />
         <div className="flex flex-grow bg-white">
           <EditorSidebar
-            page={pageState}
+            page={currentPage$}
             setPage={setPage}
             editorState={editorState}
           />
           <EditorMainArea
-            page={pageState}
+            page={currentPage$}
             setPage={setPage}
             editorState={editorState}
           />

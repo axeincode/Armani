@@ -97,7 +97,7 @@ export const DesignEditTools = () => {
             Shadow
           </Typography>
           <Switch
-            value={deckInfo?.shadow}
+            checked={Boolean(deckInfo?.shadow)}
             onChange={handleOnShadowChange}
             crossOrigin={"true"}
           />

@@ -1,26 +1,23 @@
 import { values } from "lodash";
 import { denormalize, normalize, schema } from "normalizr";
+import { WidgetEnum as KWidgetTypes } from "./widgets";
 
-export type ElementTypes = {
+export type WidgetTypes = {
   id: string;
+  type: KWidgetTypes;
   transformation: {
     x: number;
     y: number;
     width: number;
     height: number;
   };
-  elementName: string;
   title?: string;
   subtitle?: string;
-  caption?: string;
-  captionSubTitle?: string;
+  captionEnabled: boolean;
+  captionSubtitle?: string;
   captionTitle?: string;
-};
-
-export type WidgetTypes = {
-  id: string;
-  name: string;
-  elements: string[] | null | [];
+  //  images
+  images: string[] | null;
 };
 
 export type PageTypes = {
@@ -30,7 +27,7 @@ export type PageTypes = {
   order: number;
   title: string;
   subtitle: string;
-  widgets: string[] | [];
+  widgets: string[] | null;
 };
 
 export type DeckInfoTypes = {
@@ -47,7 +44,10 @@ export type DeckInfoTypes = {
     last30Days: number;
   };
   coverPhoto: string;
-  logo: string;
+  logo?: {
+    name: string;
+    url: string;
+  };
   disclaimer: {
     enabled: boolean;
     title: string;
@@ -59,14 +59,13 @@ export type DeckInfoTypes = {
     askFor: string;
     description: string;
   };
-  pages: string[] | [];
+  pages?: string[];
 };
 
 export type EditorSubjectTypes = {
   decks: Record<string, DeckInfoTypes>;
   pages: Record<string, PageTypes>;
   widgets: Record<string, WidgetTypes>;
-  elements: Record<string, ElementTypes>;
 };
 
 export type EditorStateTypes = {
@@ -75,15 +74,11 @@ export type EditorStateTypes = {
     decks: string[];
     pages: string[];
     widgets: string[];
-    elements: string[];
   };
 };
 
 // Define schemas
-const element = new schema.Entity("elements");
-const widget = new schema.Entity("widgets", {
-  elements: [element],
-});
+const widget = new schema.Entity("widgets", {}, { idAttribute: "id" });
 
 const page = new schema.Entity("pages", { widgets: [widget] });
 const deck = new schema.Entity("decks", { pages: [page] });
@@ -102,7 +97,6 @@ const transformNormalizedData = (
     decks: entities.decks ? Object.keys(entities.decks) : [],
     pages: entities.pages ? Object.keys(entities.pages) : [],
     widgets: entities.widgets ? Object.keys(entities.widgets) : [],
-    elements: entities.elements ? Object.keys(entities.elements) : [],
   };
 
   return {

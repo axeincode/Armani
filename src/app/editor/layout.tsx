@@ -3,6 +3,7 @@ import ThemeProvider from "@/components/theme-provider";
 import type { Metadata } from "next";
 import { Ubuntu } from "next/font/google";
 import Analytics from "@/components/analytics";
+import ToastifyContainer from "@/components/toastify";
 
 const ubuntu = Ubuntu({
   subsets: ["latin"],
@@ -26,6 +27,7 @@ export default function RootLayout({
           {children}
         </ThemeProvider>
         <Analytics />
+        <ToastifyContainer />
       </body>
     </html>
   );

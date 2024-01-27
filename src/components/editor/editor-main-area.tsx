@@ -2,20 +2,15 @@
 import React from "react";
 import { useWindowSize } from "react-use";
 import useCallbackRefDimensions from "@/hooks/useCallbackRefDimensions";
-import { Button, IconButton } from "@material-tailwind/react";
-import { ArrowRightIcon, ArrowLeftIcon } from "@heroicons/react/24/outline";
 import { EditorPagination } from "./editor-pagination";
 import { EditorPages } from "./editor-pages";
 import { PageTitle } from "./page-title";
 import MoveablePlusManager from "../moveableplus-manager";
-import {
-  IPageState,
-  useObservable,
-  usePageObserveable,
-  useSelectedObserveable,
-} from "@/store";
-import { WidgetTypes } from "@/types";
+import { IPageState, useObservable, useSelectedWidgetRepo } from "@/store";
+import { WidgetEnum } from "@/types";
 import { EditorStateTypes } from "@/types/editor.types";
+import { orderBy } from "lodash";
+import { useCurrentPageObserveable } from "@/hooks/useCurrentPageObserveable";
 
 export type EditorMainAreaProps = {
   page: IPageState;
@@ -28,7 +23,6 @@ export const EditorMainArea = ({
   setPage,
   editorState,
 }: EditorMainAreaProps) => {
-  const totalPages = page.totalPages;
   const { currentPage } = page;
   const { width, height } = useWindowSize();
   const [targets, setTargets] = React.useState<HTMLElement[]>();
@@ -39,15 +33,19 @@ export const EditorMainArea = ({
     setTargets(target);
   };
   const { dimensions, setRef } = useCallbackRefDimensions();
-
-  const page$ = usePageObserveable();
-  const selectedWidgetObs$ = useSelectedObserveable();
-  const pageState = useObservable(page$.getObservable());
+  const selectedWidgetObs$ = useSelectedWidgetRepo();
+  const currentPage$ = useCurrentPageObserveable();
   const selectedWidgetState = useObservable(selectedWidgetObs$.getObservable());
 
+  console.log("selectedWidget", selectedWidgetState);
+
+  // get pages from editor state
+  const pages = orderBy(editorState.entities.pages, ["order"], ["asc"]);
+  const totalPages = pages.length;
+
   const setPageValue = (page: number) => {
-    if (page < 1) {
-      setPage(1);
+    if (page < 0) {
+      setPage(0);
     } else if (page > totalPages) {
       setPage(totalPages);
     } else {
@@ -62,7 +60,6 @@ export const EditorMainArea = ({
     const gridSize = 20;
     const numGridLinesX = Math.floor(gridContainer.offsetWidth / gridSize);
     const numGridLinesY = Math.floor(gridContainer.offsetHeight / gridSize);
-    console.log("numGridLinesX", numGridLinesX, numGridLinesY);
     // Create horizontal grid lines
     for (let i = 0; i < numGridLinesX; i++) {
       const line = document.createElement("div");
@@ -86,8 +83,12 @@ export const EditorMainArea = ({
     }
   }, [width, height, dimensions]);
 
-  const handleOnMoveableSelect = (widgetName: WidgetTypes) => {
-    selectedWidgetObs$.setSelectedWidget(widgetName, "11111");
+  const handleOnMoveableSelect = (widgetId: string, widgetType: WidgetEnum) => {
+    selectedWidgetObs$.setSelectedWidget(
+      widgetId,
+      currentPage$.pageId!,
+      widgetType
+    );
   };
 
   const handleOnMoveableUnselect = () => {
@@ -114,14 +115,16 @@ export const EditorMainArea = ({
           onSelectMoveableStart={handleOnMoveableSelect}
           onUnselectMoveable={handleOnMoveableUnselect}
         >
-          <EditorPages page={currentPage} setRef={setRef} />
+          <EditorPages pageId={currentPage$.pageId || ""} setRef={setRef} />
         </MoveablePlusManager>
       </div>
-      <EditorPagination
-        page={currentPage}
-        totalPages={totalPages}
-        setPage={setPageValue}
-      />
+      {totalPages && totalPages > 1 && (
+        <EditorPagination
+          page={currentPage}
+          totalPages={totalPages}
+          setPage={setPageValue}
+        />
+      )}
     </div>
   );
 };

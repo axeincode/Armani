@@ -1,4 +1,3 @@
-"use client";
 import React from "react";
 import { motion } from "framer-motion";
 import { Typography, IconButton, Switch } from "@material-tailwind/react";
@@ -8,6 +7,9 @@ import {
   TrashIcon,
 } from "@heroicons/react/24/solid";
 import { LabelInput } from "@/components/ui/label-input";
+import { useEditorObserveable, useSelectedWidgetRepo } from "@/store";
+import { useCurrentWidgetObserveable } from "@/hooks/useCurrentWidgetObserveable";
+import { useEditorWidgetObserveable } from "@/hooks/useEditorWidgetsObserveable";
 
 export type CardWidgetEditorToolProps = {
   toggleDrawer: () => void;
@@ -16,11 +18,53 @@ export type CardWidgetEditorToolProps = {
 export const CardWidgetEditorTool = ({
   toggleDrawer,
 }: CardWidgetEditorToolProps) => {
+  // state
+  const editorObs$ = useEditorObserveable();
+  const selectedWidgetObs$ = useSelectedWidgetRepo();
+  const currentWidgetState = useCurrentWidgetObserveable();
+  const editorWidgetState = useEditorWidgetObserveable(
+    currentWidgetState.widgetId
+  );
+
   const handleOnTitleChange = (value: string) => {
-    console.log(value);
+    if (!currentWidgetState.widgetId) return;
+    editorObs$.updateWidget(currentWidgetState.widgetId, {
+      ...editorWidgetState,
+      title: value,
+    });
   };
 
-  const [hasCaption, setHasCaption] = React.useState(false);
+  const handleOnSubtitleChange = (value: string) => {
+    if (!currentWidgetState.widgetId) return;
+    editorObs$.updateWidget(currentWidgetState.widgetId, {
+      ...editorWidgetState,
+      subtitle: value,
+    });
+  };
+
+  const handleOnCaptionTitleChange = (value: string) => {
+    if (!currentWidgetState.widgetId) return;
+    editorObs$.updateWidget(currentWidgetState.widgetId, {
+      ...editorWidgetState,
+      captionTitle: value,
+    });
+  };
+
+  const handleOnCaptionSubtitleChange = (value: string) => {
+    if (!currentWidgetState.widgetId) return;
+    editorObs$.updateWidget(currentWidgetState.widgetId, {
+      ...editorWidgetState,
+      captionSubtitle: value,
+    });
+  };
+
+  const handleHasCaption = (value: boolean) => {
+    if (!currentWidgetState.widgetId) return;
+    editorObs$.updateWidget(currentWidgetState.widgetId, {
+      ...editorWidgetState,
+      captionEnabled: value,
+    });
+  };
 
   return (
     <>
@@ -46,7 +90,7 @@ export const CardWidgetEditorTool = ({
         <LabelInput
           label="Title"
           placeholder="Title"
-          value="The Artium"
+          value={editorWidgetState.title || ""}
           onChange={handleOnTitleChange}
         />
       </div>
@@ -54,8 +98,8 @@ export const CardWidgetEditorTool = ({
         <LabelInput
           label="Subtitle"
           placeholder="Subtitle"
-          value="Boston MA"
-          onChange={handleOnTitleChange}
+          value={editorWidgetState.subtitle || ""}
+          onChange={handleOnSubtitleChange}
         />
       </div>
       <div className="flex flex-col gap-1 mt-2 mb-3">
@@ -107,11 +151,11 @@ export const CardWidgetEditorTool = ({
         </Typography>
         <Switch
           crossOrigin={"true"}
-          checked={hasCaption}
-          onChange={(e) => setHasCaption(e.target.checked)}
+          checked={editorWidgetState.captionEnabled}
+          onChange={(e) => handleHasCaption(e.target.checked)}
         />
       </div>
-      {hasCaption && (
+      {!!editorWidgetState.captionEnabled && (
         <motion.div
           initial={{ height: 0 }}
           animate={{ height: "auto" }}
@@ -122,16 +166,16 @@ export const CardWidgetEditorTool = ({
             <LabelInput
               label="Caption Title"
               placeholder="Title"
-              value="The Artium"
-              onChange={handleOnTitleChange}
+              value={editorWidgetState.captionTitle || ""}
+              onChange={handleOnCaptionTitleChange}
             />
           </div>
           <div className="flex flex-col gap-1 mb-2">
             <LabelInput
               label="Caption Subtitle"
               placeholder="Subtitle"
-              value="Boston MA"
-              onChange={handleOnTitleChange}
+              value={editorWidgetState.captionSubtitle || ""}
+              onChange={handleOnCaptionSubtitleChange}
             />
           </div>
         </motion.div>

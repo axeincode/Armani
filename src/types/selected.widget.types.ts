@@ -1,7 +1,7 @@
-import { WidgetTypes } from "./widgets";
+import { WidgetEnum } from "./widgets";
 
 export type SelectedState = {
-  widget: WidgetTypes | null;
+  widget: WidgetEnum | null;
   error?: string;
   id: string;
 };

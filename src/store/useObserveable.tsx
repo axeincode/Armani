@@ -1,17 +1,15 @@
 import React, { useLayoutEffect, useState } from "react";
-// import hash from 'hash-it';
-// import { BehaviorSubject } from 'rxjs';
-import {
-  BehaviorSubject,
-  debounceTime,
-  distinctUntilChanged,
-  shareReplay,
-} from "rxjs";
+import { debounceTime, distinctUntilChanged, shareReplay } from "rxjs";
 import isEqual from "lodash/isEqual";
 import { map } from "rxjs/operators";
-import { DeckInfoTypes, EditorStateTypes } from "@/types/editor.types";
+import {
+  DeckInfoTypes,
+  EditorStateTypes,
+  PageTypes,
+} from "@/types/editor.types";
 import { first, values } from "lodash";
 import { editorSubject } from "./editor.observeable";
+import { IPageState } from ".";
 
 export function useObservable(stateSubject: any) {
   const [state, setState] = useState(stateSubject.getValue());
@@ -61,7 +59,9 @@ export function useEditorDecksObserveable() {
 
 // write a hooks that takes in a subject and returns the current state for editor pages
 export function useEditorPagesObserveable() {
-  const [state, setState] = useState(editorSubject.getValue().entities.pages);
+  const [state, setState] = useState<Record<string, PageTypes>>(
+    editorSubject.getValue().entities.pages
+  );
 
   useLayoutEffect(() => {
     const subscription = editorSubject
@@ -95,30 +95,6 @@ export function useEditorWidgetsObserveable() {
       )
       .subscribe((currentWidgets: any) => {
         setState(currentWidgets);
-      });
-
-    return () => subscription.unsubscribe();
-  }, []);
-
-  return state;
-}
-
-// write a hooks that takes in a subject and returns the current state for editor elements
-export function useEditorElementsObserveable() {
-  const [state, setState] = useState(
-    editorSubject.getValue().entities.elements
-  );
-
-  useLayoutEffect(() => {
-    const subscription = editorSubject
-      .pipe(
-        map((state: EditorStateTypes) => state.entities.elements),
-        distinctUntilChanged(isEqual),
-        debounceTime(10),
-        shareReplay(1)
-      )
-      .subscribe((currentElements: any) => {
-        setState(currentElements);
       });
 
     return () => subscription.unsubscribe();

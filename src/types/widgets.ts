@@ -1,4 +1,4 @@
-export enum WidgetTypes {
+export enum WidgetEnum {
   CARD = "CARD",
   CHART = "CHART",
   TABLE = "TABLE",
@@ -32,4 +32,5 @@ export enum WidgetTypes {
   DATE = "DATE",
   TIME = "TIME",
   DATETIME = "DATETIME",
+  NONE = "NONE",
 }

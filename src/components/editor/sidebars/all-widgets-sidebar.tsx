@@ -1,4 +1,3 @@
-"use client";
 import React from "react";
 import {
   Typography,
@@ -15,6 +14,11 @@ import {
   PlusCircleIcon,
   ChevronDownIcon,
 } from "@heroicons/react/24/solid";
+import { useCurrentPageObserveable } from "@/hooks/useCurrentPageObserveable";
+import { WidgetEnum } from "@/types";
+import { v4 } from "uuid";
+import { useEditorObserveable } from "@/store";
+import { WidgetTypes } from "@/types/editor.types";
 
 export type AllWidgetsSidebarProps = {
   toggleDrawer: () => void;
@@ -22,9 +26,40 @@ export type AllWidgetsSidebarProps = {
 
 export function AllWidgetsSidebar({ toggleDrawer }: AllWidgetsSidebarProps) {
   const [open, setOpen] = React.useState(0);
-
+  const currentPage$ = useCurrentPageObserveable();
+  const editor$ = useEditorObserveable();
+  console.log("currentPage$", currentPage$);
   const handleOpen = (value: number) => {
     setOpen(open === value ? 0 : value);
+  };
+
+  const handleOnAddWidget = (widgetType: WidgetEnum) => {
+    switch (widgetType) {
+      case WidgetEnum.CARD:
+        const pageId = currentPage$.pageId;
+        if (pageId) {
+          const widgetdata: WidgetTypes = {
+            type: WidgetEnum.CARD,
+            id: v4(),
+            transformation: {
+              x: 0,
+              y: 0,
+              width: 400,
+              height: 400,
+            },
+            title: "Card Title",
+            subtitle: "Card Subtitle",
+            captionEnabled: false,
+            captionTitle: "Caption Title",
+            captionSubtitle: "Caption Subtitle",
+            images: [],
+          };
+          editor$.addWidget(pageId, widgetdata);
+        }
+        break;
+      default:
+        break;
+    }
   };
 
   return (
@@ -46,7 +81,7 @@ export function AllWidgetsSidebar({ toggleDrawer }: AllWidgetsSidebarProps) {
         </div>
       </div>
       <List className="min-w-[10px]">
-        <ListItem>
+        <ListItem onClick={() => handleOnAddWidget(WidgetEnum.CARD)}>
           Card
           <ListItemSuffix>
             <PlusCircleIcon className="h-5 w-5" />

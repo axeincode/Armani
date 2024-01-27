@@ -1,5 +1,5 @@
 "use client";
-import { WidgetTypes } from "@/types";
+import { WidgetEnum } from "@/types";
 import * as React from "react";
 import Moveable, { OnDragStart } from "react-moveable";
 import Selecto from "react-selecto";
@@ -7,7 +7,7 @@ import Selecto from "react-selecto";
 export type MoveablePlusManagerProps = {
   children: React.ReactNode;
   mainAreaRef: React.RefObject<HTMLDivElement>;
-  onSelectMoveableStart: (widgetName: WidgetTypes) => void;
+  onSelectMoveableStart: (widgetId: string, widgetName: WidgetEnum) => void;
   onUnselectMoveable: () => void;
 };
 
@@ -55,9 +55,10 @@ export default function MoveablePlusManager({
           console.log("onDragStart", e.target);
           console.log("onDragStart", e.target.getAttribute("data-widget"));
           const widgetName = e.target.getAttribute("data-widget");
-          if (widgetName === WidgetTypes.CARD) {
+          const widgetId = e.target.getAttribute("data-widget-id");
+          if (widgetName === WidgetEnum.CARD) {
             e.stop && e.stop();
-            onSelectMoveableStart(WidgetTypes.CARD);
+            onSelectMoveableStart(widgetId, WidgetEnum.CARD);
           }
           // if (
           //   ["input", "select"].indexOf(e.target.tagName.toLowerCase()) > -1

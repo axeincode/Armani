@@ -40,7 +40,7 @@ export const NdaEditTools = () => {
           labelProps={{
             className: "before:content-none after:content-none",
           }}
-          value={
+          defaultValue={
             "This presentation is for informational purposes only and does not constitute an offer, solicitation, or recommendation to buy, sell, or  invest in commercial real estate. Any projections,"
           }
         />

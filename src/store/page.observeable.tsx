@@ -4,6 +4,7 @@ export interface IPageState {
   currentPage: number;
   totalPages: number;
   pageName?: string;
+  pageId?: string;
 }
 
 const iniState = {
@@ -22,6 +23,10 @@ export const usePageObserveable = () => {
     });
   };
 
+  const setPageInfo = (page: IPageState) => {
+    selectedSubject.next(page);
+  };
+
   const getObservable = () => {
     return selectedSubject;
   };
@@ -29,5 +34,6 @@ export const usePageObserveable = () => {
   return {
     getObservable,
     setPage,
+    setPageInfo,
   };
 };

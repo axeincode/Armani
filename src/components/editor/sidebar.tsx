@@ -1,44 +1,15 @@
-"use client";
 import React from "react";
 import { motion } from "framer-motion";
-import {
-  Card,
-  Typography,
-  List,
-  ListItem,
-  ListItemPrefix,
-  ListItemSuffix,
-  Chip,
-  IconButton,
-  Accordion,
-  AccordionHeader,
-  AccordionBody,
-} from "@material-tailwind/react";
-import {
-  PresentationChartBarIcon,
-  ShoppingBagIcon,
-  UserCircleIcon,
-  Cog6ToothIcon,
-  InboxIcon,
-  PowerIcon,
-  ChevronLeftIcon,
-  Bars3Icon,
-  PlusCircleIcon,
-  ChevronDownIcon,
-} from "@heroicons/react/24/solid";
+import { Card, IconButton } from "@material-tailwind/react";
+import { Bars3Icon } from "@heroicons/react/24/solid";
 import { cn } from "@/lib/utils";
-import {
-  IPageState,
-  useObservable,
-  usePageObserveable,
-  useSelectedObserveable,
-} from "@/store";
-import { WidgetTypes } from "@/types";
+import { useObservable, useSelectedWidgetRepo } from "@/store";
+import { WidgetEnum } from "@/types";
 import { AllWidgetsSidebar } from "./sidebars/all-widgets-sidebar";
 import { CardWidgetEditorTool } from "./sidebars/card-widget-editor-tool";
 
 export function Sidebar() {
-  const selectedWidgetObs$ = useSelectedObserveable();
+  const selectedWidgetObs$ = useSelectedWidgetRepo();
   const selectedWidgetState = useObservable(selectedWidgetObs$.getObservable());
 
   const [showDrawer, setShowDrawer] = React.useState(true);
@@ -48,7 +19,7 @@ export function Sidebar() {
   const handleOpen = (value: number) => {
     setOpen(open === value ? 0 : value);
   };
-  const { widget: selectedWidget } = selectedWidgetState;
+  const { widgetType: selectedWidget } = selectedWidgetState;
 
   return (
     <div
@@ -75,10 +46,10 @@ export function Sidebar() {
           transition={{ duration: 0.3 }}
         >
           <Card className="h-full w-48 max-w-none p-1 shadow-xl shadow-blue-gray-900/5 rounded-none ">
-            {!selectedWidget && (
+            {(!selectedWidget || selectedWidget === WidgetEnum.NONE) && (
               <AllWidgetsSidebar toggleDrawer={toggleDrawer} />
             )}
-            {selectedWidget && selectedWidget === WidgetTypes.CARD && (
+            {selectedWidget && selectedWidget === WidgetEnum.CARD && (
               <CardWidgetEditorTool toggleDrawer={toggleDrawer} />
             )}
           </Card>

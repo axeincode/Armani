@@ -19,16 +19,6 @@ import { db } from "../firebase";
 import { v4 } from "uuid";
 import { deckPageConfigs } from "@/constants/pages";
 
-export async function updateRestaurantImageReference(
-  restaurantId: any,
-  publicImageUrl: any
-) {
-  const restaurantRef = doc(collection(db, "restaurants"), restaurantId);
-  if (restaurantRef) {
-    await updateDoc(restaurantRef, { photo: publicImageUrl });
-  }
-}
-
 const updateWithRating = async (
   transaction: any,
   docRef: any,

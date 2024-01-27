@@ -7,19 +7,19 @@ export const DataRoomEditTools = () => {
   const [open, setOpen] = React.useState(false);
 
   return (
-    <div className="max-w-sm flex flex-grow overflow-hidden shadow-lg mr-1 bg-gray-100">
-      <div className="flex flex-col flex-grow justify-between">
+    <div className="flex flex-grow overflow-hidden shadow-lg mr-1 bg-gray-100">
+      <div className="flex flex-row flex-grow justify-between">
         <Typography variant="h6" color="gray">
           Data Room
         </Typography>
-
-        <div className="flex w-full h-8">
+        <div className="h-8">
           <Button
             size="sm"
-            variant="outlined"
-            className="flex w-full items-center gap-2 rounded-none"
+            variant="filled"
+            color="gray"
+            className="flex items-center gap-1"
           >
-            <CloudArrowUpIcon className="h-6 w-6" />
+            <CloudArrowUpIcon className="h-4 w-4" />
             upload
           </Button>
         </div>

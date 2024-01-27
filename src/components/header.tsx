@@ -62,8 +62,6 @@ export function Header({ currentUser }: any) {
   const [open, setOpen] = React.useState(false);
   const router = useRouter();
 
-  console.log("header user ", user);
-
   function handleOpen() {
     setOpen((cur) => !cur);
   }

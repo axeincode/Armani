@@ -4,14 +4,13 @@ import { DesignEditTools } from "./editortools/design-edit-tools";
 import { BannerEditTools } from "./editortools/banner-edit-tools";
 import { SectionEditTools } from "./editortools/sections-edit-tool";
 import { DataRoomEditTools } from "./editortools/data-room-edit-tools";
-import { DisclaimerEditTools } from "./editortools/disclaimer-edit-tools";
-import { NdaEditTools } from "./editortools/nda-edit-tools";
 
 // Import Swiper styles
 // Import Swiper styles
 import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
+import { ExtrasTools } from "./editortools/extras-tools";
 
 export const EditorTools = () => {
   return (
@@ -25,10 +24,7 @@ export const EditorTools = () => {
         <SectionEditTools />
         {/** data room editing */}
         <DataRoomEditTools />
-        {/** Disclaimer editing */}
-        <DisclaimerEditTools />
-        {/** NDA editing */}
-        <NdaEditTools />
+        <ExtrasTools />
       </div>
     </div>
   );

@@ -1,37 +1,32 @@
-import { SelectedState, WidgetTypes } from "@/types";
+import { WidgetEnum } from "@/types";
 import { BehaviorSubject } from "rxjs";
 
+export interface ISelectedWidgetState {
+  pageId: string;
+  widgetId: string;
+  widgetType: WidgetEnum;
+}
+
 const initialState = {
-  widget: null,
-  id: "",
+  widgetId: "",
+  pageId: "",
+  widgetType: WidgetEnum.NONE,
 };
 
-const selectedSubject = new BehaviorSubject<SelectedState>(initialState);
+const selectedSubject = new BehaviorSubject<ISelectedWidgetState>(initialState);
 
-export const useSelectedObserveable = () => {
-  const update = (selectedWidget: WidgetTypes | null, id: string) => {
-    setNextState({ widget: selectedWidget, error: "", id });
-  };
-
+export const useSelectedWidgetRepo = () => {
   const setSelectedWidget = (
-    selectedWidget: WidgetTypes | null,
-    id: string
+    widgetId: string,
+    pageId: string,
+    widgetType: WidgetEnum
   ) => {
-    selectedSubject.next({ widget: selectedWidget, id });
+    const state = selectedSubject.getValue();
+    selectedSubject.next({ ...state, widgetId, pageId, widgetType });
   };
 
   const unSelect = () => {
     selectedSubject.next(initialState);
-  };
-
-  const error = (message: string) => {
-    const state = selectedSubject.getValue();
-    setNextState({ widget: state.widget, error: message, id: state.id });
-  };
-
-  const setNextState = (payload: SelectedState) => {
-    const state = selectedSubject.getValue();
-    selectedSubject.next({ ...state, ...payload });
   };
 
   const getObservable = () => {
@@ -39,10 +34,8 @@ export const useSelectedObserveable = () => {
   };
 
   return {
-    update,
     setSelectedWidget,
     unSelect,
-    error,
     getObservable,
   };
 };

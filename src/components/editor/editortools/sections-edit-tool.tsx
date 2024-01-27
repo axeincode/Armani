@@ -43,7 +43,7 @@ export const SectionEditTools = () => {
   };
 
   return (
-    <div className="max-w-sm flex flex-grow overflow-hidden shadow-lg mr-1 bg-gray-100">
+    <div className="flex flex-grow overflow-hidden shadow-lg mr-1 bg-gray-100">
       <div className="flex flex-grow">
         <div className="flex flex-col flex-grow w-60 gap-1">
           <Typography variant="h6" color="gray">

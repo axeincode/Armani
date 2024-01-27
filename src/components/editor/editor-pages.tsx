@@ -1,19 +1,16 @@
-"use client";
 import React from "react";
 import { EditorTargetsContainer } from "./editor-targets-container";
 import { deckPageConfigs as pageConfigs } from "@/constants/pages";
 
 type EditorPagesProps = {
-  page: number;
+  pageId: string;
   setRef: (el: HTMLDivElement) => void;
 };
 
-export const EditorPages = ({ page, setRef }: EditorPagesProps) => {
+export const EditorPages = ({ pageId, setRef }: EditorPagesProps) => {
   // work on page data and then update editor targets container with page data;
-  const pageData = pageConfigs.find((p) => p.pageIndex === page);
+  /// const pageData = pageConfigs.find((p) => p.pageIndex === page);
   return (
-    <>
-      <EditorTargetsContainer setRef={setRef} data={pageData} />
-    </>
+    <>{pageId && <EditorTargetsContainer setRef={setRef} pageId={pageId} />}</>
   );
 };

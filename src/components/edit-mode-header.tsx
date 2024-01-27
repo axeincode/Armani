@@ -18,6 +18,7 @@ import UserAccountNav from "./user-account-nav";
 import Link from "next/link";
 import { useEditorObserveable, useObservable } from "@/store";
 import { deNormalizeEditorData } from "@/types/editor.types";
+import { toast } from "react-toastify";
 
 export function EditModeHeader({ currentUser }: any) {
   const user = useUserSession(currentUser?.toJSON());
@@ -48,7 +49,13 @@ export function EditModeHeader({ currentUser }: any) {
     const denormalizedDeck = deNormalizeEditorData(editorState);
     updateDeck(denormalizedDeck?.id, {
       ...denormalizedDeck,
-    });
+    })
+      .then(() => {
+        toast.success("Success");
+      })
+      .catch((err) => {
+        toast.error("Error");
+      });
   };
 
   return (
