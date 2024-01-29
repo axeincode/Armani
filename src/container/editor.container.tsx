@@ -43,9 +43,13 @@ export const EditorContainer = () => {
         editorDeck$.setInitialState(normalizedDeck);
         const pages = normalizedDeck.entities.pages;
         if (!pages) return;
-        const firstPage = Object.keys(pages).filter((key) => {
+        let firstPage = Object.keys(pages).filter((key) => {
           return pages[key].order === 0;
         })[0];
+        if (!firstPage) {
+          firstPage = Object.keys(pages)[0];
+        }
+        console.log("firstPage", firstPage, pages);
         page$.setPageInfo({
           currentPage: pages[firstPage].order,
           totalPages: Object.keys(pages).length,

@@ -6,11 +6,18 @@ import { EditorPagination } from "./editor-pagination";
 import { EditorPages } from "./editor-pages";
 import { PageTitle } from "./page-title";
 import MoveablePlusManager from "../moveableplus-manager";
-import { IPageState, useObservable, useSelectedWidgetRepo } from "@/store";
+import {
+  IPageState,
+  useEditorObserveable,
+  useObservable,
+  useSelectedWidgetRepo,
+} from "@/store";
 import { WidgetEnum } from "@/types";
 import { EditorStateTypes } from "@/types/editor.types";
 import { orderBy } from "lodash";
 import { useCurrentPageObserveable } from "@/hooks/useCurrentPageObserveable";
+import { OnDragEnd } from "react-moveable";
+import { useEditorWidgetObserveable } from "@/hooks/useEditorWidgetsObserveable";
 
 export type EditorMainAreaProps = {
   page: IPageState;
@@ -32,11 +39,14 @@ export const EditorMainArea = ({
   const updateTarget = (target: HTMLElement[]) => {
     setTargets(target);
   };
+  const editorObs$ = useEditorObserveable();
   const { dimensions, setRef } = useCallbackRefDimensions();
   const selectedWidgetObs$ = useSelectedWidgetRepo();
   const currentPage$ = useCurrentPageObserveable();
   const selectedWidgetState = useObservable(selectedWidgetObs$.getObservable());
-
+  const editorWidgetState = useEditorWidgetObserveable(
+    selectedWidgetState.widgetId
+  );
   console.log("selectedWidget", selectedWidgetState);
 
   // get pages from editor state
@@ -95,6 +105,23 @@ export const EditorMainArea = ({
     selectedWidgetObs$.unSelect();
   };
 
+  const handleOnChangeEnd = (e: OnDragEnd) => {
+    if (e.lastEvent) {
+      const { width, height, translate } = e.lastEvent || {};
+      console.log("handleOnChangeEnd", width, height);
+      console.log("LastEvent", e.lastEvent);
+      editorObs$.updateWidget(selectedWidgetState.widgetId, {
+        ...editorWidgetState,
+        transformation: {
+          ...editorWidgetState.transformation,
+          ...(translate && { x: translate[0], y: translate[1] }),
+          width: width,
+          height: height,
+        },
+      });
+    }
+  };
+
   return (
     <div
       className="moveablecontainer relative flex-col flex flex-grow my-8 mx-12 gap-2"
@@ -114,6 +141,7 @@ export const EditorMainArea = ({
           mainAreaRef={mainAreaRef}
           onSelectMoveableStart={handleOnMoveableSelect}
           onUnselectMoveable={handleOnMoveableUnselect}
+          onChangeEnd={handleOnChangeEnd}
         >
           <EditorPages pageId={currentPage$.pageId || ""} setRef={setRef} />
         </MoveablePlusManager>

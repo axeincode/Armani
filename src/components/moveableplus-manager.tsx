@@ -1,7 +1,7 @@
 "use client";
 import { WidgetEnum } from "@/types";
 import * as React from "react";
-import Moveable, { OnDragStart } from "react-moveable";
+import Moveable, { OnDragEnd, OnDragStart, OnResizeEnd } from "react-moveable";
 import Selecto from "react-selecto";
 
 export type MoveablePlusManagerProps = {
@@ -9,6 +9,7 @@ export type MoveablePlusManagerProps = {
   mainAreaRef: React.RefObject<HTMLDivElement>;
   onSelectMoveableStart: (widgetId: string, widgetName: WidgetEnum) => void;
   onUnselectMoveable: () => void;
+  onChangeEnd: (e: OnDragEnd | OnResizeEnd) => void;
 };
 
 export default function MoveablePlusManager({
@@ -16,6 +17,7 @@ export default function MoveablePlusManager({
   mainAreaRef,
   onSelectMoveableStart,
   onUnselectMoveable,
+  onChangeEnd,
 }: MoveablePlusManagerProps) {
   const [targets, setTargets] = React.useState<Array<HTMLElement | SVGElement>>(
     []
@@ -65,6 +67,14 @@ export default function MoveablePlusManager({
           // ) {
           //   e.stopDrag();
           // }
+        }}
+        onDragEnd={(e: OnDragEnd) => {
+          console.log("onDragEnd", e.lastEvent);
+          onChangeEnd(e);
+        }}
+        onResizeEnd={(e: OnResizeEnd) => {
+          console.log("onResizeEnd", e);
+          onChangeEnd(e);
         }}
         onRender={(e) => {
           e.target.style.cssText += e.cssText;

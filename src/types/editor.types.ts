@@ -2,6 +2,18 @@ import { values } from "lodash";
 import { denormalize, normalize, schema } from "normalizr";
 import { WidgetEnum as KWidgetTypes } from "./widgets";
 
+export type WidgetElementTypes = {
+  id: string;
+  name: string;
+  url: string;
+};
+
+export type WidgetImageTypes = {
+  id: string;
+  name: string;
+  url: string;
+};
+
 export type WidgetTypes = {
   id: string;
   type: KWidgetTypes;
@@ -17,7 +29,7 @@ export type WidgetTypes = {
   captionSubtitle?: string;
   captionTitle?: string;
   //  images
-  images: string[] | null;
+  images: WidgetImageTypes[];
 };
 
 export type PageTypes = {

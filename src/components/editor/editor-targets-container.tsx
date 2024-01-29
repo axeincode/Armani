@@ -27,18 +27,6 @@ export const EditorTargetsContainer = ({
             return null;
         }
       })}
-      <div
-        className="target border-5 border-solid rounded h-8 w-8"
-        id="target2"
-      >
-        target2
-      </div>
-      <div
-        className="target border-5 border-solid rounded h-8 w-8"
-        id="target3"
-      >
-        target3
-      </div>
     </div>
   );
 };
