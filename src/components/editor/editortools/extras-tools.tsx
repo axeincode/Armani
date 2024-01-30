@@ -13,12 +13,45 @@ import {
   DialogFooter,
   Switch,
 } from "@material-tailwind/react";
+import { useEditorDecksObserveable, useEditorObserveable } from "@/store";
 
 export const ExtrasTools = () => {
   const [openDisclaimer, setOpenDisclaimer] = React.useState(false);
   const [openNda, setOpenNda] = React.useState(false);
   const handleOpen = () => setOpenDisclaimer((cur) => !cur);
   const handleOpenNda = () => setOpenNda((cur) => !cur);
+  const editor$ = useEditorObserveable();
+  const deckInfo = useEditorDecksObserveable();
+
+  const handleOnDisclaimerDescChange = (
+    e: React.ChangeEvent<HTMLTextAreaElement>
+  ) => {
+    editor$.updateDeckInfo(deckInfo?.id, "disclaimer", {
+      ...deckInfo?.disclaimer,
+      description: e.target.value,
+    });
+  };
+
+  const handleOnAskForChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    editor$.updateDeckInfo(deckInfo?.id, "nda", {
+      ...deckInfo?.nda,
+      askFor: e.target.value,
+    });
+  };
+
+  const handleOnNdaDescChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    editor$.updateDeckInfo(deckInfo?.id, "nda", {
+      ...deckInfo?.nda,
+      description: e.target.value,
+    });
+  };
+
+  const handleOnDeckNdaChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    editor$.updateDeckInfo(deckInfo?.id, "nda", {
+      ...deckInfo?.nda,
+      enabled: Boolean(e.target.checked),
+    });
+  };
 
   return (
     <div className="lg:w-28 flex flex-grow-0 flex-col gap-2 px-1 shadow-lg mr-1 bg-gray-100">
@@ -43,9 +76,8 @@ export const ExtrasTools = () => {
               labelProps={{
                 className: "before:content-none after:content-none",
               }}
-              defaultValue={
-                "This presentation is for informational purposes only and does not constitute an offer, solicitation, or recommendation to buy, sell, or  invest in commercial real estate. Any projections,"
-              }
+              onChange={handleOnDisclaimerDescChange}
+              value={deckInfo?.disclaimer?.description || ""}
             />
           </CardBody>
         </Card>
@@ -71,7 +103,12 @@ export const ExtrasTools = () => {
               <Typography variant="h6" color="gray">
                 NDA
               </Typography>
-              <Switch defaultChecked label="Enabled" crossOrigin={"true"} />
+              <Switch
+                label="Enabled"
+                crossOrigin={"true"}
+                checked={deckInfo?.nda?.enabled || false}
+                onChange={handleOnDeckNdaChange}
+              />
             </div>
             <div className="flex flex-col items-start gap-1 lg:w-44">
               <Typography
@@ -89,6 +126,8 @@ export const ExtrasTools = () => {
                 }}
                 containerProps={{ className: "!min-w-[10px]" }}
                 placeholder="email/phone"
+                value={deckInfo?.nda?.askFor || ""}
+                onChange={handleOnAskForChange}
               />
             </div>
 
@@ -100,9 +139,8 @@ export const ExtrasTools = () => {
               labelProps={{
                 className: "before:content-none after:content-none",
               }}
-              defaultValue={
-                "This presentation is for informational purposes only and does not constitute an offer, solicitation, or recommendation to buy, sell, or  invest in commercial real estate. Any projections,"
-              }
+              value={deckInfo?.nda?.description || ""}
+              onChange={handleOnNdaDescChange}
             />
           </CardBody>
         </Card>

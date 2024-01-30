@@ -26,7 +26,7 @@ import DragContainer from "../ui/drag-container";
 import { DragItemWrapper } from "../ui/drag-item-wrapper";
 import { cn } from "@/lib/utils";
 import { deckPageConfigs } from "@/constants/pages";
-import { IPageState } from "@/store";
+import { IPageState, useEditorDecksObserveable } from "@/store";
 import { EditorStateTypes } from "@/types/editor.types";
 
 export interface Item {
@@ -81,16 +81,12 @@ const drawerItems: Item[] = [
 export type EditorSidebarProps = {
   page: IPageState;
   setPage: (page: number) => void;
-  editorState: EditorStateTypes;
 };
 
-export const EditorSidebar = ({
-  page,
-  setPage,
-  editorState,
-}: EditorSidebarProps) => {
+export const EditorSidebar = ({ page, setPage }: EditorSidebarProps) => {
   const [showDrawer, setShowDrawer] = React.useState(false);
   const [menuItems, setMenuItems] = React.useState<Item[]>(drawerItems);
+  const deckInfo = useEditorDecksObserveable();
 
   const moveCard = React.useCallback(
     (dragIndex: number, hoverIndex: number) => {
@@ -107,6 +103,11 @@ export const EditorSidebar = ({
   return (
     <div
       className={cn("flex flex-wrap bg-gray-800", showDrawer ? "w-48" : "w-10")}
+      style={{
+        ...(deckInfo?.sidebar && {
+          background: `${deckInfo?.sidebar}`,
+        }),
+      }}
     >
       <DragContainer>
         <>

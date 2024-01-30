@@ -41,6 +41,10 @@ export const HomeContainer = () => {
     router.push(`/editor/${id}`);
   };
 
+  const handleOnView = (id: string) => {
+    router.push(`/view/${id}`);
+  };
+
   const handleOnCreate = () => {
     createDeckCallback();
   };
@@ -69,6 +73,7 @@ export const HomeContainer = () => {
         handleOnCreate={handleOnCreate}
         isLoading={createDeckState?.isLoading}
         decks={decksState}
+        handleOnView={handleOnView}
       />
       <FloatingCreateButton onClick={createDeckCallback} />
     </>

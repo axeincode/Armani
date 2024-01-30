@@ -60,13 +60,15 @@ const imageList = [
 interface homeProps {
   data: AppInterface[] | undefined;
   handleOnEdit: (id: string) => void;
+  handleOnView: (id: string) => void;
   handleOnCreate: () => void;
   isLoading: boolean;
   decks: EditorStateTypes | undefined;
 }
 
 export function Home(props: homeProps) {
-  const { data, handleOnEdit, handleOnCreate, isLoading, decks } = props;
+  const { data, handleOnEdit, handleOnView, handleOnCreate, isLoading, decks } =
+    props;
 
   if (data) {
     return (
@@ -104,7 +106,9 @@ export function Home(props: homeProps) {
                       <Typography>{deck.subtitle}</Typography>
                     </CardBody>
                     <CardFooter className="pt-0 flex gap-2 justify-center items-center">
-                      <Button>View</Button>
+                      <Button onClick={() => handleOnView(deck.id)}>
+                        View
+                      </Button>
                       <Button onClick={() => handleOnEdit(deck.id)}>
                         Edit
                       </Button>

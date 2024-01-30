@@ -1,14 +1,15 @@
+"use client";
 import React from "react";
 import { Typography } from "@material-tailwind/react";
 import { CompanyLogo } from "../company-logo";
 import { InputWithSearchAddon } from "../ui/input-search-addon";
 import { useEditorDecksObserveable } from "@/store";
 
-export const EditorTopNav = () => {
+export const ViewHeader = () => {
   const deckInfo = useEditorDecksObserveable();
   return (
     <div
-      className="flex items-center justify-between h-16"
+      className="flex items-center justify-between h-16 border-2 border-solid border-gray-200"
       data-tesid="editor-top-nav"
     >
       <InputWithSearchAddon onChange={() => {}} value="Search the deck" />

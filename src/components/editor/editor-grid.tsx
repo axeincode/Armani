@@ -5,12 +5,13 @@ import { EditorMainArea } from "./editor-main-area";
 import { EditorTopNav } from "./editor-top-nav";
 import {
   useEditorPagesObserveable,
-  useObservable,
   usePageObserveable,
+  useEditorDecksObserveable,
 } from "@/store";
 import { motion } from "framer-motion";
 import { EditorStateTypes } from "@/types/editor.types";
 import { useCurrentPageObserveable } from "@/hooks/useCurrentPageObserveable";
+import { cn } from "@/lib/utils";
 
 export type EditorGridProps = {
   editorState: EditorStateTypes;
@@ -20,6 +21,7 @@ export const EditorGrid = ({ editorState }: EditorGridProps) => {
   const editorRef = React.useRef<HTMLDivElement>(null);
   const page$ = usePageObserveable();
   const currentPage$ = useCurrentPageObserveable();
+  const deckInfo = useEditorDecksObserveable();
   const pages$ = useEditorPagesObserveable();
   const [scale, setScale] = useState(1);
   const [windowDimensions, setWindowDimensions] = useState({
@@ -78,28 +80,35 @@ export const EditorGrid = ({ editorState }: EditorGridProps) => {
 
   return (
     <div
-      className="flex flex-grow border-2 border-solid border-gray-200 bg-[#F9F6EE]"
+      className={cn(
+        "flex flex-grow border-2 border-solid border-gray-200 bg-[#F9F6EE]"
+      )}
       ref={editorRef}
+      data-testid="editor-grid2-container"
     >
       <motion.div
         initial={{ transform: "scale(1)" }}
         animate={{ transform: `scale(${scale})` }}
         transition={{ duration: 0.3 }}
         key={scale}
-        className="flex flex-col flex-grow"
+        className={cn(
+          "flex flex-col flex-grow",
+          deckInfo?.shadow && "shadow-lg"
+        )}
         // style={{ transform: `scale(${scale})` }}
         data-testid="editor-grid"
         data-scale={scale}
         data-height={windowDimensions.height}
         data-width={windowDimensions.width}
+        style={{
+          ...(deckInfo?.background && {
+            background: `${deckInfo?.background}`,
+          }),
+        }}
       >
         <EditorTopNav />
         <div className="flex flex-grow bg-white">
-          <EditorSidebar
-            page={currentPage$}
-            setPage={setPage}
-            editorState={editorState}
-          />
+          <EditorSidebar page={currentPage$} setPage={setPage} />
           <EditorMainArea
             page={currentPage$}
             setPage={setPage}
