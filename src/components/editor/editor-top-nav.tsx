@@ -8,7 +8,7 @@ export const EditorTopNav = () => {
   const deckInfo = useEditorDecksObserveable();
   return (
     <div
-      className="flex items-center justify-between h-16"
+      className="flex items-center justify-between h-16 border-gray-10 border-[0.5px] border-solid shadow"
       data-tesid="editor-top-nav"
     >
       <InputWithSearchAddon onChange={() => {}} value="Search the deck" />

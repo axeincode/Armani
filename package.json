@@ -13,6 +13,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@daybrush/utils": "^1.13.0",
     "@emotion/react": "^11.11.3",
     "@emotion/styled": "^11.11.0",
     "@google-cloud/firestore": "^6.7.0",
@@ -29,6 +30,7 @@
     "@radix-ui/react-progress": "^1.0.3",
     "@radix-ui/react-slot": "^1.0.2",
     "@radix-ui/react-toast": "^1.1.4",
+    "@scena/react-guides": "^0.28.2",
     "@tanstack/react-table": "^8.11.7",
     "@tremor/react": "^3.6.1",
     "@types/node": "20.5.1",
@@ -58,6 +60,7 @@
     "react-dnd": "^16.0.1",
     "react-dnd-html5-backend": "^16.0.1",
     "react-dom": "18.2.0",
+    "react-infinite-viewer": "^0.28.1",
     "react-moveable": "^0.56.0",
     "react-selecto": "^1.26.3",
     "react-toastify": "^10.0.4",

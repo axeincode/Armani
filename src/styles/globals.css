@@ -31,3 +31,29 @@
   background-color: #ccc;
   opacity: 0.5;
 }
+
+/* Nested classes for scrollbar styles */
+.scrollbar {
+  /* width */
+  &::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+
+  /* Track */
+  &::-webkit-scrollbar-track {
+    width: '1px';
+    height: '1px';
+  }
+
+  /* Handle */
+  &::-webkit-scrollbar-thumb {
+    background: #16151C;
+    border-radius: 5px;
+  }
+
+  /* Handle on hover */
+  &::-webkit-scrollbar-thumb:hover {
+    background: #16151C;
+  }
+}
