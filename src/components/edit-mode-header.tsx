@@ -69,7 +69,7 @@ export function EditModeHeader({ currentUser }: any) {
           <div className="flex flex-1 justify-between items-center">
             <div className="flex items-center gap-2">
               <ArrowLeftCircleIcon className="h-4 w-4 text-yellow-500" />
-              <Link href="/">
+              <Link href="/" className="hover:underline">
                 <Typography color="yellow" className="text-sm font-bold">
                   Dashboard
                 </Typography>
@@ -81,22 +81,21 @@ export function EditModeHeader({ currentUser }: any) {
             {user ? (
               <div className="items-center gap-2 lg:flex">
                 <ButtonGroup
-                  variant="text"
+                  variant="gradient"
                   className="p-0 h-5 !text-xs text-white"
                 >
                   <Button
-                    className="py-0 h-5 !text-xs text-white"
+                    className="py-0 h-5 !text-xs text-yellow-500"
                     onClick={saveDeckCallback}
                   >
                     Save
                   </Button>
                   <Button
-                    className="py-0 h-5 !text-xs text-white"
+                    className="py-0 h-5 !text-xs text-yellow-500"
                     onClick={saveDeckCallback}
                   >
                     Publish
                   </Button>
-                  <Button className="py-0 h-5 !text-xs text-white">{""}</Button>
                 </ButtonGroup>
 
                 <UserAccountNav

@@ -1,6 +1,7 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import InfiniteViewer from "react-infinite-viewer";
+import { IObject } from "@daybrush/utils";
 import Guides from "@scena/react-guides";
 import { EditorSidebar } from "./editor-sidebar";
 import { EditorMainArea } from "./editor-main-area";
@@ -10,11 +11,11 @@ import {
   usePageObserveable,
   useEditorDecksObserveable,
 } from "@/store";
-import { motion } from "framer-motion";
 import { EditorStateTypes } from "@/types/editor.types";
 import { useCurrentPageObserveable } from "@/hooks/useCurrentPageObserveable";
 import { cn } from "@/lib/utils";
 import { useMeasure } from "react-use";
+import { useWebFontLoader } from "@/hooks/useWebFontLoader";
 
 export type EditorGridProps = {
   editorState: EditorStateTypes;
@@ -33,12 +34,13 @@ export const EditorGrid = ({ editorState }: EditorGridProps) => {
   const horizontalGuidesRef = React.createRef<Guides>();
   const verticalGuidesRef = React.createRef<Guides>();
   const infiniteViewer = React.createRef<InfiniteViewer>();
+  const { loadWebFontCallback } = useWebFontLoader();
 
   const [canvasRef, canvasProps] = useMeasure();
 
   const [windowDimensions, setWindowDimensions] = useState({
-    width: typeof window !== "undefined" ? window.innerWidth : 0,
-    height: typeof window !== "undefined" ? window.innerHeight : 0,
+    width: 1920,
+    height: 1080,
   });
 
   const horizontalSnapGuides = [
@@ -74,15 +76,16 @@ export const EditorGrid = ({ editorState }: EditorGridProps) => {
 
   React.useEffect(() => {
     if (!editorRef.current) return;
-    setWindowDimensions({
-      width: window.innerWidth,
-      height: window.innerHeight,
-    });
     setIsReady(true);
   }, [editorRef]);
 
-  console.log("scale", windowDimensions.width, windowDimensions.height);
-  console.log("props", canvasProps);
+  React.useEffect(() => {
+    if (!deckInfo?.fontFamily) return;
+    console.log("font failily", deckInfo?.fontFamily);
+    loadWebFontCallback([deckInfo?.fontFamily]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [deckInfo?.fontFamily]);
+
   return (
     <div
       className={cn(
@@ -100,7 +103,7 @@ export const EditorGrid = ({ editorState }: EditorGridProps) => {
           height: `${canvasProps?.height}px`,
         }}
       >
-        <div className="flex flex-grow w-[1980px] h-[1080px]">
+        <div className="flex flex-grow w-[1920px] h-[1080px]">
           {isReady && (
             <div className="flex flex-col flex-grow">
               <Guides
@@ -155,16 +158,28 @@ export const EditorGrid = ({ editorState }: EditorGridProps) => {
                     style={{
                       ...(deckInfo?.background && {
                         background: `${deckInfo?.background}`,
+                        ...(deckInfo?.fontFamily && {
+                          fontFamily: deckInfo?.fontFamily,
+                        }),
                       }),
                     }}
                   >
                     <EditorTopNav />
-                    <div className="flex flex-grow bg-white">
+                    <div
+                      className="flex flex-grow bg-white"
+                      style={{
+                        ...(deckInfo?.fontFamily && {
+                          fontFamily: deckInfo?.fontFamily,
+                        }),
+                      }}
+                    >
                       <EditorSidebar page={currentPage$} setPage={setPage} />
                       <EditorMainArea
                         page={currentPage$}
                         setPage={setPage}
                         editorState={editorState}
+                        verticalGuidelines={verticalSnapGuides}
+                        horizontalGuidelines={horizontalSnapGuides}
                       />
                     </div>
                   </div>

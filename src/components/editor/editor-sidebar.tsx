@@ -146,7 +146,13 @@ export const EditorSidebar = ({ page, setPage }: EditorSidebarProps) => {
             >
               <Card className="h-full w-48 max-w-20 p-4 shadow-xl shadow-blue-gray-900/5 bg-gray-800">
                 <div className="mb-1 flex justify-between">
-                  <Typography variant="h5" color="white">
+                  <Typography
+                    variant="h5"
+                    color="white"
+                    style={{
+                      fontFamily: "inherit",
+                    }}
+                  >
                     Sidebar
                   </Typography>
                   <IconButton
@@ -169,11 +175,23 @@ export const EditorSidebar = ({ page, setPage }: EditorSidebarProps) => {
                         key={id}
                         className="text-white text-xs"
                         onClick={() => setPage(index + 1)}
+                        style={{
+                          fontFamily: "inherit",
+                        }}
                       >
                         <ListItemPrefix>
                           <Icon className="h-5 w-5" />
                         </ListItemPrefix>
-                        {title}
+
+                        <Typography
+                          className="text-xs"
+                          variant="small"
+                          style={{
+                            fontFamily: "inherit",
+                          }}
+                        >
+                          {title}
+                        </Typography>
                       </ListItem>
                     </DragItemWrapper>
                   ))}

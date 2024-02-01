@@ -18,10 +18,19 @@ export const ViewHeader = () => {
           as="h4"
           color="white"
           className="text-xs md:text-base font-bold"
+          style={{
+            fontFamily: "inherit",
+          }}
         >
           {deckInfo?.title || ""}
         </Typography>
-        <Typography color="white" className="mt-1 text-xs">
+        <Typography
+          color="white"
+          className="mt-1 text-xs"
+          style={{
+            fontFamily: "inherit",
+          }}
+        >
           {deckInfo?.subtitle || ""}
         </Typography>
       </div>

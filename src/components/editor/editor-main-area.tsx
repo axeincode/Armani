@@ -23,12 +23,16 @@ export type EditorMainAreaProps = {
   page: IPageState;
   setPage: (page: number) => void;
   editorState: EditorStateTypes;
+  verticalGuidelines: number[];
+  horizontalGuidelines: number[];
 };
 
 export const EditorMainArea = ({
   page,
   setPage,
   editorState,
+  verticalGuidelines,
+  horizontalGuidelines,
 }: EditorMainAreaProps) => {
   const { currentPage } = page;
   const { width, height } = useWindowSize();
@@ -142,6 +146,8 @@ export const EditorMainArea = ({
           onSelectMoveableStart={handleOnMoveableSelect}
           onUnselectMoveable={handleOnMoveableUnselect}
           onChangeEnd={handleOnChangeEnd}
+          verticalGuidelines={verticalGuidelines}
+          horizontalGuidelines={horizontalGuidelines}
         >
           <EditorPages pageId={currentPage$.pageId || ""} setRef={setRef} />
         </MoveablePlusManager>

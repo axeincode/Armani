@@ -10,6 +10,8 @@ export type MoveablePlusManagerProps = {
   onSelectMoveableStart: (widgetId: string, widgetName: WidgetEnum) => void;
   onUnselectMoveable: () => void;
   onChangeEnd: (e: OnDragEnd | OnResizeEnd) => void;
+  verticalGuidelines: number[];
+  horizontalGuidelines: number[];
 };
 
 export default function MoveablePlusManager({
@@ -18,6 +20,8 @@ export default function MoveablePlusManager({
   onSelectMoveableStart,
   onUnselectMoveable,
   onChangeEnd,
+  verticalGuidelines,
+  horizontalGuidelines,
 }: MoveablePlusManagerProps) {
   const [targets, setTargets] = React.useState<Array<HTMLElement | SVGElement>>(
     []
@@ -41,14 +45,24 @@ export default function MoveablePlusManager({
         edge={[]}
         bounds={{ left: 0, top: 0, bottom: 0, right: 0, position: "css" }}
         snappable={true}
-        snapDirections={{ top: true, left: true, bottom: true, right: true }}
+        snapDirections={{
+          top: true,
+          left: true,
+          bottom: true,
+          right: true,
+          center: true,
+          middle: true,
+        }}
         snapThreshold={20}
         snapGridWidth={20}
         snapGridHeight={20}
+        snapDigit={20}
+        snapGap={false}
+        snapDistFormat={(v) => `${Math.round(v / 20) * 20}px`}
         isDisplayGridGuidelines={true}
-        snapGridAll={true}
-        verticalGuidelines={[50, 150, 250, 450, 550]}
-        horizontalGuidelines={[0, 100, 200, 400, 500]}
+        /// snapGridAll={true}
+        verticalGuidelines={verticalGuidelines}
+        horizontalGuidelines={horizontalGuidelines}
         preventClickDefault={true}
         onClickGroup={(e) => {
           selectoRef.current!.clickTarget(e.inputEvent, e.inputTarget);

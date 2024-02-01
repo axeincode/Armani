@@ -159,7 +159,15 @@ export const ViewSidebar = ({ page, setPage }: EditorSidebarProps) => {
                       <ListItemPrefix>
                         <Icon className="h-5 w-5" />
                       </ListItemPrefix>
-                      {title}
+                      <Typography
+                        className="text-xs"
+                        variant="small"
+                        style={{
+                          fontFamily: "inherit",
+                        }}
+                      >
+                        {title}
+                      </Typography>
                     </ListItem>
                   </React.Fragment>
                 ))}
