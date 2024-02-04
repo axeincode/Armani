@@ -9,7 +9,7 @@ export default async function Page() {
   return (
     <div className="min-h-screen flex flex-col flex-1 flex-grow w-full h-full">
       <Suspense fallback={<Loading />}>
-        <ViewContainer />
+        <ViewContainer currentUser={currentUser} />
       </Suspense>
     </div>
   );

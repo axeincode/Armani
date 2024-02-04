@@ -1,8 +1,8 @@
 import React from "react";
 import { Typography } from "@material-tailwind/react";
-import { CompanyLogo } from "../company-logo";
 import { InputWithSearchAddon } from "../ui/input-search-addon";
 import { useEditorDecksObserveable } from "@/store";
+import { EditorCompanyLogo } from "../company-logo-ui";
 
 export const EditorTopNav = () => {
   const deckInfo = useEditorDecksObserveable();
@@ -10,6 +10,11 @@ export const EditorTopNav = () => {
     <div
       className="flex items-center justify-between h-16 border-gray-10 border-[0.5px] border-solid shadow"
       data-tesid="editor-top-nav"
+      style={{
+        ...(deckInfo?.navbar && {
+          background: `${deckInfo?.navbar}`,
+        }),
+      }}
     >
       <InputWithSearchAddon onChange={() => {}} value="Search the deck" />
       <div className="flex text-xs items-center justify-between gap-1">
@@ -33,7 +38,11 @@ export const EditorTopNav = () => {
           {deckInfo?.subtitle || ""}
         </Typography>
       </div>
-      <CompanyLogo inverse={true} variant="h6" iconSize="h-4 w-4" />
+      <EditorCompanyLogo
+        inverse={true}
+        variant="h6"
+        logoUrl={deckInfo?.logo?.url}
+      />
     </div>
   );
 };

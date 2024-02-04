@@ -9,40 +9,58 @@ import {
   Button,
   Input,
 } from "@material-tailwind/react";
-import { WidgetEnum } from "@/types";
+import { WidgetElement, WidgetEnum } from "@/types";
 import { WidgetTypes } from "@/types/editor.types";
-import { useEditorObserveable, useSelectedWidgetRepo } from "@/store";
+import {
+  useEditorObserveable,
+  useObservable,
+  useSelectedWidgetRepo,
+} from "@/store";
 import { useCurrentWidgetObserveable } from "@/hooks/useCurrentWidgetObserveable";
 import { isEmpty } from "lodash";
 import { SwiperThumbs } from "@/components/ui/swiper-thumbs";
+import { useCurrentPageObserveable } from "@/hooks/useCurrentPageObserveable";
+import { useEditorWidgetObserveable } from "@/hooks/useEditorWidgetsObserveable";
 
-export type CardWidgetProps = {
+export type FrameWidgetProps = {
   data: WidgetTypes;
 };
 
-export function CardWidget({ data }: CardWidgetProps) {
+export function FrameWidget({ data }: FrameWidgetProps) {
   // state
+  const selectedWidgetObs$ = useSelectedWidgetRepo();
+  const currentPage$ = useCurrentPageObserveable();
+  const selectedWidgetState = useObservable(selectedWidgetObs$.getObservable());
+  const editorWidgetState = useEditorWidgetObserveable(
+    selectedWidgetState.widgetId
+  );
+
   const handleOnInputClick = (e: React.MouseEvent<HTMLInputElement>) => {
     e.stopPropagation();
   };
 
   console.log("datacurrentwidget", data);
   const transformation = data.transformation;
-  const cardStyles = React.useMemo(() => ({
-    
+  const elementType = data.elementType;
+  const cardStyles = React.useMemo(() => {
+    return {
       transform: `translate(${transformation.x || 0}px, ${
         transformation.y || 0
       }px)`,
       width: `${transformation.width || 0}px`,
       height: `${transformation.height || 0}px`,
-  }), [transformation]);
+    };
+  }, [transformation]);
 
-  const handleOnChange = (e: any) => {};
+  const handleOnChange = () => {};
+  const handleOnImageWidgetClick = (widgetType: WidgetEnum) => {
+    selectedWidgetObs$.updateSelectedWidgetType(widgetType);
+  };
 
   return (
     <Card
-      className="w-96 target p-2 border-solid border-2 border-gray-600 m-0 mt-0 z-50"
-      data-widget={WidgetEnum.CARD}
+      className="absolute w-96 target p-2 border-solid border-2 border-gray-600 m-0 mt-0 z-50"
+      data-widget={WidgetEnum.FRAME}
       data-widget-id={data.id}
       style={cardStyles}
     >
@@ -82,14 +100,37 @@ export function CardWidget({ data }: CardWidgetProps) {
           value={data.subtitle || ""}
         />
       </CardHeader>
-      <CardBody className="p-2 my-1 h-20 flex flex-grow ">
-        {data.images && data.images.length > 0 && (
-          <SwiperThumbs images={data.images} />
-        )}
-        {isEmpty(data.images) && (
-          <div className="flex flex-col flex-grow justify-center items-center h-24"></div>
-        )}
-      </CardBody>
+      {data.elementType && data.elementType === WidgetElement.PICTURE && (
+        <CardBody className="p-2 my-1 h-20 flex flex-grow">
+          {data.images && data.images.length > 0 && (
+            <SwiperThumbs images={data.images} />
+          )}
+          {isEmpty(data.images) && (
+            <div
+              className="flex flex-col flex-grow justify-center items-center h-24"
+              data-id="INTERNAL_WIDGET"
+            >
+              <Typography
+                variant="h6"
+                color="blue-gray"
+                data-id="INTERNAL_WIDGET"
+              >
+                No Image
+              </Typography>
+              <Button
+                color="blue"
+                size="sm"
+                className="mt-2"
+                data-testid="add-image-button"
+                data-id="INTERNAL_WIDGET"
+                data-widget={WidgetEnum.PICTURE}
+              >
+                Add Image
+              </Button>
+            </div>
+          )}
+        </CardBody>
+      )}
       {data.captionEnabled && (
         <CardFooter
           className="p-0 m-0 flex flex-col gap-1 max-h-24"

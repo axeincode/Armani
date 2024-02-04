@@ -19,6 +19,7 @@ import Link from "next/link";
 import { useEditorObserveable, useObservable } from "@/store";
 import { deNormalizeEditorData } from "@/types/editor.types";
 import { toast } from "react-toastify";
+import { fetchAndUpdateAgreement } from "@/lib/firebase/firestore/user.agreements";
 
 export function EditModeHeader({ currentUser }: any) {
   const user = useUserSession(currentUser?.toJSON());
@@ -46,6 +47,7 @@ export function EditModeHeader({ currentUser }: any) {
   // callbacks
   const saveDeckCallback = () => {
     if (!editorState) return;
+    console.log("savedeck editor state", editorState);
     const denormalizedDeck = deNormalizeEditorData(editorState);
     updateDeck(denormalizedDeck?.id, {
       ...denormalizedDeck,

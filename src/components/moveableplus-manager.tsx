@@ -12,6 +12,8 @@ export type MoveablePlusManagerProps = {
   onChangeEnd: (e: OnDragEnd | OnResizeEnd) => void;
   verticalGuidelines: number[];
   horizontalGuidelines: number[];
+  isUnSelected: boolean;
+  onClickInternalWidget: (e: React.MouseEvent) => void;
 };
 
 export default function MoveablePlusManager({
@@ -22,6 +24,8 @@ export default function MoveablePlusManager({
   onChangeEnd,
   verticalGuidelines,
   horizontalGuidelines,
+  isUnSelected,
+  onClickInternalWidget,
 }: MoveablePlusManagerProps) {
   const [targets, setTargets] = React.useState<Array<HTMLElement | SVGElement>>(
     []
@@ -29,11 +33,18 @@ export default function MoveablePlusManager({
   const moveableRef = React.useRef<Moveable>(null);
   const selectoRef = React.useRef<Selecto>(null);
 
+  React.useEffect(() => {
+    if (isUnSelected) {
+      setTargets([]);
+    }
+  }, [isUnSelected]);
+
   return (
     <div className="moveable app flex flex-grow flex-col">
       {children}
       <Moveable
         ref={moveableRef}
+        preventDefault={true}
         target={targets}
         draggable={true}
         throttleDrag={1}
@@ -75,6 +86,9 @@ export default function MoveablePlusManager({
           if (widgetName === WidgetEnum.CARD) {
             e.stop && e.stop();
             onSelectMoveableStart(widgetId, WidgetEnum.CARD);
+          } else if (widgetName === WidgetEnum.FRAME) {
+            e.stop && e.stop();
+            onSelectMoveableStart(widgetId, WidgetEnum.FRAME);
           }
           // if (
           //   ["input", "select"].indexOf(e.target.tagName.toLowerCase()) > -1
@@ -111,7 +125,13 @@ export default function MoveablePlusManager({
         keyContainer={mainAreaRef.current!}
         onDragStart={(e: any) => {
           const target = e.inputEvent.target;
-          if (
+          console.log("target", target);
+          const getInternalValue = target.getAttribute("data-id");
+          console.log("getInternalValue", getInternalValue);
+          if (getInternalValue === "INTERNAL_WIDGET") {
+            e.stop();
+            onClickInternalWidget(e.inputEvent);
+          } else if (
             moveableRef.current!.isMoveableElement(target) ||
             targets!.some((t) => t === target || t.contains(target))
           ) {

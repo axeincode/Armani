@@ -4,6 +4,7 @@ import { useEditorPageWidgetsObserveable } from "@/hooks/useEditorWidgetsObserve
 import { map } from "lodash";
 import { WidgetTypes } from "@/types/editor.types";
 import { WidgetEnum } from "@/types";
+import { FrameWidget } from "./widgets/frame-widget";
 
 type EditorTargetsProps = {
   pageId: string;
@@ -15,14 +16,15 @@ export const EditorTargetsContainer = ({
   setRef,
 }: EditorTargetsProps) => {
   const allWidgets = useEditorPageWidgetsObserveable(pageId);
-  console.log("all Widgets", allWidgets);
 
   return (
-    <div className="elements selecto-area flex" ref={setRef}>
+    <div className="elements selecto-area flex flex-grow" ref={setRef}>
       {map(allWidgets, (widget: WidgetTypes) => {
         switch (widget.type) {
           case WidgetEnum.CARD:
             return <CardWidget key={widget.id} data={widget} />;
+          case WidgetEnum.FRAME:
+            return <FrameWidget key={widget.id} data={widget} />;
           default:
             return null;
         }

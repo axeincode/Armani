@@ -7,6 +7,8 @@ import { useObservable, useSelectedWidgetRepo } from "@/store";
 import { WidgetEnum } from "@/types";
 import { AllWidgetsSidebar } from "./sidebars/all-widgets-sidebar";
 import { CardWidgetEditorTool } from "./sidebars/card-widget-editor-tool";
+import { FrameWidgetEditorTool } from "./sidebars/frame-widget-editor-tool";
+import { AddImageWidgetSidebar } from "./sidebars/add-image-sidebar";
 
 export function Sidebar() {
   const selectedWidgetObs$ = useSelectedWidgetRepo();
@@ -51,6 +53,12 @@ export function Sidebar() {
             )}
             {selectedWidget && selectedWidget === WidgetEnum.CARD && (
               <CardWidgetEditorTool toggleDrawer={toggleDrawer} />
+            )}
+            {selectedWidget && selectedWidget === WidgetEnum.FRAME && (
+              <FrameWidgetEditorTool toggleDrawer={toggleDrawer} />
+            )}
+            {selectedWidget && selectedWidget === WidgetEnum.PICTURE && (
+              <AddImageWidgetSidebar toggleDrawer={toggleDrawer} />
             )}
           </Card>
         </motion.div>

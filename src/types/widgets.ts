@@ -1,4 +1,7 @@
 export enum WidgetEnum {
+  FRAME = "FRAME",
+  PICTURE = "PICTURE",
+  GALLERY = "GALLERY",
   CARD = "CARD",
   CHART = "CHART",
   TABLE = "TABLE",
@@ -33,4 +36,25 @@ export enum WidgetEnum {
   TIME = "TIME",
   DATETIME = "DATETIME",
   NONE = "NONE",
+}
+
+export enum WidgetElement {
+  PARAGRAPH = "PARAGRAPH",
+  PICTURE = "PICTURE",
+  VIDEO = "VIDEO",
+  GALLERY = "GALLERY",
+  SIMPLE_LIST = "SIMPLE_LIST",
+  TABS = "TABS",
+  COMPLEX_LIST = "COMPLEX_LIST",
+  BASIC_CHARTS = "BASIC_CHARTS",
+  SPREADSHEET = "SPREADSHEET",
+  GRAPH = "GRAPH",
+  MAP = "MAP",
+  ICON_GALLERY = "ICON_GALLERY",
+  IFRAME = "IFRAME",
+  APP = "APP",
+  BUTTON = "BUTTON",
+  TIMELINE = "TIMELINE",
+  COMPS = "COMPS",
+  CONTACT_CARD = "CONTACT_CARD",
 }

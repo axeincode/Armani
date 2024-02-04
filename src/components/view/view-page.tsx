@@ -11,13 +11,12 @@ type ViewPageProps = {
 
 export const ViewPage = ({ pageId }: ViewPageProps) => {
   const allWidgets = useEditorPageWidgetsObserveable(pageId);
-  console.log("all Widgets", allWidgets);
 
   return (
     <div className="flex">
       {map(allWidgets, (widget: WidgetTypes) => {
         switch (widget.type) {
-          case WidgetEnum.CARD:
+          case WidgetEnum.FRAME:
             return <CardViewWidget key={widget.id} data={widget} />;
           default:
             return null;

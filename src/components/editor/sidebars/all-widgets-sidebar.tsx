@@ -5,20 +5,17 @@ import {
   ListItem,
   ListItemSuffix,
   IconButton,
-  Accordion,
-  AccordionHeader,
-  AccordionBody,
+  Switch,
 } from "@material-tailwind/react";
-import {
-  ChevronLeftIcon,
-  PlusCircleIcon,
-  ChevronDownIcon,
-} from "@heroicons/react/24/solid";
+import { ChevronLeftIcon, PlusCircleIcon } from "@heroicons/react/24/solid";
 import { useCurrentPageObserveable } from "@/hooks/useCurrentPageObserveable";
 import { WidgetEnum } from "@/types";
 import { v4 } from "uuid";
-import { useEditorObserveable } from "@/store";
+import { useEditorDecksObserveable, useEditorObserveable } from "@/store";
 import { WidgetTypes } from "@/types/editor.types";
+import ColorPicker from "@/components/ui/color-picker";
+import { fontFaceTypes } from "@/components/ui/types/font-face-types";
+import { WebFontSelect } from "@/components/ui/webfont-select";
 
 export type AllWidgetsSidebarProps = {
   toggleDrawer: () => void;
@@ -26,20 +23,62 @@ export type AllWidgetsSidebarProps = {
 
 export function AllWidgetsSidebar({ toggleDrawer }: AllWidgetsSidebarProps) {
   const [open, setOpen] = React.useState(0);
+  const [openColor, setOpenColor] = React.useState(false);
   const currentPage$ = useCurrentPageObserveable();
   const editor$ = useEditorObserveable();
+  const deckInfo = useEditorDecksObserveable();
+  const [fontFaces, setFontFaces] = React.useState<fontFaceTypes[]>([]);
+
+  React.useEffect(() => {
+    const fetchFonts = async () => {
+      const fontdata = await fetch("/assets/googlefonts.json");
+      const fonts = await fontdata.json();
+      const fontFaces = fonts.items.map((font: any) => {
+        return {
+          fontFamily: font.family,
+          fontStyle: font.variants,
+          fontWeight: font.variants,
+        };
+      });
+      setFontFaces(fontFaces);
+    };
+    fetchFonts();
+  }, []);
+
   console.log("currentPage$", currentPage$);
   const handleOpen = (value: number) => {
     setOpen(open === value ? 0 : value);
   };
 
+  const handleOnBackgroundChange = (e: string) => {
+    editor$.updateDeckInfo(deckInfo?.id, "background", e);
+  };
+
+  const handleOnNavbarColorChange = (e: string) => {
+    editor$.updateDeckInfo(deckInfo?.id, "navbar", e);
+  };
+
+  const handleOnSidebarColorChange = (e: string) => {
+    editor$.updateDeckInfo(deckInfo?.id, "sidebar", e);
+  };
+
+  const handleOnShadowChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    editor$.updateDeckInfo(deckInfo?.id, "shadow", Boolean(e.target.checked));
+  };
+
+  const handleOnFontChange = (e: string) => {
+    editor$.updateDeckInfo(deckInfo?.id, "fontFamily", e);
+  };
+
   const handleOnAddWidget = (widgetType: WidgetEnum) => {
+    const pageId = currentPage$.pageId;
     switch (widgetType) {
       case WidgetEnum.CARD:
+      case WidgetEnum.FRAME:
         const pageId = currentPage$.pageId;
         if (pageId) {
           const widgetdata: WidgetTypes = {
-            type: WidgetEnum.CARD,
+            type: widgetType,
             id: v4(),
             transformation: {
               x: 0,
@@ -53,6 +92,28 @@ export function AllWidgetsSidebar({ toggleDrawer }: AllWidgetsSidebarProps) {
             captionTitle: "Caption Title",
             captionSubtitle: "Caption Subtitle",
             images: [],
+            enableElements: false,
+          };
+          editor$.addWidget(pageId, widgetdata);
+        }
+        break;
+      case WidgetEnum.TABLE:
+        if (pageId) {
+          const widgetdata: WidgetTypes = {
+            type: WidgetEnum.TABLE,
+            id: v4(),
+            transformation: {
+              x: 0,
+              y: 0,
+              width: 800,
+              height: 800,
+            },
+            title: "Table Title",
+            subtitle: "Table Subtitle",
+            captionEnabled: false,
+            captionTitle: "Table Title",
+            captionSubtitle: "Table Subtitle",
+            enableElements: false,
           };
           editor$.addWidget(pageId, widgetdata);
         }
@@ -66,7 +127,7 @@ export function AllWidgetsSidebar({ toggleDrawer }: AllWidgetsSidebarProps) {
     <>
       <div className="mb-2 p-2 flex justify-between">
         <Typography variant="h5" color="blue-gray">
-          Widgets
+          Design
         </Typography>
         <div className="h-5 w-5 min-w-0">
           <IconButton
@@ -81,69 +142,63 @@ export function AllWidgetsSidebar({ toggleDrawer }: AllWidgetsSidebarProps) {
         </div>
       </div>
       <List className="min-w-[10px]">
-        <ListItem onClick={() => handleOnAddWidget(WidgetEnum.CARD)}>
-          Card
+        <ListItem onClick={() => handleOnAddWidget(WidgetEnum.FRAME)}>
+          Frame
           <ListItemSuffix>
             <PlusCircleIcon className="h-5 w-5" />
           </ListItemSuffix>
         </ListItem>
         <ListItem>
-          Table
+          Background
           <ListItemSuffix>
-            <PlusCircleIcon className="h-5 w-5" />
-          </ListItemSuffix>
-        </ListItem>
-        <ListItem>
-          Map
-          <ListItemSuffix>
-            <PlusCircleIcon className="h-5 w-5" />
-          </ListItemSuffix>
-        </ListItem>
-        <Accordion
-          className="min-w-0 w-44"
-          open={open === 1}
-          icon={
-            <ChevronDownIcon
-              strokeWidth={2.5}
-              className={`mx-auto h-4 w-4 transition-transform ${
-                open === 1 ? "rotate-180" : ""
-              }`}
+            <ColorPicker
+              open={openColor}
+              value={deckInfo?.background || "#aabbcc"}
+              onChange={(color) => handleOnBackgroundChange(color)}
             />
-          }
-        >
-          <ListItem className="p-0 min-w-0 w-44" selected={open === 1}>
-            <AccordionHeader
-              onClick={() => handleOpen(1)}
-              className="border-b-0 p-3 min-w-0 w-44"
-            >
-              <Typography color="blue-gray" className="mr-auto font-normal">
-                Charts
-              </Typography>
-            </AccordionHeader>
-          </ListItem>
-          <AccordionBody className="py-1 min-w-0 w-44">
-            <List className="px-1 min-w-0 w-44">
-              <ListItem>
-                Bar
-                <ListItemSuffix>
-                  <PlusCircleIcon className="h-5 w-5" />
-                </ListItemSuffix>
-              </ListItem>
-              <ListItem>
-                Line
-                <ListItemSuffix>
-                  <PlusCircleIcon className="h-5 w-5" />
-                </ListItemSuffix>
-              </ListItem>
-              <ListItem>
-                Pie
-                <ListItemSuffix>
-                  <PlusCircleIcon className="h-5 w-5" />
-                </ListItemSuffix>
-              </ListItem>
-            </List>
-          </AccordionBody>
-        </Accordion>
+          </ListItemSuffix>
+        </ListItem>
+        <ListItem>
+          Navbar
+          <ListItemSuffix>
+            <ColorPicker
+              open={openColor}
+              value={deckInfo?.navbar || "#aabbcc"}
+              onChange={(color) => handleOnNavbarColorChange(color)}
+            />
+          </ListItemSuffix>
+        </ListItem>
+        <ListItem>
+          Sidebar
+          <ListItemSuffix>
+            <ColorPicker
+              open={openColor}
+              value={deckInfo?.sidebar || "#aabbcc"}
+              onChange={(color) => handleOnSidebarColorChange(color)}
+            />
+          </ListItemSuffix>
+        </ListItem>
+        <ListItem>
+          Font
+          <ListItemSuffix>
+            <WebFontSelect
+              font="Poppins"
+              fontFaces={fontFaces}
+              value={deckInfo?.fontFamily}
+              onChange={handleOnFontChange}
+            />
+          </ListItemSuffix>
+        </ListItem>
+        <ListItem>
+          Shadow
+          <ListItemSuffix>
+            <Switch
+              checked={Boolean(deckInfo?.shadow)}
+              onChange={handleOnShadowChange}
+              crossOrigin={"true"}
+            />
+          </ListItemSuffix>
+        </ListItem>
       </List>
     </>
   );

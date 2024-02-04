@@ -25,6 +25,11 @@ export const useSelectedWidgetRepo = () => {
     selectedSubject.next({ ...state, widgetId, pageId, widgetType });
   };
 
+  const updateSelectedWidgetType = (widgetType: WidgetEnum) => {
+    const state = selectedSubject.getValue();
+    selectedSubject.next({ ...state, widgetType });
+  };
+
   const unSelect = () => {
     selectedSubject.next(initialState);
   };
@@ -37,5 +42,6 @@ export const useSelectedWidgetRepo = () => {
     setSelectedWidget,
     unSelect,
     getObservable,
+    updateSelectedWidgetType,
   };
 };

@@ -1,10 +1,11 @@
 import { BehaviorSubject } from "rxjs";
-import { merge, get, findIndex, reduce } from "lodash";
+import { merge, get, findIndex, reduce, filter } from "lodash";
 import { produce } from "immer";
 import { v4 as uuidV4 } from "uuid";
 import {
   DeckInfoTypes,
   EditorStateTypes,
+  PageTypes,
   WidgetTypes,
 } from "@/types/editor.types";
 
@@ -64,6 +65,34 @@ export const useEditorObserveable = () => {
     setNextState(updatedState);
   };
 
+  //delete widget  by using Id
+  const deleteWidget = (pageId: string, widgetId: string) => {
+    const prevState = editorSubject.getValue();
+    const updatedState = produce(prevState, (draft) => {
+      if (draft.entities.pages[pageId]) {
+        // @ts-ignore
+        const index = draft.entities.pages[pageId].widgets.findIndex(
+          (widget) => widget === widgetId
+        );
+        if (index > -1) {
+          // @ts-ignore
+          draft.entities.pages[pageId].widgets.splice(index, 1);
+        }
+      }
+      // delete widget from entities
+      if (draft.entities.widgets && draft.entities.widgets[widgetId]) {
+        delete draft.entities.widgets[widgetId];
+      }
+      // delete widget from result
+      if (draft.result.widgets.some((widget) => widget === widgetId)) {
+        draft.result.widgets = draft.result.widgets.filter(
+          (widget) => widget !== widgetId
+        );
+      }
+    });
+    setNextState(updatedState);
+  };
+
   const updatePageNumber = (pageId: string, pageNumber: number) => {
     const prevState = editorSubject.getValue();
     const updatedState = produce(prevState, (draft) => {
@@ -103,5 +132,6 @@ export const useEditorObserveable = () => {
     updateWidget,
     getObservable,
     updateDeckInfo,
+    deleteWidget,
   };
 };

@@ -8,14 +8,18 @@ import {
   useObservable,
 } from "@/store";
 import { motion } from "framer-motion";
-import { EditorStateTypes } from "@/types/editor.types";
+import { EditorStateTypes, User } from "@/types/editor.types";
 import { useCurrentPageObserveable } from "@/hooks/useCurrentPageObserveable";
 import { cn } from "@/lib/utils";
 import { ViewSidebar } from "./view-sidebar";
 import { ViewHeader } from "./view-header";
 import { ViewMainArea } from "./view-main-area";
 
-export const ViewMainPage = () => {
+export type ViewMainPageProps = {
+  user: User;
+};
+
+export const ViewMainPage = ({ user }: ViewMainPageProps) => {
   const editorRef = React.useRef<HTMLDivElement>(null);
   const page$ = usePageObserveable();
   const currentPage$ = useCurrentPageObserveable();
@@ -57,6 +61,7 @@ export const ViewMainPage = () => {
           page={currentPage$}
           setPage={setPage}
           editorState={editorState}
+          user={user}
         />
       </div>
     </div>

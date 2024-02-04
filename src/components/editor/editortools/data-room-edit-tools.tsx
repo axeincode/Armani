@@ -2,6 +2,7 @@
 import React from "react";
 import { CloudArrowUpIcon } from "@heroicons/react/24/outline";
 import { Button, IconButton, Typography } from "@material-tailwind/react";
+import { UploadButton } from "@/components/ui/upload-button";
 export const DataRoomEditTools = () => {
   const [color, setColor] = React.useState("#aabbcc");
   const [open, setOpen] = React.useState(false);
@@ -13,15 +14,7 @@ export const DataRoomEditTools = () => {
           Data Room
         </Typography>
         <div className="h-8">
-          <Button
-            size="sm"
-            variant="filled"
-            color="gray"
-            className="flex items-center gap-1"
-          >
-            <CloudArrowUpIcon className="h-4 w-4" />
-            upload
-          </Button>
+          <UploadButton onClick={() => setOpen(true)} />
         </div>
       </div>
     </div>

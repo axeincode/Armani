@@ -27,7 +27,7 @@ export async function getAuthenticatedAppForUser(session = null) {
     // client
     console.log("client: ", firebaseApp);
     // @ts-ignore
-    return { app: firebaseApp, user: auth?.currentUser.toJSON() };
+    return { app: firebaseApp, currentUser: auth?.currentUser.toJSON() };
   }
 
   const { initializeApp: initializeAdminApp, getApps: getAdminApps } =

@@ -84,6 +84,7 @@ export const ViewSidebar = ({ page, setPage }: EditorSidebarProps) => {
   const [showDrawer, setShowDrawer] = React.useState(false);
   const [menuItems, setMenuItems] = React.useState<Item[]>(drawerItems);
   const deckInfo = useEditorDecksObserveable();
+  console.log("decinInfo viewsidebar", deckInfo);
 
   return (
     <div
@@ -109,7 +110,9 @@ export const ViewSidebar = ({ page, setPage }: EditorSidebarProps) => {
                 <IconButton
                   variant="text"
                   size="sm"
-                  onClick={() => setPage(index + 1)}
+                  onClick={() => setPage(index)}
+                  data-pageid={id}
+                  data-indexid={index}
                 >
                   <Icon className="h-6 w-6 text-white" />
                 </IconButton>
@@ -154,7 +157,9 @@ export const ViewSidebar = ({ page, setPage }: EditorSidebarProps) => {
                     <ListItem
                       key={id}
                       className="text-white text-xs"
-                      onClick={() => setPage(index + 1)}
+                      data-pageid={id}
+                      data-indexid={index}
+                      onClick={() => setPage(index)}
                     >
                       <ListItemPrefix>
                         <Icon className="h-5 w-5" />

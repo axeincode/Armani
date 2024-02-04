@@ -36,13 +36,11 @@ export const EditorMainArea = ({
 }: EditorMainAreaProps) => {
   const { currentPage } = page;
   const { width, height } = useWindowSize();
-  const [targets, setTargets] = React.useState<HTMLElement[]>();
+  const [unSelect, setUnselect] = React.useState(false);
   const containerRef = React.useRef<HTMLDivElement>(null);
   const gridRef = React.useRef<HTMLDivElement>(null);
   const mainAreaRef = React.useRef<HTMLDivElement>(null);
-  const updateTarget = (target: HTMLElement[]) => {
-    setTargets(target);
-  };
+
   const editorObs$ = useEditorObserveable();
   const { dimensions, setRef } = useCallbackRefDimensions();
   const selectedWidgetObs$ = useSelectedWidgetRepo();
@@ -52,6 +50,14 @@ export const EditorMainArea = ({
     selectedWidgetState.widgetId
   );
   console.log("selectedWidget", selectedWidgetState);
+
+  React.useEffect(() => {
+    if (selectedWidgetState.widgetId === "") {
+      setUnselect(true);
+    } else {
+      setUnselect(false);
+    }
+  }, [selectedWidgetState]);
 
   // get pages from editor state
   const pages = orderBy(editorState.entities.pages, ["order"], ["asc"]);
@@ -105,6 +111,19 @@ export const EditorMainArea = ({
     );
   };
 
+  const handleOnClickInternalWidget = (e: any) => {
+    const target = e.target;
+    const widgetType = target.getAttribute("data-widget");
+    console.log("getInternalValue widgetType", widgetType);
+    if (widgetType) {
+      selectedWidgetObs$.setSelectedWidget(
+        selectedWidgetState.widgetId,
+        currentPage$.pageId!,
+        widgetType
+      );
+    }
+  };
+
   const handleOnMoveableUnselect = () => {
     selectedWidgetObs$.unSelect();
   };
@@ -148,6 +167,8 @@ export const EditorMainArea = ({
           onChangeEnd={handleOnChangeEnd}
           verticalGuidelines={verticalGuidelines}
           horizontalGuidelines={horizontalGuidelines}
+          isUnSelected={unSelect}
+          onClickInternalWidget={handleOnClickInternalWidget}
         >
           <EditorPages pageId={currentPage$.pageId || ""} setRef={setRef} />
         </MoveablePlusManager>

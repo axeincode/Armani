@@ -1,13 +1,18 @@
 import React from "react";
-import { Typography, Input, Spinner } from "@material-tailwind/react";
+import { Typography, Input, Spinner, Button } from "@material-tailwind/react";
 import { useEditorDecksObserveable, useEditorObserveable } from "@/store";
 import { CloudArrowUpIcon } from "@heroicons/react/24/outline";
 import { updateDeckImage } from "@/lib/firebase/storage";
 import { cn } from "@/lib/utils";
+import { LogoUploadDialog } from "@/components/ui/logo-upload-dialog";
+import { UploadButton } from "@/components/ui/upload-button";
 
 export const BannerEditTools = () => {
   // states
   const [isUploading, setIsUploading] = React.useState(false);
+  const [isCoverUploading, setIsCoverUploading] = React.useState(false);
+
+  const [showUploader, setShowUploader] = React.useState(false);
   const types = ["image/png", "image/jpeg", "image/jpg"];
   const editor$ = useEditorObserveable();
   const deckInfo = useEditorDecksObserveable();
@@ -34,9 +39,22 @@ export const BannerEditTools = () => {
     }
   };
 
+  const handleOnCoverFileChange = async (
+    e: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    const file = (e.target && e.target.files && e.target.files[0]) || null;
+    if (!file) return;
+    setIsCoverUploading(true);
+    const imageUrl = await updateDeckImage(deckInfo?.id, file);
+    setIsCoverUploading(false);
+    if (file) {
+      editor$.updateDeckInfo(deckInfo?.id, "coverPhoto", imageUrl);
+    }
+  };
+
   return (
     <div className="flex overflow-hidden shadow-lg mr-1 bg-gray-100">
-      <div className="flex flex-col gap-1">
+      <div className="flex flex-col gap-2">
         <Typography variant="h6" color="gray">
           Banner
         </Typography>
@@ -88,29 +106,17 @@ export const BannerEditTools = () => {
           >
             Logo
           </Typography>
-          <div className="h-8 flex items-center">
-            {isUploading && <Spinner className="h-4 w-4" />}
-            {!isUploading && (
-              <input
-                className={cn(
-                  "block w-full text-xs text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400",
-                  hasFileName && "w-20"
-                )}
-                id="file_input"
-                type="file"
-                onChange={handleOnFileChange}
-              />
-            )}
-            {hasFileName && (
-              <Typography
-                variant="small"
-                className="text-xs w-10 lg:w-24 overflow-ellipsis overflow-hidden whitespace-nowrap"
-              >
-                {deckInfo?.logo?.name
-                  ? deckInfo?.logo?.name
-                  : "No file selected"}
-              </Typography>
-            )}
+          <div className="h-6 flex items-center">
+            <UploadButton onClick={() => setShowUploader(!showUploader)} />
+            <LogoUploadDialog
+              deckInfo={deckInfo}
+              open={showUploader}
+              handleOnFileChange={handleOnFileChange}
+              handler={() => setShowUploader(!showUploader)}
+              handleOnCoverFileChange={handleOnCoverFileChange}
+              isUploading={isUploading}
+              isCoverUploading={isCoverUploading}
+            />
           </div>
         </div>
       </div>

@@ -40,6 +40,7 @@ export async function addNewDeck(id: string) {
     deckId: id,
     name: "My New Deck",
     background: "#252121",
+    navbar: "#252121",
     sidebar: "#252121",
     fontFamily: "sans-serif",
     shadow: true,

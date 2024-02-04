@@ -93,7 +93,10 @@ export function Home(props: homeProps) {
                 >
                   <Card className="mt-6 w-96">
                     <CardHeader color="blue-gray" className="relative h-56">
-                      <img src={deck.coverPhoto} alt="card-image" />
+                      <img
+                        src={deck.coverPhoto || deck.logo?.url}
+                        alt={deck.title}
+                      />
                     </CardHeader>
                     <CardBody className="flex flex-col justify-center items-center">
                       <Typography

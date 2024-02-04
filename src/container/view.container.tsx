@@ -3,24 +3,35 @@ import React from "react";
 import Link from "next/link";
 import { useRouter, useParams } from "next/navigation";
 import { deleteDeck, getDeck } from "@/lib/firebase/firestore/decks.firestore";
-import { normalizedEditorData } from "@/types/editor.types";
+import { User, normalizedEditorData } from "@/types/editor.types";
 import { useObservable, usePageObserveable } from "@/store";
 import { useEditorObserveable } from "@/store/editor.observeable";
 import { toast } from "react-toastify";
 import { ViewMainPage } from "@/components/view";
+import useUserSession from "@/lib/useUserSession";
+import { getAgreementByUser } from "@/lib/firebase/firestore/user.agreements";
+import { useUserAgreementRepo } from "@/store/user-agreement.observeable";
 
-export const ViewContainer = () => {
+export type ViewContainerProps = {
+  currentUser: any;
+};
+
+export const ViewContainer = ({ currentUser }: ViewContainerProps) => {
   const router = useRouter();
+  const user: User = useUserSession(currentUser?.toJSON());
+
   // router get id
   const params = useParams<{ id: string }>();
   // states
   const [isLoading, setIsLoading] = React.useState(false);
   const editorDeck$ = useEditorObserveable();
+  const userAgreement$ = useUserAgreementRepo();
   const editorState = useObservable(editorDeck$.getObservable());
   const page$ = usePageObserveable();
   const pageState = useObservable(page$.getObservable());
 
   console.log("editorstate", editorState);
+  console.log("currentUser", user);
 
   // effects
   React.useEffect(() => {
@@ -56,6 +67,15 @@ export const ViewContainer = () => {
     }
   }, [params.id]);
 
+  React.useEffect(() => {
+    if (!user) return;
+    console.log("Fetching User Agreements");
+    getAgreementByUser(user.uid).then((agreements) => {
+      if (!agreements) return;
+      userAgreement$.setInitalAgreements(agreements);
+    });
+  }, [user, userAgreement$]);
+
   // callbacks
   const deleteDeckCallback = () => {
     deleteDeck(params.id)
@@ -83,7 +103,7 @@ export const ViewContainer = () => {
             <span className="sr-only">Loading...</span>
           </div>
         )}
-        {!isLoading && <ViewMainPage />}
+        {!isLoading && <ViewMainPage user={user} />}
       </div>
       {/** footer layout */}
       <footer className="w-full p-2 flex flex-row gap-1 justify-center items-center border-t bg-gray-800">

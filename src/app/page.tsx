@@ -41,6 +41,7 @@ const data1 = [
 
 export default async function Page() {
   const { currentUser } = await getAuthenticatedAppForUser();
+  console.log("Home Get Current User currentUser", currentUser);
   return (
     <>
       <Header currentUser={currentUser} />

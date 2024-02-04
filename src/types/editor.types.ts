@@ -1,6 +1,6 @@
 import { values } from "lodash";
 import { denormalize, normalize, schema } from "normalizr";
-import { WidgetEnum as KWidgetTypes } from "./widgets";
+import { WidgetEnum as KWidgetTypes, WidgetElement } from "./widgets";
 
 export type WidgetElementTypes = {
   id: string;
@@ -16,7 +16,7 @@ export type WidgetImageTypes = {
 
 export type WidgetTypes = {
   id: string;
-  type: KWidgetTypes;
+  type: KWidgetTypes | WidgetElement;
   transformation: {
     x: number;
     y: number;
@@ -25,11 +25,15 @@ export type WidgetTypes = {
   };
   title?: string;
   subtitle?: string;
+  enableElements: boolean;
   captionEnabled: boolean;
   captionSubtitle?: string;
   captionTitle?: string;
   //  images
-  images: WidgetImageTypes[];
+  images?: WidgetImageTypes[];
+  data?: Record<string, any>;
+  // elements
+  elementType?: WidgetElement;
 };
 
 export type PageTypes = {
@@ -46,6 +50,7 @@ export type DeckInfoTypes = {
   id: string;
   background: string;
   sidebar: string;
+  navbar: string;
   fontFamily: string;
   shadow: string;
   title: string;
@@ -132,4 +137,24 @@ export const deNormalizeEditorData = (editorState: EditorStateTypes): any => {
   if (!deckId) throw new Error("Deck id not found");
   const deNormData = denormalize(deckId, editorSchema, entities);
   return deNormData;
+};
+
+export type Agreement = {
+  id?: string;
+  deckId: string;
+  title: string;
+  content?: string;
+  uid: string;
+  email?: string;
+  accepted?: boolean;
+  createdAt?: string;
+  updatedAt?: string;
+  ndaAskFor?: string;
+};
+
+export type User = {
+  email?: string;
+  uid: string;
+  displayName: string;
+  phoneNumber?: string;
 };
