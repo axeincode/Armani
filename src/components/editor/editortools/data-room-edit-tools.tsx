@@ -9,11 +9,11 @@ export const DataRoomEditTools = () => {
 
   return (
     <div className="flex flex-grow overflow-hidden shadow-lg mr-1 bg-gray-100">
-      <div className="flex flex-row flex-grow justify-between">
+      <div className="flex flex-row flex-grow justify-start gap-2 pt-1 px-1">
         <Typography variant="h6" color="gray">
           Data Room
         </Typography>
-        <div className="h-8">
+        <div className="h-6 flex">
           <UploadButton onClick={() => setOpen(true)} />
         </div>
       </div>

@@ -1,22 +1,9 @@
-import {
-  Bars3Icon,
-  Squares2X2Icon,
-  QueueListIcon,
-  BuildingOfficeIcon,
-  MapPinIcon,
-  CubeTransparentIcon,
-  ChartBarIcon,
-  GlobeAsiaAustraliaIcon,
-  UsersIcon,
-} from "@heroicons/react/24/solid";
-
 export const deckPageConfigs = [
   {
     id: 0,
     title: "Dashboard",
     pageIndex: 0,
     visible: true,
-    icon: Squares2X2Icon,
     iconName: "Squares2X2Icon",
   },
   {
@@ -24,7 +11,6 @@ export const deckPageConfigs = [
     title: "Deal Overview",
     pageIndex: 1,
     visible: true,
-    icon: QueueListIcon,
     iconName: "QueueListIcon",
   },
   {
@@ -32,7 +18,6 @@ export const deckPageConfigs = [
     title: "The Property",
     pageIndex: 2,
     visible: true,
-    icon: BuildingOfficeIcon,
     iconName: "BuildingOfficeIcon",
   },
   {
@@ -40,7 +25,6 @@ export const deckPageConfigs = [
     title: "The Market",
     pageIndex: 3,
     visible: true,
-    icon: MapPinIcon,
     iconName: "MapPinIcon",
   },
   {
@@ -48,7 +32,6 @@ export const deckPageConfigs = [
     title: "Business Plan",
     pageIndex: 4,
     visible: true,
-    icon: CubeTransparentIcon,
     iconName: "CubeTransparentIcon",
   },
   {
@@ -56,7 +39,6 @@ export const deckPageConfigs = [
     title: "Financials",
     pageIndex: 5,
     visible: true,
-    icon: ChartBarIcon,
     iconName: "ChartBarIcon",
   },
   {
@@ -64,7 +46,6 @@ export const deckPageConfigs = [
     title: "Comps",
     pageIndex: 6,
     visible: true,
-    icon: GlobeAsiaAustraliaIcon,
     iconName: "GlobeAsiaAustraliaIcon",
   },
   {
@@ -72,7 +53,6 @@ export const deckPageConfigs = [
     title: "Sponsorship",
     pageIndex: 7,
     visible: true,
-    icon: UsersIcon,
     iconName: "UsersIcon",
   },
 ];

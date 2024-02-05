@@ -24,7 +24,10 @@ import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
 import { deckPageConfigs } from "@/constants/pages";
 import { IPageState, useEditorDecksObserveable } from "@/store";
-import { EditorStateTypes } from "@/types/editor.types";
+import { EditorStateTypes, PageTypes } from "@/types/editor.types";
+import { useEditorPagesObserveable } from "@/hooks/useEditorPagesObserveable";
+import { DynamicHeroIcon } from "../ui/DynamicHeroIcon";
+import { map } from "lodash";
 
 export interface Item {
   id: number;
@@ -85,6 +88,7 @@ export const ViewSidebar = ({ page, setPage }: EditorSidebarProps) => {
   const [menuItems, setMenuItems] = React.useState<Item[]>(drawerItems);
   const deckInfo = useEditorDecksObserveable();
   console.log("decinInfo viewsidebar", deckInfo);
+  const pages$ = useEditorPagesObserveable();
 
   return (
     <div
@@ -105,19 +109,20 @@ export const ViewSidebar = ({ page, setPage }: EditorSidebarProps) => {
             >
               <Bars3Icon className="h-6 w-6 text-white" />
             </IconButton>
-            {menuItems.map(({ id, icon: Icon }, index: number) => (
-              <React.Fragment key={id}>
+            {map(pages$, (page: PageTypes) => {
+              return (
                 <IconButton
-                  variant="text"
+                  key={page.id}
                   size="sm"
-                  onClick={() => setPage(index)}
-                  data-pageid={id}
-                  data-indexid={index}
+                  onClick={() => setPage(page.pageNumber)}
                 >
-                  <Icon className="h-6 w-6 text-white" />
+                  <DynamicHeroIcon
+                    className="h-6 w-6 text-white"
+                    icon={page.iconName || "Squares2X2Icon"}
+                  />
                 </IconButton>
-              </React.Fragment>
-            ))}
+              );
+            })}
           </div>
         )}
         {showDrawer && (
@@ -152,30 +157,35 @@ export const ViewSidebar = ({ page, setPage }: EditorSidebarProps) => {
                 </IconButton>
               </div>
               <List className="min-w-fit">
-                {menuItems.map(({ id, title, icon: Icon }, index: number) => (
-                  <React.Fragment key={id}>
-                    <ListItem
-                      key={id}
-                      className="text-white text-xs"
-                      data-pageid={id}
-                      data-indexid={index}
-                      onClick={() => setPage(index)}
-                    >
-                      <ListItemPrefix>
-                        <Icon className="h-5 w-5" />
-                      </ListItemPrefix>
-                      <Typography
-                        className="text-xs"
-                        variant="small"
-                        style={{
-                          fontFamily: "inherit",
-                        }}
+                {map(pages$, (page: PageTypes, index: number) => {
+                  return (
+                    <React.Fragment key={page.id}>
+                      <ListItem
+                        key={page.id}
+                        className="text-white text-xs"
+                        data-pageid={page.id}
+                        data-indexid={index}
+                        onClick={() => setPage(page.pageNumber)}
                       >
-                        {title}
-                      </Typography>
-                    </ListItem>
-                  </React.Fragment>
-                ))}
+                        <ListItemPrefix>
+                          <DynamicHeroIcon
+                            className="h-6 w-6 text-white"
+                            icon={page.iconName || "Squares2X2Icon"}
+                          />
+                        </ListItemPrefix>
+                        <Typography
+                          className="text-xs"
+                          variant="small"
+                          style={{
+                            fontFamily: "inherit",
+                          }}
+                        >
+                          {page.name || page.title}
+                        </Typography>
+                      </ListItem>
+                    </React.Fragment>
+                  );
+                })}
               </List>
             </Card>
           </motion.div>

@@ -48,16 +48,16 @@ export const ViewContainer = ({ currentUser }: ViewContainerProps) => {
         const pages = normalizedDeck.entities.pages;
         if (!pages) return;
         let firstPage = Object.keys(pages).filter((key) => {
-          return pages[key].order === 0;
+          return pages[key].pageNumber === 0;
         })[0];
         if (!firstPage) {
           firstPage = Object.keys(pages)[0];
         }
         console.log("firstPage", firstPage, pages);
         page$.setPageInfo({
-          currentPage: pages[firstPage].order,
+          currentPage: pages[firstPage].pageNumber,
           totalPages: Object.keys(pages).length,
-          pageName: pages[firstPage].pageName,
+          pageName: pages[firstPage].name,
           pageId: firstPage,
         });
       });

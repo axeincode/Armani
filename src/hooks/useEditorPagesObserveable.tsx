@@ -15,7 +15,6 @@ export function useEditorPagesObserveable() {
       .pipe(
         map((state: EditorStateTypes) => state.entities.pages),
         distinctUntilChanged(isEqual),
-        debounceTime(10),
         shareReplay(1)
       )
       .subscribe((currentPage: Record<string, PageTypes>) => {

@@ -17,18 +17,21 @@ import {
 import { db } from "../firebase";
 import { v4 } from "uuid";
 import { deckPageConfigs } from "@/constants/pages";
+import { PageTypes } from "@/types/editor.types";
 
 /** Add new realestate deck with sample data */
 export async function addNewDeck(id: string) {
-  const pages = deckPageConfigs.map((pageConfig) => {
+  const pages: PageTypes[] = deckPageConfigs.map((pageConfig) => {
     const pageId = v4();
     return {
       id: pageId,
       pageId: pageId,
       type: "page",
+      pageNumber: pageConfig.pageIndex,
+      title: pageConfig.title,
       index: pageConfig.pageIndex,
       name: pageConfig.title,
-      icon: pageConfig.iconName,
+      iconName: pageConfig.iconName,
       status: "draft", // draft, published, archived
       widgets: [],
       order: pageConfig.pageIndex,

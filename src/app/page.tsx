@@ -41,13 +41,17 @@ const data1 = [
 
 export default async function Page() {
   const { currentUser } = await getAuthenticatedAppForUser();
-  console.log("Home Get Current User currentUser", currentUser);
+  const showTables = false;
   return (
     <>
       <Header currentUser={currentUser} />
       <HomeContainer />
-      <TableWithoutHeading data={data} />
-      <TableWithHeading data={data1} headings={headings} />
+      {showTables && (
+        <>
+          <TableWithoutHeading data={data} />
+          <TableWithHeading data={data1} headings={headings} />
+        </>
+      )}
       <Footer />
     </>
   );

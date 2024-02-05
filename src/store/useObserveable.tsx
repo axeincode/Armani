@@ -57,30 +57,6 @@ export function useEditorDecksObserveable() {
   return state;
 }
 
-// write a hooks that takes in a subject and returns the current state for editor pages
-export function useEditorPagesObserveable() {
-  const [state, setState] = useState<Record<string, PageTypes>>(
-    editorSubject.getValue().entities.pages
-  );
-
-  useLayoutEffect(() => {
-    const subscription = editorSubject
-      .pipe(
-        map((state: EditorStateTypes) => state.entities.pages),
-        distinctUntilChanged(isEqual),
-        debounceTime(10),
-        shareReplay(1)
-      )
-      .subscribe((currentPages: any) => {
-        setState(currentPages);
-      });
-
-    return () => subscription.unsubscribe();
-  }, []);
-
-  return state;
-}
-
 // write a hooks that takes in a subject and returns the current state for editor widgets
 export function useEditorWidgetsObserveable() {
   const [state, setState] = useState(editorSubject.getValue().entities.widgets);

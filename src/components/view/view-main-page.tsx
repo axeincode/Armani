@@ -1,7 +1,6 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import {
-  useEditorPagesObserveable,
   usePageObserveable,
   useEditorDecksObserveable,
   useEditorObserveable,
@@ -14,6 +13,7 @@ import { cn } from "@/lib/utils";
 import { ViewSidebar } from "./view-sidebar";
 import { ViewHeader } from "./view-header";
 import { ViewMainArea } from "./view-main-area";
+import { useEditorPagesObserveable } from "@/hooks/useEditorPagesObserveable";
 
 export type ViewMainPageProps = {
   user: User;
@@ -30,13 +30,13 @@ export const ViewMainPage = ({ user }: ViewMainPageProps) => {
 
   const setPage = (page: number) => {
     const getPage = Object.keys(pages$).filter((key) => {
-      return pages$[key].order === page;
+      return pages$[key].pageNumber === page;
     })[0];
     if (!getPage) return;
     page$.setPageInfo({
       currentPage: page,
       totalPages: Object.keys(pages$).length,
-      pageName: pages$[getPage].pageName,
+      pageName: pages$[getPage].name,
       pageId: getPage,
     });
   };

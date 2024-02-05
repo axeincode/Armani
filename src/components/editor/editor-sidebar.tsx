@@ -11,6 +11,7 @@ import {
   UsersIcon,
   XCircleIcon,
 } from "@heroicons/react/24/solid";
+import { DynamicHeroIcon } from "@/components/ui/DynamicHeroIcon";
 import {
   Card,
   Typography,
@@ -26,8 +27,14 @@ import DragContainer from "../ui/drag-container";
 import { DragItemWrapper } from "../ui/drag-item-wrapper";
 import { cn } from "@/lib/utils";
 import { deckPageConfigs } from "@/constants/pages";
-import { IPageState, useEditorDecksObserveable } from "@/store";
-import { EditorStateTypes } from "@/types/editor.types";
+import {
+  IPageState,
+  useEditorDecksObserveable,
+  usePageObserveable,
+} from "@/store";
+import { EditorStateTypes, PageTypes } from "@/types/editor.types";
+import { useEditorPagesObserveable } from "@/hooks/useEditorPagesObserveable";
+import { map } from "lodash";
 
 export interface Item {
   id: number;
@@ -87,6 +94,7 @@ export const EditorSidebar = ({ page, setPage }: EditorSidebarProps) => {
   const [showDrawer, setShowDrawer] = React.useState(false);
   const [menuItems, setMenuItems] = React.useState<Item[]>(drawerItems);
   const deckInfo = useEditorDecksObserveable();
+  const pages$ = useEditorPagesObserveable();
 
   const moveCard = React.useCallback(
     (dragIndex: number, hoverIndex: number) => {
@@ -120,22 +128,27 @@ export const EditorSidebar = ({ page, setPage }: EditorSidebarProps) => {
               >
                 <Bars3Icon className="h-6 w-6 text-white" />
               </IconButton>
-              {menuItems.map(({ id, icon: Icon }, index: number) => (
-                <DragItemWrapper
-                  id={id}
-                  index={index}
-                  key={id}
-                  moveCard={moveCard}
-                >
-                  <IconButton
-                    variant="text"
-                    size="sm"
-                    onClick={() => setPage(index + 1)}
+              {map(pages$, (page: PageTypes) => {
+                return (
+                  <DragItemWrapper
+                    id={page.id}
+                    index={page.pageNumber - 1}
+                    key={page.id}
+                    moveCard={moveCard}
                   >
-                    <Icon className="h-6 w-6 text-white" />
-                  </IconButton>
-                </DragItemWrapper>
-              ))}
+                    <IconButton
+                      variant="text"
+                      size="sm"
+                      onClick={() => setPage(page.pageNumber + 1)}
+                    >
+                      <DynamicHeroIcon
+                        className="h-6 w-6 text-white"
+                        icon={page.iconName || "Squares2X2Icon"}
+                      />
+                    </IconButton>
+                  </DragItemWrapper>
+                );
+              })}
             </div>
           )}
           {showDrawer && (
@@ -164,37 +177,42 @@ export const EditorSidebar = ({ page, setPage }: EditorSidebarProps) => {
                   </IconButton>
                 </div>
                 <List className="min-w-fit">
-                  {menuItems.map(({ id, title, icon: Icon }, index: number) => (
-                    <DragItemWrapper
-                      id={id}
-                      index={index}
-                      key={id}
-                      moveCard={moveCard}
-                    >
-                      <ListItem
-                        key={id}
-                        className="text-white text-xs"
-                        onClick={() => setPage(index + 1)}
-                        style={{
-                          fontFamily: "inherit",
-                        }}
+                  {map(pages$, (page: PageTypes) => {
+                    return (
+                      <DragItemWrapper
+                        id={page.id}
+                        index={page.pageNumber - 1}
+                        key={page.id}
+                        moveCard={moveCard}
                       >
-                        <ListItemPrefix>
-                          <Icon className="h-5 w-5" />
-                        </ListItemPrefix>
-
-                        <Typography
-                          className="text-xs"
-                          variant="small"
+                        <ListItem
+                          key={page.id}
+                          className="text-white text-xs"
+                          onClick={() => setPage(page.pageNumber + 1)}
                           style={{
                             fontFamily: "inherit",
                           }}
                         >
-                          {title}
-                        </Typography>
-                      </ListItem>
-                    </DragItemWrapper>
-                  ))}
+                          <ListItemPrefix>
+                            <DynamicHeroIcon
+                              className="h-5 w-5"
+                              icon={page.iconName || "Squares2X2Icon"}
+                            />
+                          </ListItemPrefix>
+
+                          <Typography
+                            className="text-xs"
+                            variant="small"
+                            style={{
+                              fontFamily: "inherit",
+                            }}
+                          >
+                            {page.name || page.title}
+                          </Typography>
+                        </ListItem>
+                      </DragItemWrapper>
+                    );
+                  })}
                 </List>
               </Card>
             </motion.div>

@@ -39,11 +39,12 @@ export type WidgetTypes = {
 export type PageTypes = {
   id: string;
   pageNumber: number;
-  pageName: string;
-  order: number;
-  title: string;
-  subtitle: string;
-  widgets: string[] | null;
+  name: string;
+  title?: string;
+  subtitle?: string;
+  widgets?: string[];
+  iconName?: string;
+  status?: "draft" | "published" | "archived";
 };
 
 export type DeckInfoTypes = {

@@ -16,7 +16,7 @@ export const UploadButton = ({ onClick }: UploadButtonProps) => {
       className="flex items-center gap-1"
       onClick={onClick}
     >
-      <CloudArrowUpIcon className="h-4 w-4" />
+      <CloudArrowUpIcon className="h-5 w-5" />
       upload
     </Button>
   );

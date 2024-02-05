@@ -103,6 +103,79 @@ export const useEditorObserveable = () => {
     setNextState(updatedState);
   };
 
+  const updatePageIcon = (pageId: string, icon: string) => {
+    const prevState = editorSubject.getValue();
+    const updatedState = produce(prevState, (draft) => {
+      if (draft.result.pages.some((page) => page === pageId)) {
+        draft.entities.pages[pageId].iconName = icon;
+      }
+    });
+    setNextState(updatedState);
+  };
+
+  // update page Name
+  const updatePageName = (pageId: string, name: string) => {
+    const prevState = editorSubject.getValue();
+    const updatedState = produce(prevState, (draft) => {
+      if (draft.result.pages.some((page) => page === pageId)) {
+        draft.entities.pages[pageId].name = name;
+      }
+    });
+    setNextState(updatedState);
+  };
+
+  const addNewPage = (deckId: string, pageData: PageTypes) => {
+    const { id: pageId } = pageData;
+    const prevState = editorSubject.getValue();
+    const updatedState = produce(prevState, (draft) => {
+      if (draft.entities.decks[deckId]) {
+        if (!draft.entities.decks[deckId].pages) {
+          draft.entities.decks[deckId].pages = [];
+        }
+        // @ts-ignore
+        draft.entities.decks[deckId].pages.push(pageId);
+      }
+      // add page to entities
+      if (!draft.entities.pages) {
+        draft.entities.pages = {};
+      }
+      draft.entities.pages[pageId] = pageData;
+      // add page to result
+      if (!draft.result.pages.some((page) => page === pageId)) {
+        draft.result.pages.push(pageId);
+      }
+    });
+    setNextState(updatedState);
+  };
+
+  // delete page
+  const deletePage = (deckId: string, pageId: string) => {
+    const prevState = editorSubject.getValue();
+    const updatedState = produce(prevState, (draft) => {
+      if (draft.entities.decks[deckId]) {
+        // @ts-ignore
+        const index = draft.entities.decks[deckId].pages.findIndex(
+          (page) => page === pageId
+        );
+        if (index > -1) {
+          // @ts-ignore
+          draft.entities.decks[deckId].pages.splice(index, 1);
+        }
+      }
+      // delete page from entities
+      if (draft.entities.pages && draft.entities.pages[pageId]) {
+        delete draft.entities.pages[pageId];
+      }
+      // delete page from result
+      if (draft.result.pages.some((page) => page === pageId)) {
+        draft.result.pages = draft.result.pages.filter(
+          (page) => page !== pageId
+        );
+      }
+    });
+    setNextState(updatedState);
+  };
+
   const updateDeckInfo = (
     deckId: string,
     attributeName: keyof DeckInfoTypes,
@@ -133,5 +206,9 @@ export const useEditorObserveable = () => {
     getObservable,
     updateDeckInfo,
     deleteWidget,
+    updatePageName,
+    updatePageIcon,
+    addNewPage,
+    deletePage,
   };
 };

@@ -6,16 +6,13 @@ import Guides from "@scena/react-guides";
 import { EditorSidebar } from "./editor-sidebar";
 import { EditorMainArea } from "./editor-main-area";
 import { EditorTopNav } from "./editor-top-nav";
-import {
-  useEditorPagesObserveable,
-  usePageObserveable,
-  useEditorDecksObserveable,
-} from "@/store";
+import { usePageObserveable, useEditorDecksObserveable } from "@/store";
 import { EditorStateTypes } from "@/types/editor.types";
 import { useCurrentPageObserveable } from "@/hooks/useCurrentPageObserveable";
 import { cn } from "@/lib/utils";
 import { useMeasure } from "react-use";
 import { useWebFontLoader } from "@/hooks/useWebFontLoader";
+import { useEditorPagesObserveable } from "@/hooks/useEditorPagesObserveable";
 
 export type EditorGridProps = {
   editorState: EditorStateTypes;
@@ -63,13 +60,13 @@ export const EditorGrid = ({ editorState }: EditorGridProps) => {
 
   const setPage = (page: number) => {
     const getPage = Object.keys(pages$).filter((key) => {
-      return pages$[key].order === page;
+      return pages$[key].pageNumber === page;
     })[0];
     if (!getPage) return;
     page$.setPageInfo({
       currentPage: page,
       totalPages: Object.keys(pages$).length,
-      pageName: pages$[getPage].pageName,
+      pageName: pages$[getPage].name,
       pageId: getPage,
     });
   };
