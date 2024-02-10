@@ -132,14 +132,14 @@ export const EditorSidebar = ({ page, setPage }: EditorSidebarProps) => {
                 return (
                   <DragItemWrapper
                     id={page.id}
-                    index={page.pageNumber - 1}
+                    index={page.pageNumber}
                     key={page.id}
                     moveCard={moveCard}
                   >
                     <IconButton
                       variant="text"
                       size="sm"
-                      onClick={() => setPage(page.pageNumber + 1)}
+                      onClick={() => setPage(page.pageNumber)}
                     >
                       <DynamicHeroIcon
                         className="h-6 w-6 text-white"
@@ -188,7 +188,7 @@ export const EditorSidebar = ({ page, setPage }: EditorSidebarProps) => {
                         <ListItem
                           key={page.id}
                           className="text-white text-xs"
-                          onClick={() => setPage(page.pageNumber + 1)}
+                          onClick={() => setPage(page.pageNumber)}
                           style={{
                             fontFamily: "inherit",
                           }}

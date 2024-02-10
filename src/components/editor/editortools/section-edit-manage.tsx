@@ -20,6 +20,8 @@ import { useEditorPagesObserveable } from "@/hooks/useEditorPagesObserveable";
 import { DynamicHeroIcon } from "@/components/ui/DynamicHeroIcon";
 import { map, reduce } from "lodash";
 import { v4 } from "uuid";
+import { produce } from "immer";
+import { SectionEditForm } from "./section-edit-form";
 
 export type SectionEditManageProps = {
   open: boolean;
@@ -114,11 +116,23 @@ const PageIcons = [
 ];
 
 export function SectionEditManage({ open, handler }: SectionEditManageProps) {
-  const [iconLibs, setIconLibs] = React.useState(PageIcons);
   const deckInfo = useEditorDecksObserveable();
   const editor$ = useEditorObserveable();
   const pages$ = useEditorPagesObserveable();
   const [openAcc, setOpenAcc] = React.useState(-10);
+
+  const [pages, setPages] = React.useState<PageTypes[]>([]);
+
+  React.useEffect(() => {
+    const pageInfoMap = map(pages$, (page: PageTypes) => {
+      return {
+        ...page,
+        iconName: page.iconName || "Squares2X2Icon",
+      };
+    });
+    setPages(pageInfoMap);
+  }, [pages$]);
+
   console.log("pages$", pages$);
   const handleOpenAcc1 = (pageNumber: number) =>
     setOpenAcc((prev) => {
@@ -165,17 +179,17 @@ export function SectionEditManage({ open, handler }: SectionEditManageProps) {
         open={open}
         handler={handler}
         size="xs"
-        className="overflow-auto h-52 lg:h-96"
+        className={cn("overflow-scroll h-52 lg:h-96 scrollbar")}
       >
         <DialogHeader>Add Sections</DialogHeader>
         <DialogBody className="items-center overflow-auto">
-          <div className="flex flex-col flex-grow gap-2">
-            {map(pages$, (page: PageTypes) => {
+          <div className="flex flex-col justify-between flex-grow gap-2">
+            {map(pages, (page: PageTypes) => {
               return (
                 <div
-                  key={page.id + page.name}
+                  key={page.id}
                   className={cn(
-                    "flex flex-row items-center",
+                    "flex flex-row justify-between p-1 items-center",
                     openAcc === page.pageNumber && "items-start"
                   )}
                 >
@@ -205,45 +219,11 @@ export function SectionEditManage({ open, handler }: SectionEditManageProps) {
                       </div>
                     </AccordionHeader>
                     <AccordionBody>
-                      <div className="flex flex-col gap-2">
-                        <div className="w-36">
-                          <Input
-                            size="md"
-                            label="name"
-                            value={page.name || ""}
-                            onChange={(e) =>
-                              handleOnNameChange(page.id, e.target.value)
-                            }
-                            crossOrigin={"true"}
-                            className="text-xs"
-                          />
-                        </div>
-                        <div className="flex flex-row gap-2 flex-wrap">
-                          {map(iconLibs, ({ id, iconName }) => {
-                            return (
-                              <IconButton
-                                size="sm"
-                                key={iconName}
-                                variant="text"
-                                className="p-0 m-0 h-5 w-5 min-w-0 rounded-full"
-                                onClick={() =>
-                                  handleOnIconChange(page.id, iconName)
-                                }
-                              >
-                                <DynamicHeroIcon
-                                  key={id}
-                                  className={cn(
-                                    "h-4 w-4",
-                                    iconName === page.iconName &&
-                                      "bg-blue-700 text-white"
-                                  )}
-                                  icon={iconName}
-                                />
-                              </IconButton>
-                            );
-                          })}
-                        </div>
-                      </div>
+                      <SectionEditForm
+                        page={page}
+                        onChange={handleOnNameChange}
+                        onIconChange={handleOnIconChange}
+                      />
                     </AccordionBody>
                   </Accordion>
                   <IconButton
@@ -259,7 +239,7 @@ export function SectionEditManage({ open, handler }: SectionEditManageProps) {
               );
             })}
 
-            <div className="flex flex-row gap-4 lg:w-60 items-center text-xs border-2 border-dashed border-gray-400">
+            <div className="flex flex-row gap-4 mt-2 lg:w-full items-center text-xs border-2 border-dashed border-gray-400">
               <Button
                 size="sm"
                 variant="text"

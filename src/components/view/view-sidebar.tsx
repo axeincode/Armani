@@ -87,7 +87,6 @@ export const ViewSidebar = ({ page, setPage }: EditorSidebarProps) => {
   const [showDrawer, setShowDrawer] = React.useState(false);
   const [menuItems, setMenuItems] = React.useState<Item[]>(drawerItems);
   const deckInfo = useEditorDecksObserveable();
-  console.log("decinInfo viewsidebar", deckInfo);
   const pages$ = useEditorPagesObserveable();
 
   return (

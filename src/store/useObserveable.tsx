@@ -12,6 +12,7 @@ import { editorSubject } from "./editor.observeable";
 import { IPageState } from ".";
 
 export function useObservable(stateSubject: any) {
+  
   const [state, setState] = useState(stateSubject.getValue());
 
   useLayoutEffect(() => {
@@ -27,6 +28,7 @@ export function useObservable(stateSubject: any) {
       });
 
     return () => subscription.unsubscribe();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return state;
@@ -52,6 +54,7 @@ export function useEditorDecksObserveable() {
       });
 
     return () => subscription.unsubscribe();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return state;

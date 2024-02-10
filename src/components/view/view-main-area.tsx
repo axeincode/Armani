@@ -17,6 +17,8 @@ import { useEditorWidgetObserveable } from "@/hooks/useEditorWidgetsObserveable"
 import { NdaUserConfirmation } from "./nda-user-confirmation";
 import { useUserAgreementObserveable } from "@/hooks/useUserAgreementObserveable";
 import { fetchAndUpdateAgreement } from "@/lib/firebase/firestore/user.agreements";
+import { ViewDashboardPage } from "./view-dashboard-page";
+import { useEditorPagesObserveable } from "@/hooks/useEditorPagesObserveable";
 
 export type ViewMainAreaProps = {
   page: IPageState;
@@ -45,6 +47,7 @@ export const ViewMainArea = ({
   const selectedWidgetObs$ = useSelectedWidgetRepo();
   const deckInfo = useEditorDecksObserveable();
   const currentPage$ = useCurrentPageObserveable();
+  const pages$ = useEditorPagesObserveable();
   const selectedWidgetState = useObservable(selectedWidgetObs$.getObservable());
   const editorWidgetState = useEditorWidgetObserveable(
     selectedWidgetState.widgetId
@@ -109,12 +112,19 @@ export const ViewMainArea = ({
       ref={containerRef}
       /// onClick={(e: React.SyntheticEvent<HTMLElement>) => updateTarget(e.target)}
     >
-      <PageTitle page={currentPage} />
+      {currentPage > 0 && <PageTitle page={currentPage} />}
       <div className="flex flex-grow relative border-2 border-gray-10 border-solid px-2">
-        <ViewPage pageId={currentPage$.pageId || ""} />
+        {currentPage > 0 && <ViewPage pageId={currentPage$.pageId || ""} />}
         <>
           {currentPage === 0 && deckInfo.nda && deckInfo.nda.enabled && (
             <>
+              <ViewDashboardPage
+                coverPhoto={deckInfo.coverPhoto}
+                title={deckInfo.title}
+                subtitle={deckInfo.subtitle}
+                pages={pages$}
+                setPage={setPageValue}
+              />
               <NdaUserConfirmation
                 open={showDrawer}
                 handleOpen={() => setShowDrawer(!showDrawer)}

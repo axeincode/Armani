@@ -21,8 +21,6 @@ export const EditorTargetsContainer = ({
     <div className="elements selecto-area flex flex-grow" ref={setRef}>
       {map(allWidgets, (widget: WidgetTypes) => {
         switch (widget.type) {
-          case WidgetEnum.CARD:
-            return <CardWidget key={widget.id} data={widget} />;
           case WidgetEnum.FRAME:
             return <FrameWidget key={widget.id} data={widget} />;
           default:
