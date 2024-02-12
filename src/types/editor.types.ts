@@ -47,6 +47,22 @@ export type PageTypes = {
   status?: "draft" | "published" | "archived";
 };
 
+export enum DocumentTypeEnum {
+  PDF = "pdf",
+  DOCX = "docx",
+  XLSX = "xlsx",
+  PPTX = "pptx",
+}
+
+export type DocumentTypes = {
+  id: string;
+  name: string;
+  url: string;
+  createdAt?: string;
+  updatedAt?: string;
+  docType: DocumentTypeEnum;
+};
+
 export type DeckInfoTypes = {
   id: string;
   background: string;
@@ -78,6 +94,10 @@ export type DeckInfoTypes = {
     description: string;
   };
   pages?: string[];
+  documents?: DocumentTypes[];
+  status?: "draft" | "published" | "archived";
+  createdAt?: string;
+  updatedAt?: string;
 };
 
 export type EditorSubjectTypes = {
@@ -94,6 +114,7 @@ export type EditorStateTypes = {
     widgets: string[];
   };
 };
+
 
 // Define schemas
 const widget = new schema.Entity("widgets", {}, { idAttribute: "id" });

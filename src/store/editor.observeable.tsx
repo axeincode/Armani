@@ -4,6 +4,7 @@ import { produce } from "immer";
 import { v4 as uuidV4 } from "uuid";
 import {
   DeckInfoTypes,
+  DocumentTypes,
   EditorStateTypes,
   PageTypes,
   WidgetTypes,
@@ -190,6 +191,43 @@ export const useEditorObserveable = () => {
     setNextState(updatedState);
   };
 
+  // update document by using Id
+  const updateDocument = (deckId: string, document: DocumentTypes) => {
+    const prevState = editorSubject.getValue();
+    const updatedState = produce(prevState, (draft) => {
+      if (draft.result.decks.some((deck) => deck === deckId)) {
+        if (!draft.entities.decks[deckId].documents) {
+          draft.entities.decks[deckId].documents = [];
+        }
+        if (draft.entities.decks[deckId]) {
+          if (draft.entities.decks[deckId].documents) {
+            draft.entities.decks[deckId].documents?.push(document);
+          }
+        }
+      }
+    });
+    setNextState(updatedState);
+  };
+
+  // delete document by using Id
+  const deleteDocument = (deckId: string, documentId: string) => {
+    const prevState = editorSubject.getValue();
+    const updatedState = produce(prevState, (draft) => {
+      if (draft.result.decks.some((deck) => deck === deckId)) {
+        if (draft.entities.decks[deckId].documents) {
+          const index = findIndex(
+            draft.entities.decks[deckId].documents,
+            (doc) => doc.id === documentId
+          );
+          if (index > -1) {
+            draft.entities.decks[deckId].documents?.splice(index, 1);
+          }
+        }
+      }
+    });
+    setNextState(updatedState);
+  };
+
   const setNextState = (payload: EditorStateTypes) => {
     editorSubject.next(payload);
   };
@@ -210,5 +248,7 @@ export const useEditorObserveable = () => {
     updatePageIcon,
     addNewPage,
     deletePage,
+    updateDocument,
+    deleteDocument,
   };
 };

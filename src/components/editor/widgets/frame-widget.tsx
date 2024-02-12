@@ -57,11 +57,22 @@ export function FrameWidget({ data }: FrameWidgetProps) {
     selectedWidgetObs$.updateSelectedWidgetType(widgetType);
   };
 
+  const handleOnImageClick = (e: React.MouseEvent<HTMLImageElement>) => {
+    e.stopPropagation();
+    selectedWidgetObs$.setSelectedWidget(
+      data.id,
+      currentPage$.pageId!,
+      WidgetEnum.FRAME
+    );
+    handleOnImageWidgetClick(WidgetEnum.PICTURE);
+  };
+
   return (
     <Card
       className="absolute w-96 target p-2 border-solid border-2 border-gray-600 m-0 mt-0 z-50"
       data-widget={WidgetEnum.FRAME}
       data-widget-id={data.id}
+      data-target={data.id}
       style={cardStyles}
     >
       <CardHeader className="flex flex-col max-h-24 -mt-0 min-w-0 min-h-0 m-0 gap-1">
@@ -100,37 +111,42 @@ export function FrameWidget({ data }: FrameWidgetProps) {
           value={data.subtitle || ""}
         />
       </CardHeader>
-      {data.elementType && data.elementType === WidgetElement.PICTURE && (
-        <CardBody className="p-2 my-1 h-20 flex flex-grow">
-          {data.images && data.images.length > 0 && (
-            <SwiperThumbs images={data.images} />
-          )}
-          {isEmpty(data.images) && (
-            <div
-              className="flex flex-col flex-grow justify-center items-center h-24"
-              data-id="INTERNAL_WIDGET"
-            >
-              <Typography
-                variant="h6"
-                color="blue-gray"
+      {data.elementType &&
+        (data.elementType === WidgetElement.PICTURE ||
+          data.elementType === WidgetElement.GALLERY) && (
+          <CardBody
+            className="p-2 my-1 h-20 flex flex-grow"
+            data-id="FRAME_CARD_BODY"
+          >
+            {data.images && data.images.length > 0 && (
+              <SwiperThumbs images={data.images} onClick={handleOnImageClick} />
+            )}
+            {isEmpty(data.images) && (
+              <div
+                className="flex flex-col flex-grow justify-center items-center h-24"
                 data-id="INTERNAL_WIDGET"
               >
-                No Image
-              </Typography>
-              <Button
-                color="blue"
-                size="sm"
-                className="mt-2"
-                data-testid="add-image-button"
-                data-id="INTERNAL_WIDGET"
-                data-widget={WidgetEnum.PICTURE}
-              >
-                Add Image
-              </Button>
-            </div>
-          )}
-        </CardBody>
-      )}
+                <Typography
+                  variant="h6"
+                  color="blue-gray"
+                  data-id="INTERNAL_WIDGET"
+                >
+                  No Image
+                </Typography>
+                <Button
+                  color="blue"
+                  size="sm"
+                  className="mt-2"
+                  data-testid="add-image-button"
+                  data-id="INTERNAL_WIDGET"
+                  data-widget={WidgetEnum.PICTURE}
+                >
+                  Add Image
+                </Button>
+              </div>
+            )}
+          </CardBody>
+        )}
       {data.captionEnabled && (
         <CardFooter
           className="p-0 m-0 flex flex-col gap-1 max-h-24"

@@ -11,10 +11,16 @@ import {
 } from "@material-tailwind/react";
 import { WidgetEnum } from "@/types";
 import { WidgetTypes } from "@/types/editor.types";
-import { useEditorObserveable, useSelectedWidgetRepo } from "@/store";
+import {
+  useEditorObserveable,
+  useObservable,
+  useSelectedWidgetRepo,
+} from "@/store";
 import { useCurrentWidgetObserveable } from "@/hooks/useCurrentWidgetObserveable";
 import { isEmpty } from "lodash";
 import { SwiperThumbs } from "@/components/ui/swiper-thumbs";
+import { useCurrentPageObserveable } from "@/hooks/useCurrentPageObserveable";
+import { useEditorWidgetObserveable } from "@/hooks/useEditorWidgetsObserveable";
 
 export type CardWidgetProps = {
   data: WidgetTypes;
@@ -22,22 +28,45 @@ export type CardWidgetProps = {
 
 export function CardWidget({ data }: CardWidgetProps) {
   // state
+  const selectedWidgetObs$ = useSelectedWidgetRepo();
+  const currentPage$ = useCurrentPageObserveable();
+  const selectedWidgetState = useObservable(selectedWidgetObs$.getObservable());
+  const editorWidgetState = useEditorWidgetObserveable(
+    selectedWidgetState.widgetId
+  );
+
   const handleOnInputClick = (e: React.MouseEvent<HTMLInputElement>) => {
     e.stopPropagation();
   };
 
   console.log("datacurrentwidget", data);
   const transformation = data.transformation;
-  const cardStyles = React.useMemo(() => ({
-    
+  const cardStyles = React.useMemo(
+    () => ({
       transform: `translate(${transformation.x || 0}px, ${
         transformation.y || 0
       }px)`,
       width: `${transformation.width || 0}px`,
       height: `${transformation.height || 0}px`,
-  }), [transformation]);
+    }),
+    [transformation]
+  );
 
   const handleOnChange = (e: any) => {};
+
+  const handleOnImageWidgetClick = (widgetType: WidgetEnum) => {
+    selectedWidgetObs$.updateSelectedWidgetType(widgetType);
+  };
+
+  const handleOnImageClick = (e: React.MouseEvent<HTMLImageElement>) => {
+    e.stopPropagation();
+    selectedWidgetObs$.setSelectedWidget(
+      data.id,
+      currentPage$.pageId!,
+      WidgetEnum.FRAME
+    );
+    handleOnImageWidgetClick(WidgetEnum.PICTURE);
+  };
 
   return (
     <Card
@@ -84,7 +113,7 @@ export function CardWidget({ data }: CardWidgetProps) {
       </CardHeader>
       <CardBody className="p-2 my-1 h-20 flex flex-grow ">
         {data.images && data.images.length > 0 && (
-          <SwiperThumbs images={data.images} />
+          <SwiperThumbs images={data.images} onClick={handleOnImageClick} />
         )}
         {isEmpty(data.images) && (
           <div className="flex flex-col flex-grow justify-center items-center h-24"></div>

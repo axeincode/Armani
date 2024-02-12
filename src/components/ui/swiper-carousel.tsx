@@ -8,21 +8,33 @@ import "swiper/css";
 import "swiper/css/navigation";
 
 // import required modules
-import { Navigation, Thumbs, FreeMode } from "swiper/modules";
+import { Navigation, Thumbs, EffectCoverflow, FreeMode } from "swiper/modules";
 import { WidgetImageTypes } from "@/types/editor.types";
 
-export type SwiperThumbsProps = {
+export type SwiperCarouselProps = {
   images: WidgetImageTypes[];
   onClick: (e: React.MouseEvent<HTMLImageElement>) => void;
 };
 
-export const SwiperThumbs = ({ images, onClick }: SwiperThumbsProps) => {
+export const SwiperCarousel = ({ images, onClick }: SwiperCarouselProps) => {
   const [thumbsSwiper, setThumbsSwiper] = useState(null);
   return (
     <Swiper
+      effect={"coverflow"}
+      grabCursor={true}
+      centeredSlides={true}
+      slidesPerView={3}
+      spaceBetween={30}
       navigation={true}
+      coverflowEffect={{
+        rotate: 5,
+        stretch: 0,
+        depth: 500,
+        modifier: 1,
+        slideShadows: true,
+      }}
       thumbs={{ swiper: thumbsSwiper }}
-      modules={[FreeMode, Navigation, Thumbs]}
+      modules={[EffectCoverflow, FreeMode, Navigation, Thumbs]}
       style={{
         // @ts-ignore
         "--swiper-navigation-color": "#fff",

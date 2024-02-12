@@ -1,8 +1,15 @@
 "use client";
 import { WidgetEnum } from "@/types";
 import * as React from "react";
-import Moveable, { OnDragEnd, OnDragStart, OnResizeEnd } from "react-moveable";
+import Moveable, {
+  MoveableManagerInterface,
+  Renderer,
+  OnDragEnd,
+  OnDragStart,
+  OnResizeEnd,
+} from "react-moveable";
 import Selecto from "react-selecto";
+import { XCircleIcon } from "@heroicons/react/24/solid";
 
 export type MoveablePlusManagerProps = {
   children: React.ReactNode;
@@ -14,6 +21,32 @@ export type MoveablePlusManagerProps = {
   horizontalGuidelines: number[];
   isUnSelected: boolean;
   onClickInternalWidget: (e: React.MouseEvent) => void;
+  onDelete: (e: React.MouseEvent) => void;
+};
+
+const DeleteAble = {
+  name: "deleteable",
+  props: [],
+  events: [],
+  render(moveable: MoveableManagerInterface<any, any>, React: Renderer) {
+    const { pos1, pos2 } = moveable.state;
+    const { onDelete } = moveable.props;
+    const rect = moveable.getRect();
+    return (
+      <XCircleIcon
+        onClick={onDelete}
+        color="red"
+        className="h-5 w-5"
+        style={{
+          position: "absolute",
+          transform: `translate(${pos2[0]}px, ${pos2[1]}px) rotate(${rect.rotation}deg) translate(10px)`,
+          ///transform: `translate(-50%, -50%) translate(${pos1[1][0]}px, ${pos2[1][1]}px) translateZ(-50px)`,
+          zIndex: 100,
+        }}
+        data-testid="deleteable"
+      />
+    );
+  },
 };
 
 export default function MoveablePlusManager({
@@ -26,12 +59,29 @@ export default function MoveablePlusManager({
   horizontalGuidelines,
   isUnSelected,
   onClickInternalWidget,
+  onDelete,
 }: MoveablePlusManagerProps) {
   const [targets, setTargets] = React.useState<Array<HTMLElement | SVGElement>>(
     []
   );
   const moveableRef = React.useRef<Moveable>(null);
   const selectoRef = React.useRef<Selecto>(null);
+
+  // const getTargetId = (target: HTMLElement) =>
+  //   target.getAttribute("data-target");
+
+  // const updateTarget = (target: HTMLElement) => {
+  //   const targetId = getTargetId(target);
+  //   const getInternalValue = target.getAttribute("data-id");
+  //   console.log("getInternalValue", getInternalValue);
+  //   if (targetId) {
+  //     setFrameId(targetId || "");
+  //     setTargets(target);
+  //   } else {
+  //     setFrameId("");
+  //     setTargets(undefined);
+  //   }
+  // };
 
   React.useEffect(() => {
     if (isUnSelected) {
@@ -47,13 +97,19 @@ export default function MoveablePlusManager({
         preventDefault={true}
         target={targets}
         draggable={true}
+        resizable={true}
         throttleDrag={1}
         edgeDraggable={false}
         startDragRotate={0}
         throttleDragRotate={0}
-        resizable={true}
         keepRatio={false}
         edge={[]}
+        ables={[DeleteAble]}
+        props={{
+          customRotation: true,
+          deleteable: true,
+          onDelete: onDelete,
+        }}
         bounds={{ left: 0, top: 0, bottom: 0, right: 0, position: "css" }}
         snappable={true}
         snapDirections={{
@@ -72,8 +128,8 @@ export default function MoveablePlusManager({
         snapDistFormat={(v) => `${Math.round(v / 20) * 20}px`}
         isDisplayGridGuidelines={true}
         /// snapGridAll={true}
-        verticalGuidelines={verticalGuidelines}
-        horizontalGuidelines={horizontalGuidelines}
+        /// verticalGuidelines={verticalGuidelines}
+        /// horizontalGuidelines={horizontalGuidelines}
         preventClickDefault={true}
         onClickGroup={(e) => {
           selectoRef.current!.clickTarget(e.inputEvent, e.inputTarget);
@@ -111,6 +167,13 @@ export default function MoveablePlusManager({
           e.events.forEach((ev) => {
             ev.target.style.cssText += ev.cssText;
           });
+        }}
+        onClick={(e) => {
+          console.log("onClick", e);
+          const target = e.inputEvent.target;
+          console.log("target", target);
+          const getInternalValue = target.getAttribute("data-id");
+          console.log("getInternalValue", getInternalValue);
         }}
       />
       <Selecto

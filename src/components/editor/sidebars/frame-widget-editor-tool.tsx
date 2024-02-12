@@ -12,7 +12,6 @@ import {
   PlusCircleIcon,
   TrashIcon,
 } from "@heroicons/react/24/solid";
-import { deleteImageReference, updateDeckImage } from "@/lib/firebase/storage";
 import { cn } from "@/lib/utils";
 import { LabelInput } from "@/components/ui/label-input";
 import {

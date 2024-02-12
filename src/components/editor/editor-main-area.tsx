@@ -18,6 +18,7 @@ import { orderBy } from "lodash";
 import { useCurrentPageObserveable } from "@/hooks/useCurrentPageObserveable";
 import { OnDragEnd } from "react-moveable";
 import { useEditorWidgetObserveable } from "@/hooks/useEditorWidgetsObserveable";
+import { useCurrentWidgetObserveable } from "@/hooks/useCurrentWidgetObserveable";
 
 export type EditorMainAreaProps = {
   page: IPageState;
@@ -40,6 +41,7 @@ export const EditorMainArea = ({
   const containerRef = React.useRef<HTMLDivElement>(null);
   const gridRef = React.useRef<HTMLDivElement>(null);
   const mainAreaRef = React.useRef<HTMLDivElement>(null);
+  const currentWidgetState = useCurrentWidgetObserveable();
 
   const editorObs$ = useEditorObserveable();
   const { dimensions, setRef } = useCallbackRefDimensions();
@@ -66,10 +68,13 @@ export const EditorMainArea = ({
   const setPageValue = (page: number) => {
     if (page < 0) {
       setPage(0);
+      selectedWidgetObs$.unSelect();
     } else if (page > totalPages) {
       setPage(totalPages);
+      selectedWidgetObs$.unSelect();
     } else {
       setPage(page);
+      selectedWidgetObs$.unSelect();
     }
   };
 
@@ -145,6 +150,15 @@ export const EditorMainArea = ({
     }
   };
 
+  const handleOnDelete = (e: any) => {
+    if (!currentWidgetState.widgetId) return;
+    editorObs$.deleteWidget(
+      currentWidgetState.pageId,
+      currentWidgetState.widgetId
+    );
+    selectedWidgetObs$.unSelect();
+  };
+
   return (
     <div
       className="moveablecontainer relative flex-col flex flex-grow my-8 mx-12 gap-2"
@@ -169,6 +183,7 @@ export const EditorMainArea = ({
           horizontalGuidelines={horizontalGuidelines}
           isUnSelected={unSelect}
           onClickInternalWidget={handleOnClickInternalWidget}
+          onDelete={handleOnDelete}
         >
           <EditorPages pageId={currentPage$.pageId || ""} setRef={setRef} />
         </MoveablePlusManager>

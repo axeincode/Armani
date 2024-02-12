@@ -47,7 +47,7 @@ export function CardViewWidget({ data }: CardViewWidgetProps) {
       {data.images && data.images.length > 0 && (
         <>
           <CardBody className="p-2 my-1 h-20 flex flex-grow ">
-            <SwiperThumbs images={data.images} />
+            <SwiperThumbs images={data.images} onClick={() => {}} />
           </CardBody>
         </>
       )}

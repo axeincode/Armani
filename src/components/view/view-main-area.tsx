@@ -19,6 +19,7 @@ import { useUserAgreementObserveable } from "@/hooks/useUserAgreementObserveable
 import { fetchAndUpdateAgreement } from "@/lib/firebase/firestore/user.agreements";
 import { ViewDashboardPage } from "./view-dashboard-page";
 import { useEditorPagesObserveable } from "@/hooks/useEditorPagesObserveable";
+import * as ExcelUtil from "./excel-utils/ExcelUtility";
 
 export type ViewMainAreaProps = {
   page: IPageState;
