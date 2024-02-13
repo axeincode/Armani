@@ -57,3 +57,25 @@
     background: #16151C;
   }
 }
+
+html,
+body,
+#root {
+  display: flex;
+  flex-direction: column; /* Set the direction to column if needed */
+  min-height: 100vh; /* Ensure the body takes up the full viewport height */
+}
+
+
+.moveable-dimension {
+  position: absolute;
+  background: #16151C;
+  border-radius: 2px;
+  padding: 1px 3px;
+  color: white;
+  font-size: 13px;
+  white-space: nowrap;
+  font-weight: bold;
+  transform: translate(-50%);
+  pointer-events: none;
+}

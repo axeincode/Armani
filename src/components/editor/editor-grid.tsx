@@ -1,7 +1,6 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import InfiniteViewer from "react-infinite-viewer";
-import { IObject } from "@daybrush/utils";
 import Guides from "@scena/react-guides";
 import { EditorSidebar } from "./editor-sidebar";
 import { EditorMainArea } from "./editor-main-area";
@@ -36,8 +35,8 @@ export const EditorGrid = ({ editorState }: EditorGridProps) => {
   const [canvasRef, canvasProps] = useMeasure();
 
   const [windowDimensions, setWindowDimensions] = useState({
-    width: 1920,
-    height: 1080,
+    width: 2500,
+    height: 1580,
   });
 
   const horizontalSnapGuides = [
@@ -57,6 +56,9 @@ export const EditorGrid = ({ editorState }: EditorGridProps) => {
   if (zoom < 0.8) {
     unit = Math.floor(1 / zoom) * 50;
   }
+
+  console.log("horizontalSnapGuides", horizontalSnapGuides);
+  console.log("verticalSnapGuides", verticalSnapGuides, zoom);
 
   const setPage = (page: number) => {
     const getPage = Object.keys(pages$).filter((key) => {
@@ -86,7 +88,7 @@ export const EditorGrid = ({ editorState }: EditorGridProps) => {
   return (
     <div
       className={cn(
-        "flex flex-grow border-2 border-solid border-gray-200 bg-[#F9F6EE]"
+        "flex flex-grow border-2 items-center justify-center border-solid border-gray-200 bg-[#F9F6EE]"
       )}
       // @ts-ignore
       ref={canvasRef}
@@ -102,26 +104,37 @@ export const EditorGrid = ({ editorState }: EditorGridProps) => {
       >
         <div className="flex flex-grow w-[1920px] h-[1080px]">
           {isReady && (
-            <div className="flex flex-col flex-grow">
-              <Guides
-                ref={horizontalGuidesRef}
-                type="horizontal"
-                className={cn("guides absolute", "horizontal")}
-                style={{
-                  // transform: "translateZ(1px)",
-                  width: "100%",
-                  height: "30px",
+            <div
+              className="flex flex-col flex-grow"
+              data-testid="scena-guide-lines"
+            >
+              <div
+                className={"reset"}
+                onClick={(e) => {
+                  infiniteViewer.current!.scrollCenter();
                 }}
-                snapThreshold={5}
-                snaps={horizontalSnapGuides}
-                displayDragPos={true}
-                dragPosFormat={(v) => `${v}px`}
-                zoom={zoom}
-                unit={unit}
-                onChangeGuides={(e) => {
-                  setHorizontalSnapLines(e.guides);
-                }}
-              ></Guides>
+              ></div>
+              <div className="flex flex-grow ml-[30px]">
+                <Guides
+                  ref={horizontalGuidesRef}
+                  type="horizontal"
+                  className={cn("guides absolute", "horizontal")}
+                  style={{
+                    // transform: "translateZ(1px)",
+                    width: "100%",
+                    height: "30px",
+                  }}
+                  snapThreshold={5}
+                  snaps={horizontalSnapGuides}
+                  displayDragPos={true}
+                  dragPosFormat={(v) => `${v}px`}
+                  zoom={zoom}
+                  unit={unit}
+                  onChangeGuides={(e) => {
+                    setHorizontalSnapLines(e.guides);
+                  }}
+                ></Guides>
+              </div>
               <div className="flex flex-grow">
                 <div className="flex verticalsidebar">
                   <Guides

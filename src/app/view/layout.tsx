@@ -22,7 +22,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={ubuntu.className}>
+      <body className={`flex flex-col h-screen w-screen ${ubuntu.className}`}>
         <ThemeProvider attribute="light" disableTransitionOnChange>
           {children}
         </ThemeProvider>

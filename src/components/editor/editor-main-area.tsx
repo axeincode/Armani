@@ -161,7 +161,7 @@ export const EditorMainArea = ({
 
   return (
     <div
-      className="moveablecontainer relative flex-col flex flex-grow my-8 mx-12 gap-2"
+      className="moveablecontainer relative flex-col flex flex-grow my-8 mx-[50px] gap-2"
       ref={containerRef}
       /// onClick={(e: React.SyntheticEvent<HTMLElement>) => updateTarget(e.target)}
     >

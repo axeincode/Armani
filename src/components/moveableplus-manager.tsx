@@ -49,6 +49,30 @@ const DeleteAble = {
   },
 };
 
+const DimensionViewable = {
+  name: "dimensionViewable",
+  props: [],
+  events: [],
+  render(moveable: MoveableManagerInterface<any, any>, React: Renderer) {
+    const { left, top } = moveable.state;
+
+    const rect = moveable.getRect();
+
+    return (
+      <div
+        key={"dimension-viewer"}
+        className={"moveable-dimension"}
+        style={{
+          left: `${rect.left + rect.width / 2 - left}px`,
+          top: `${rect.top + rect.height + 20 - top}px`,
+        }}
+      >
+        {Math.round(rect.offsetWidth)} x {Math.round(rect.offsetHeight)}
+      </div>
+    );
+  },
+};
+
 export default function MoveablePlusManager({
   children,
   mainAreaRef,
@@ -104,11 +128,12 @@ export default function MoveablePlusManager({
         throttleDragRotate={0}
         keepRatio={false}
         edge={[]}
-        ables={[DeleteAble]}
+        ables={[DeleteAble, DimensionViewable]}
         props={{
           customRotation: true,
           deleteable: true,
           onDelete: onDelete,
+          dimensionViewable: true,
         }}
         bounds={{ left: 0, top: 0, bottom: 0, right: 0, position: "css" }}
         snappable={true}

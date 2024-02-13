@@ -22,7 +22,10 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={ubuntu.className} style={{ overflow: "none" }}>
+      <body
+        className={`flex flex-col h-screen w-screen ${ubuntu.className}`}
+        style={{ overflow: "none" }}
+      >
         <ThemeProvider attribute="light" disableTransitionOnChange>
           {children}
         </ThemeProvider>
