@@ -1,14 +1,17 @@
 import { BehaviorSubject } from "rxjs";
-import { merge, get, findIndex, reduce, filter } from "lodash";
+import { merge, get, findIndex, reduce, filter, pick } from "lodash";
 import { produce } from "immer";
 import { v4 as uuidV4 } from "uuid";
 import {
   DeckInfoTypes,
   DocumentTypes,
   EditorStateTypes,
+  GridLayoutData,
+  GridResponsiveLayoutData,
   PageTypes,
   WidgetTypes,
 } from "@/types/editor.types";
+import ReactGridLayout from "react-grid-layout";
 
 // @ts-ignore
 const initial = {
@@ -228,6 +231,29 @@ export const useEditorObserveable = () => {
     setNextState(updatedState);
   };
 
+  // update widget transformations
+  const updateLayoutTransformations = (layouts: ReactGridLayout.Layout[]) => {
+    const prevState = editorSubject.getValue();
+    const updatedState = produce(prevState, (draft) => {
+      draft.result.widgets = reduce(
+        layouts,
+        (acc, layout) => {
+          const widgetId = layout.i;
+          if (draft.entities.widgets[widgetId]) {
+            const transfomation = {
+              ...draft.entities.widgets[widgetId].transformation,
+              ...(pick(layout, ["x", "y", "w", "h"]) as GridLayoutData),
+            };
+            draft.entities.widgets[widgetId].transformation = transfomation;
+          }
+          return acc;
+        },
+        []
+      );
+    });
+    setNextState(updatedState);
+  };
+
   const setNextState = (payload: EditorStateTypes) => {
     editorSubject.next(payload);
   };
@@ -250,5 +276,6 @@ export const useEditorObserveable = () => {
     deletePage,
     updateDocument,
     deleteDocument,
+    updateLayoutTransformations,
   };
 };

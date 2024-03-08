@@ -7,7 +7,7 @@ import { ViewContainer } from "@/container/view.container";
 export default async function Page() {
   const { currentUser } = await getAuthenticatedAppForUser();
   return (
-    <div className="min-h-screen flex flex-col flex-1 flex-grow w-full h-full">
+    <div className="min-h-screen flex flex-col flex-1 w-full h-full">
       <Suspense fallback={<Loading />}>
         <ViewContainer currentUser={currentUser} />
       </Suspense>

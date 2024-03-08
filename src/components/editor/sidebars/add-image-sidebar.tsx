@@ -28,13 +28,9 @@ import { first, map, startCase } from "lodash";
 import { toast } from "react-toastify";
 import { WidgetElement } from "@/types";
 
-export type AddImageWidgetSidebarProps = {
-  toggleDrawer: () => void;
-};
+export type AddImageWidgetSidebarProps = {};
 
-export const AddImageWidgetSidebar = ({
-  toggleDrawer,
-}: AddImageWidgetSidebarProps) => {
+export const AddImageWidgetSidebar = ({}: AddImageWidgetSidebarProps) => {
   // state
   const [isUploading, setIsUploading] = React.useState(false);
   const editorObs$ = useEditorObserveable();
@@ -89,22 +85,6 @@ export const AddImageWidgetSidebar = ({
 
   return (
     <>
-      <div className="mb-2 flex justify-between">
-        <Typography variant="h6" color="blue-gray">
-          Add
-        </Typography>
-        <div className="h-5 w-5 min-w-0">
-          <IconButton
-            variant="outlined"
-            size="sm"
-            className="p-0 m-0 h-5 w-5 min-w-0 rounded-full"
-            title="close"
-            onClick={toggleDrawer}
-          >
-            <ChevronLeftIcon className="h-4 w-4" />
-          </IconButton>
-        </div>
-      </div>
       {/** divider line */}
       <div className="flex h-[0.5px] w-full bg-gray-300 mb-2" />
 

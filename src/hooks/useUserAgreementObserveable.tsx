@@ -22,6 +22,7 @@ export function useUserAgreementObserveable() {
       });
 
     return () => subscription.unsubscribe();
+    // eslint-disable-next-line
   }, []);
 
   return state;

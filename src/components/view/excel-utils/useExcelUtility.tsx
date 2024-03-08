@@ -57,6 +57,7 @@ function useExcelUtility() {
         }
       );
     });
+    // eslint-disable-next-line
   }, []);
 
   const loadFromUrl = useCallback((url: string): Promise<Workbook> => {
@@ -106,6 +107,7 @@ function useExcelUtility() {
         );
       });
     },
+    // eslint-disable-next-line
     []
   );
 

@@ -1,22 +1,15 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   images: {
-    domains: ["images.unsplash.com"],
+    domains: ["images.unsplash.com", "placehold.co"],
   },
   async redirects() {
-    return [
-      {
-        source: "/feedback",
-        destination:
-          "https://github.com/themanafov/nextjs-dashboard-template/issues",
-        permanent: true,
-      },
-      {
-        source: "/github",
-        destination: "https://github.com/themanafov/nextjs-dashboard-template",
-        permanent: true,
-      },
-    ];
+    return [];
+  },
+  webpack: (config) => {
+    config.resolve.alias.canvas = false;
+    config.resolve.alias.encoding = false;
+    return config;
   },
 };
 

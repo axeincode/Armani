@@ -61,6 +61,7 @@ export const EditorContainer = () => {
       console.log(err);
       setIsLoading(false);
     }
+    // eslint-disable-next-line
   }, [params.id]);
 
   // callbacks

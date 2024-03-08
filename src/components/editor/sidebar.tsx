@@ -4,11 +4,11 @@ import { Card, IconButton } from "@material-tailwind/react";
 import { Bars3Icon } from "@heroicons/react/24/solid";
 import { cn } from "@/lib/utils";
 import { useObservable, useSelectedWidgetRepo } from "@/store";
-import { WidgetEnum } from "@/types";
+import { WidgetElement, WidgetEnum } from "@/types";
 import { AllWidgetsSidebar } from "./sidebars/all-widgets-sidebar";
-import { CardWidgetEditorTool } from "./sidebars/card-widget-editor-tool";
 import { FrameWidgetEditorTool } from "./sidebars/frame-widget-editor-tool";
 import { AddImageWidgetSidebar } from "./sidebars/add-image-sidebar";
+import { AddChartWidgetSidebar } from "./sidebars/add-charts-sidebar";
 
 export function Sidebar() {
   const selectedWidgetObs$ = useSelectedWidgetRepo();
@@ -21,7 +21,8 @@ export function Sidebar() {
   const handleOpen = (value: number) => {
     setOpen(open === value ? 0 : value);
   };
-  const { widgetType: selectedWidget } = selectedWidgetState;
+  const { widgetElement: selectedWidget } = selectedWidgetState;
+  console.log("widgettype", selectedWidgetState);
 
   return (
     <div
@@ -48,17 +49,11 @@ export function Sidebar() {
           transition={{ duration: 0.3 }}
         >
           <Card className="h-full w-48 max-w-none p-1 shadow-xl shadow-blue-gray-900/5 rounded-none ">
-            {(!selectedWidget || selectedWidget === WidgetEnum.NONE) && (
+            {!selectedWidget && (
               <AllWidgetsSidebar toggleDrawer={toggleDrawer} />
             )}
-            {selectedWidget && selectedWidget === WidgetEnum.CARD && (
-              <CardWidgetEditorTool toggleDrawer={toggleDrawer} />
-            )}
-            {selectedWidget && selectedWidget === WidgetEnum.FRAME && (
+            {selectedWidget && (
               <FrameWidgetEditorTool toggleDrawer={toggleDrawer} />
-            )}
-            {selectedWidget && selectedWidget === WidgetEnum.PICTURE && (
-              <AddImageWidgetSidebar toggleDrawer={toggleDrawer} />
             )}
           </Card>
         </motion.div>

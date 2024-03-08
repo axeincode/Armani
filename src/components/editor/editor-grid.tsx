@@ -114,84 +114,40 @@ export const EditorGrid = ({ editorState }: EditorGridProps) => {
                   infiniteViewer.current!.scrollCenter();
                 }}
               ></div>
-              <div className="flex flex-grow ml-[30px]">
-                <Guides
-                  ref={horizontalGuidesRef}
-                  type="horizontal"
-                  className={cn("guides absolute", "horizontal")}
-                  style={{
-                    // transform: "translateZ(1px)",
-                    width: "100%",
-                    height: "30px",
-                  }}
-                  snapThreshold={5}
-                  snaps={horizontalSnapGuides}
-                  displayDragPos={true}
-                  dragPosFormat={(v) => `${v}px`}
-                  zoom={zoom}
-                  unit={unit}
-                  onChangeGuides={(e) => {
-                    setHorizontalSnapLines(e.guides);
-                  }}
-                ></Guides>
-              </div>
+
               <div className="flex flex-grow">
-                <div className="flex verticalsidebar">
-                  <Guides
-                    ref={verticalGuidesRef}
-                    type="vertical"
-                    style={{
-                      // transform: "translateZ(1px)",
-                      width: "30px",
-                      height: "100%",
-                    }}
-                    snapThreshold={5}
-                    snaps={verticalSnapGuides}
-                    displayDragPos={true}
-                    dragPosFormat={(v) => `${v}px`}
-                    zoom={zoom}
-                    unit={unit}
-                    onChangeGuides={(e) => {
-                      setVerticalSnapLines(e.guides);
-                    }}
-                  ></Guides>
-                </div>
-                <div className="flex flex-grow">
-                  {/** canvas app editor */}
+                {/** canvas app editor */}
+                <div
+                  className={cn(
+                    "flex flex-col flex-grow",
+                    deckInfo?.shadow && "shadow-lg"
+                  )}
+                  // style={{ transform: `scale(${scale})` }}
+                  data-testid="editor-grid"
+                  style={{
+                    ...(deckInfo?.background && {
+                      background: `${deckInfo?.background}`,
+                      ...(deckInfo?.fontFamily && {
+                        fontFamily: deckInfo?.fontFamily,
+                      }),
+                    }),
+                  }}
+                >
+                  <EditorTopNav />
                   <div
-                    className={cn(
-                      "flex flex-col flex-grow",
-                      deckInfo?.shadow && "shadow-lg"
-                    )}
-                    // style={{ transform: `scale(${scale})` }}
-                    data-testid="editor-grid"
+                    className="flex flex-grow bg-white"
                     style={{
-                      ...(deckInfo?.background && {
-                        background: `${deckInfo?.background}`,
-                        ...(deckInfo?.fontFamily && {
-                          fontFamily: deckInfo?.fontFamily,
-                        }),
+                      ...(deckInfo?.fontFamily && {
+                        fontFamily: deckInfo?.fontFamily,
                       }),
                     }}
                   >
-                    <EditorTopNav />
-                    <div
-                      className="flex flex-grow bg-white"
-                      style={{
-                        ...(deckInfo?.fontFamily && {
-                          fontFamily: deckInfo?.fontFamily,
-                        }),
-                      }}
-                    >
-                      <EditorSidebar page={currentPage$} setPage={setPage} />
-                      <EditorMainArea
-                        page={currentPage$}
-                        setPage={setPage}
-                        editorState={editorState}
-                        verticalGuidelines={verticalSnapGuides}
-                        horizontalGuidelines={horizontalSnapGuides}
-                      />
-                    </div>
+                    <EditorSidebar page={currentPage$} setPage={setPage} />
+                    <EditorMainArea
+                      page={currentPage$}
+                      setPage={setPage}
+                      editorState={editorState}
+                    />
                   </div>
                 </div>
               </div>

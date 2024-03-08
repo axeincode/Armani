@@ -34,7 +34,7 @@ const ColorPicker = ({
             {""}
           </Button>
         </PopoverHandler>
-        <PopoverContent className="p-0 flex flex-col flex-shrink gap-1 w-48 bg-gray-300">
+        <PopoverContent className="z-50 p-0 flex flex-col flex-shrink gap-1 w-48 bg-gray-300">
           <div className="p-4 flex justify-center items-center h-4 bg-gray-300">
             <Typography variant="h6" color="black">
               {color}

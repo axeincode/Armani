@@ -8,17 +8,13 @@ import { SectionEditManage } from "./section-edit-manage";
 import { DynamicHeroIcon } from "@/components/ui/DynamicHeroIcon";
 import { useEditorPagesObserveable } from "@/hooks/useEditorPagesObserveable";
 import { map } from "lodash";
+import { SectionScroller } from "@/components/ui/sections/section-scroller";
+import { SwiperSlide } from "@/components/ui/swipers/slider";
 
 export const SectionEditTools = () => {
   // states
-  const [isUploading, setIsUploading] = React.useState(false);
-  const [isCoverUploading, setIsCoverUploading] = React.useState(false);
-
   const [showEditing, setShowEditing] = React.useState(false);
   const types = ["image/png", "image/jpeg", "image/jpg"];
-
-  const [color, setColor] = React.useState("#aabbcc");
-  const [open, setOpen] = React.useState(false);
   const [currentPage, setCurrentPage] = React.useState(1);
   const [pagesToShow, setPagesToShow] = React.useState(2);
   const pages$ = useEditorPagesObserveable();
@@ -39,28 +35,27 @@ export const SectionEditTools = () => {
   };
 
   const renderPages = () => {
-    const pages = [];
-    const deckPageConfigs$ = map(pages$, (page) => page);
-    for (let i = currentPage; i < currentPage + pagesToShow; i++) {
-      if (i <= totalPages) {
-        const { id, iconName } = deckPageConfigs$[i - 1];
-        pages.push(
-          <IconButton size="sm" key={id} className="flex">
-            <DynamicHeroIcon
-              className="h-4 w-4 text-white"
-              icon={iconName || "Squares2X2Icon"}
-            />
-          </IconButton>
-        );
-      }
-    }
-    return pages;
+    const xPages = map(
+      pages$,
+      (page) =>
+        (
+          <SwiperSlide key={page.id} className="!bg-transparent">
+            <IconButton size="sm" className="flex">
+              <DynamicHeroIcon
+                className="h-4 w-4 text-white"
+                icon={page.iconName || "Squares2X2Icon"}
+              />
+            </IconButton>
+          </SwiperSlide>
+        ) as any
+    );
+    return xPages;
   };
 
   return (
     <div className="flex flex-grow overflow-hidden shadow-lg mr-1 bg-gray-100">
       <div className="flex flex-grow">
-        <div className="flex flex-col flex-grow w-60 justify-start gap-4 pt-1 px-1">
+        <div className="flex flex-col flex-grow w-60 justify-start gap-2 pt-1 px-1">
           <div className="flex flex-row justify-start gap-2 pt-1 px-1">
             <Typography variant="h6" color="gray">
               Sections
@@ -77,25 +72,10 @@ export const SectionEditTools = () => {
               </Button>
             </div>
           </div>
-          <div className="flex flex-row justify-between px-2 items-center py-1 h-6">
-            <IconButton
-              variant="text"
-              size="sm"
-              onClick={() => setPage(currentPage - 1)}
-              className="flex"
-            >
-              <ChevronLeftIcon className="h-4 w-4" />
-            </IconButton>
-            {renderPages()}
-
-            <IconButton
-              variant="text"
-              size="sm"
-              onClick={() => setPage(currentPage + 1)}
-              className="flex"
-            >
-              <ChevronRightIcon className="h-4 w-4" />
-            </IconButton>
+          <div className="flex flex-row justify-between px-2 items-center py-1 h-12">
+            <>
+              <SectionScroller>{renderPages()}</SectionScroller>
+            </>
           </div>
 
           <SectionEditManage

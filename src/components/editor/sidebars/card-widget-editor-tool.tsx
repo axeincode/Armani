@@ -89,8 +89,6 @@ export const CardWidgetEditorTool = ({
     }
   };
 
-  console.log("editorWidgetState", editorWidgetState);
-
   const handleOnTitleChange = (value: string) => {
     if (!currentWidgetState.widgetId) return;
     editorObs$.updateWidget(currentWidgetState.widgetId, {

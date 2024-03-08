@@ -109,7 +109,7 @@ export const ViewMainArea = ({
 
   return (
     <div
-      className="flex-col flex flex-grow my-8 mx-12 gap-2 bg-[#F9F6EE]"
+      className="flex-col flex flex-grow my-2 md:my-8 mx-1 md:mx-12 gap-1 lg:gap-2 bg-[#F9F6EE]"
       ref={containerRef}
       /// onClick={(e: React.SyntheticEvent<HTMLElement>) => updateTarget(e.target)}
     >
@@ -117,7 +117,7 @@ export const ViewMainArea = ({
       <div className="flex flex-grow relative border-2 border-gray-10 border-solid px-2">
         {currentPage > 0 && <ViewPage pageId={currentPage$.pageId || ""} />}
         <>
-          {currentPage === 0 && deckInfo.nda && deckInfo.nda.enabled && (
+          {currentPage === 0 && (
             <>
               <ViewDashboardPage
                 coverPhoto={deckInfo.coverPhoto}
@@ -126,14 +126,18 @@ export const ViewMainArea = ({
                 pages={pages$}
                 setPage={setPageValue}
               />
-              <NdaUserConfirmation
-                open={showDrawer}
-                handleOpen={() => setShowDrawer(!showDrawer)}
-                ndaMessage={deckInfo.nda.description}
-                ndaAskFor={deckInfo.nda.askFor}
-                onConfirm={handleOnConfirmAgreement}
-                isConfirm={isConfirm}
-              />
+              <>
+                {deckInfo.nda && deckInfo.nda.enabled && (
+                  <NdaUserConfirmation
+                    open={showDrawer}
+                    handleOpen={() => setShowDrawer(!showDrawer)}
+                    ndaMessage={deckInfo.nda.description}
+                    ndaAskFor={deckInfo.nda.askFor}
+                    onConfirm={handleOnConfirmAgreement}
+                    isConfirm={isConfirm}
+                  />
+                )}
+              </>
             </>
           )}
         </>

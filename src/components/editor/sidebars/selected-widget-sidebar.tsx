@@ -17,6 +17,7 @@ export function SelectedWidgetSidebar({
   const handleOpen = (value: number) => {
     setOpen(open === value ? 0 : value);
   };
+
   return (
     <div
       className={cn(

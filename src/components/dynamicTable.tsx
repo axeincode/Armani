@@ -2,7 +2,7 @@
 // @ts-expect-error
 "use client";
 import React, { useState, FC } from "react";
-import { useTable, useSortBy, useFilters } from "react-table";
+import { useReactTable, useSortBy, useFilters } from "@tanstack/react-table";
 
 type DynamicTableProps = {
   data: {
@@ -81,7 +81,7 @@ export const DynamicTable: FC<DynamicTableProps> = (props) => {
     rows: tableRows,
     prepareRow,
     state,
-  } = useTable({ columns, data }, useFilters, useSortBy);
+  } = useReactTable({ columns, data }, useFilters, useSortBy);
 
   return (
     <>

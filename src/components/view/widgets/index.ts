@@ -1,1 +1,1 @@
-export * from "./card-view-widget";
+export * from "./frame-view-widget";

@@ -65,6 +65,7 @@ export const ViewContainer = ({ currentUser }: ViewContainerProps) => {
       console.log(err);
       setIsLoading(false);
     }
+    // eslint-disable-next-line
   }, [params.id]);
 
   React.useEffect(() => {

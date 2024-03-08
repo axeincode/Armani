@@ -9,13 +9,18 @@ import {
 } from "@material-tailwind/react";
 import { ChevronLeftIcon, PlusCircleIcon } from "@heroicons/react/24/solid";
 import { useCurrentPageObserveable } from "@/hooks/useCurrentPageObserveable";
-import { WidgetEnum } from "@/types";
+import { WidgetElement, WidgetEnum } from "@/types";
 import { v4 } from "uuid";
-import { useEditorDecksObserveable, useEditorObserveable } from "@/store";
-import { WidgetTypes } from "@/types/editor.types";
+import {
+  useEditorDecksObserveable,
+  useEditorObserveable,
+  useSelectedWidgetRepo,
+} from "@/store";
+import { WidgetTypes, availableHandles } from "@/types/editor.types";
 import ColorPicker from "@/components/ui/color-picker";
 import { fontFaceTypes } from "@/components/ui/types/font-face-types";
 import { WebFontSelect } from "@/components/ui/webfont-select";
+import { debounce } from "lodash";
 
 export type AllWidgetsSidebarProps = {
   toggleDrawer: () => void;
@@ -25,6 +30,7 @@ export function AllWidgetsSidebar({ toggleDrawer }: AllWidgetsSidebarProps) {
   const [open, setOpen] = React.useState(0);
   const [openColor, setOpenColor] = React.useState(false);
   const currentPage$ = useCurrentPageObserveable();
+  const selectedWidgetRepo = useSelectedWidgetRepo();
   const editor$ = useEditorObserveable();
   const deckInfo = useEditorDecksObserveable();
   const [fontFaces, setFontFaces] = React.useState<fontFaceTypes[]>([]);
@@ -70,56 +76,37 @@ export function AllWidgetsSidebar({ toggleDrawer }: AllWidgetsSidebarProps) {
     editor$.updateDeckInfo(deckInfo?.id, "fontFamily", e);
   };
 
+  const handleSelectWidget = (widgetId: string, pageId: string) => {
+    selectedWidgetRepo.setSelectedWidget(widgetId, pageId, WidgetElement.NONE);
+  };
+
+  const handleDebounceOnAdd = debounce(handleSelectWidget, 100);
+
   const handleOnAddWidget = (widgetType: WidgetEnum) => {
     const pageId = currentPage$.pageId;
-    switch (widgetType) {
-      case WidgetEnum.CARD:
-      case WidgetEnum.FRAME:
-        const pageId = currentPage$.pageId;
-        if (pageId) {
-          const widgetdata: WidgetTypes = {
-            type: widgetType,
-            id: v4(),
-            transformation: {
-              x: 0,
-              y: 0,
-              width: 400,
-              height: 400,
-            },
-            title: "Card Title",
-            subtitle: "Card Subtitle",
-            captionEnabled: false,
-            captionTitle: "Caption Title",
-            captionSubtitle: "Caption Subtitle",
-            images: [],
-            enableElements: false,
-          };
-          editor$.addWidget(pageId, widgetdata);
-        }
-        break;
-      case WidgetEnum.TABLE:
-        if (pageId) {
-          const widgetdata: WidgetTypes = {
-            type: WidgetEnum.TABLE,
-            id: v4(),
-            transformation: {
-              x: 0,
-              y: 0,
-              width: 800,
-              height: 800,
-            },
-            title: "Table Title",
-            subtitle: "Table Subtitle",
-            captionEnabled: false,
-            captionTitle: "Table Title",
-            captionSubtitle: "Table Subtitle",
-            enableElements: false,
-          };
-          editor$.addWidget(pageId, widgetdata);
-        }
-        break;
-      default:
-        break;
+    if (pageId) {
+      const widgetId = v4();
+      const widgetdata: WidgetTypes = {
+        type: widgetType,
+        id: widgetId,
+        transformation: {
+          x: 0,
+          y: Infinity,
+          w: 2,
+          h: 2,
+          resizeHandles: availableHandles,
+        },
+        title: "Card Title",
+        subtitle: "Card Subtitle",
+        captionEnabled: false,
+        captionTitle: "Caption Title",
+        captionSubtitle: "Caption Subtitle",
+        images: [],
+        enableElements: false,
+      };
+      editor$.addWidget(pageId, widgetdata);
+      // selected widget id on add
+      handleDebounceOnAdd(widgetId, pageId);
     }
   };
 

@@ -22,6 +22,7 @@ export function useCurrentWidgetObserveable() {
       });
 
     return () => subscription.unsubscribe();
+    // eslint-disable-next-line
   }, []);
 
   return state;

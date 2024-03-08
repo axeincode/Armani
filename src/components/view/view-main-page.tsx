@@ -1,11 +1,7 @@
 "use client";
 import React, { useState, useEffect } from "react";
-import {
-  usePageObserveable,
-  useEditorDecksObserveable,
-  useEditorObserveable,
-  useObservable,
-} from "@/store";
+import { Drawer } from "@material-tailwind/react";
+import { useMedia } from "react-use";
 import { motion } from "framer-motion";
 import { EditorStateTypes, User } from "@/types/editor.types";
 import { useCurrentPageObserveable } from "@/hooks/useCurrentPageObserveable";
@@ -14,6 +10,7 @@ import { ViewSidebar } from "./view-sidebar";
 import { ViewHeader } from "./view-header";
 import { ViewMainArea } from "./view-main-area";
 import { useEditorPagesObserveable } from "@/hooks/useEditorPagesObserveable";
+import { useViewPage } from "./useViewPage";
 
 export type ViewMainPageProps = {
   user: User;
@@ -21,25 +18,15 @@ export type ViewMainPageProps = {
 
 export const ViewMainPage = ({ user }: ViewMainPageProps) => {
   const editorRef = React.useRef<HTMLDivElement>(null);
-  const page$ = usePageObserveable();
-  const currentPage$ = useCurrentPageObserveable();
-  const deckInfo = useEditorDecksObserveable();
-  const pages$ = useEditorPagesObserveable();
-  const editorDeck$ = useEditorObserveable();
-  const editorState = useObservable(editorDeck$.getObservable());
+  const { currentPage$, deckInfo, editorState, setPage } = useViewPage();
 
-  const setPage = (page: number) => {
-    const getPage = Object.keys(pages$).filter((key) => {
-      return pages$[key].pageNumber === page;
-    })[0];
-    if (!getPage) return;
-    page$.setPageInfo({
-      currentPage: page,
-      totalPages: Object.keys(pages$).length,
-      pageName: pages$[getPage].name,
-      pageId: getPage,
-    });
-  };
+  const [open, setOpen] = React.useState(false);
+
+  const openDrawer = () => setOpen(true);
+  const closeDrawer = () => setOpen(false);
+
+  // is medium screen
+  const isMedium = useMedia("(min-width: 768px)");
 
   return (
     <div
@@ -55,8 +42,17 @@ export const ViewMainPage = ({ user }: ViewMainPageProps) => {
       }}
     >
       <ViewHeader />
-      <div className="flex flex-grow">
-        <ViewSidebar page={currentPage$} setPage={setPage} />
+      <div className="flex h-full">
+        {isMedium && <ViewSidebar page={currentPage$} setPage={setPage} />}
+        {!isMedium && (
+          <>
+            <Drawer open={open} onClose={closeDrawer} className="p-4 h-full">
+              <div className="mb-6 flex items-center justify-between h-full">
+                <ViewSidebar page={currentPage$} setPage={setPage} />
+              </div>
+            </Drawer>
+          </>
+        )}
         <ViewMainArea
           page={currentPage$}
           setPage={setPage}

@@ -48,6 +48,7 @@ import { DynamicHeroIcon } from "../ui/DynamicHeroIcon";
 import { map } from "lodash";
 import { FileIcon, defaultStyles } from "react-file-icon";
 import { DialogViewWorkBook } from "./excel-utils/dialog-view-workbook";
+import { DocumentDialogViewer } from "./document-viewer";
 
 export interface Item {
   id: number;
@@ -122,6 +123,8 @@ export const ViewSidebar = ({ page, setPage }: EditorSidebarProps) => {
   const handleDisclaimerOpen = () => {
     setOpeDisclaimer(!openDisclaimer);
   };
+
+  console.log("selectedDocument", selectedDocument);
 
   return (
     <div
@@ -311,7 +314,11 @@ export const ViewSidebar = ({ page, setPage }: EditorSidebarProps) => {
                               fontFamily: "inherit",
                             }}
                           >
-                            {doc.name}
+                            {doc.name?.length > 10
+                              ? doc.name.substring(0, 10) +
+                                "..." +
+                                doc.name.split(".").pop()
+                              : doc.name}
                           </Typography>
                         </ListItem>
                       );
@@ -376,13 +383,24 @@ export const ViewSidebar = ({ page, setPage }: EditorSidebarProps) => {
           </motion.div>
         )}
         <>
-          {selectedDocument && (
-            <DialogViewWorkBook
-              open={showUploader}
-              handler={() => setShowUploader(false)}
-              selectedDocument={selectedDocument}
-            />
-          )}
+          {selectedDocument &&
+            selectedDocument.docType === DocumentTypeEnum.XLSX && (
+              <DialogViewWorkBook
+                open={showUploader}
+                handler={() => setShowUploader(false)}
+                selectedDocument={selectedDocument}
+              />
+            )}
+        </>
+        <>
+          {selectedDocument &&
+            selectedDocument.docType !== DocumentTypeEnum.XLSX && (
+              <DocumentDialogViewer
+                open={showUploader}
+                handler={() => setShowUploader(false)}
+                selectedDocument={selectedDocument}
+              />
+            )}
         </>
       </>
     </div>

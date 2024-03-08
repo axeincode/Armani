@@ -46,6 +46,7 @@ export function useEditorPageObserveable(pageId: string) {
       });
 
     return () => subscription.unsubscribe();
+    // eslint-disable-next-line
   }, []);
 
   return state;

@@ -26,6 +26,9 @@
   }
 }
 
+/** custom components **/
+@import '../components/editor/styles.scss';
+
 .grid-line {
   position: absolute;
   background-color: #ccc;

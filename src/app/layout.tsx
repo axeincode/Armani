@@ -1,4 +1,4 @@
-import "@/styles/globals.css";
+import "@/styles/globals.scss";
 import ThemeProvider from "@/components/theme-provider";
 import type { Metadata } from "next";
 import { Ubuntu } from "next/font/google";

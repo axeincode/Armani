@@ -1,0 +1,12 @@
+
+.editortargetcontainer {
+ @apply flex flex-grow;
+}
+
+.resizegridlayout {
+ @apply flex flex-grow;
+ /** child items apply height 100% */
+    & .react-grid-layout {
+        @apply h-[1080px] #{!important};
+    }
+}

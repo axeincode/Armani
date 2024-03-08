@@ -8,6 +8,34 @@ export type WidgetElementTypes = {
   url: string;
 };
 
+export const availableHandles = ["s", "w", "e", "n"];
+
+export type GridLayoutData = {
+  i: string;
+  x: number;
+  y: number;
+  w: number;
+  h: number;
+  resizeHandles: string[];
+};
+
+export type GridResponsiveLayoutData = {
+  lg: GridLayoutData[];
+  md?: GridLayoutData[];
+  sm?: GridLayoutData[];
+  xs?: GridLayoutData[];
+};
+
+export type WidgetTableTypes = {
+  name: string;
+  columns: string[];
+  rows: string[][];
+};
+
+export type WidgetTableDataTypes = {
+  [key: string]: string;
+};
+
 export type WidgetImageTypes = {
   id: string;
   name: string;
@@ -20,8 +48,9 @@ export type WidgetTypes = {
   transformation: {
     x: number;
     y: number;
-    width: number;
-    height: number;
+    w: number;
+    h: number;
+    resizeHandles?: string[];
   };
   title?: string;
   subtitle?: string;
@@ -32,8 +61,12 @@ export type WidgetTypes = {
   //  images
   images?: WidgetImageTypes[];
   data?: Record<string, any>;
+  categories?: string[];
   // elements
   elementType?: WidgetElement;
+  chartType?: string;
+  chartData?: Record<string, any>;
+  tableData?: WidgetTableDataTypes[];
 };
 
 export type PageTypes = {
@@ -114,7 +147,6 @@ export type EditorStateTypes = {
     widgets: string[];
   };
 };
-
 
 // Define schemas
 const widget = new schema.Entity("widgets", {}, { idAttribute: "id" });

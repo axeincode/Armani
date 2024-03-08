@@ -16,6 +16,8 @@ import { DocumentTypeEnum, DocumentTypes } from "@/types/editor.types";
 import { useMedia } from "react-use";
 import { map } from "lodash";
 import { FileIcon, defaultStyles } from "react-file-icon";
+import { SectionScroller } from "@/components/ui/sections/section-scroller";
+import { Swiper, SwiperSlide } from "swiper/react";
 
 export const DataRoomEditTools = () => {
   // states
@@ -70,38 +72,52 @@ export const DataRoomEditTools = () => {
   };
 
   const renderPages = () => {
-    const pages = [];
-    const documentPage$ = map(documents$, (page: DocumentTypes) => page);
-    for (let i = currentPage; i < currentPage + pagesToShow; i++) {
-      if (i <= totalPages) {
-        const { id, name, docType } = documentPage$[i - 1];
-        pages.push(
-          <div
-            key={id}
-            className="flex h-12 w-12 p-1 box-border shadow relative bg-gray-800 dark:bg-gray-800 dark:border-gray-600 border-2 border-gray-300 rounded-lg cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:border-gray-500"
-            title={name}
-          >
-            <>{/** all 3 file input elements to be  displayed */}</>
-            <FileIcon extension={docType} {...defaultStyles[docType]} />
-            <div className="absolute top-0 right-0">
-              <XCircleIcon
-                className="h-4 w-4"
-                color="red"
-                title={name}
-                onClick={() => handleOnDeleteDocument(id)}
-              />
+    const pages = map(documents$, (page) => {
+      const { id, name, docType } = page;
+      // break the name with max 15chars and add extension with ellipses
+      const breakName =
+        name.length > 10
+          ? name.substring(0, 10) + "..." + name.split(".").pop()
+          : name;
+
+      return (
+        <SwiperSlide key={page.id} className="!bg-transparent">
+          <div key={id} className="flex flex-col justify-center items-center">
+            <div
+              className="flex h-12 w-12 p-1 box-border shadow relative bg-gray-800 dark:bg-gray-800 dark:border-gray-600 border-2 border-gray-300 rounded-lg cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:border-gray-500"
+              title={name}
+            >
+              <>
+                {/** all 3 file input elements to be  displayed */}
+                <FileIcon extension={docType} {...defaultStyles[docType]} />
+                <div className="absolute top-0 right-0">
+                  <XCircleIcon
+                    className="h-4 w-4"
+                    color="red"
+                    title={name}
+                    onClick={() => handleOnDeleteDocument(id)}
+                  />
+                </div>
+              </>
             </div>
+            <Typography
+              className="text-xs overflow-ellipsis overflow-hidden whitespace-nowrap"
+              variant="small"
+            >
+              {breakName}
+            </Typography>
           </div>
-        );
-      }
-    }
+        </SwiperSlide>
+      ) as any;
+    });
+
     return pages;
   };
 
   return (
     <div className="flex flex-grow overflow-hidden shadow-lg mr-1 bg-gray-100">
       <div className="flex flex-grow">
-        <div className="flex flex-col flex-grow w-60 justify-start gap-4 pt-1 px-1">
+        <div className="flex flex-col flex-grow w-60 justify-start gap-2 pt-1 px-1">
           <div className="flex flex-row justify-start gap-2 pt-1 px-1">
             <Typography variant="h6" color="gray">
               Data Room
@@ -118,26 +134,10 @@ export const DataRoomEditTools = () => {
             </div>
           </div>
 
-          <div className="flex flex-row gap-2 justify-between px-2 items-center py-1 h-12">
-            <IconButton
-              variant="text"
-              size="sm"
-              onClick={() => setPage(currentPage - 1)}
-              className="flex"
-            >
-              <ChevronLeftIcon className="h-4 w-4" />
-            </IconButton>
-            <div className="flex flex-row gap-2 justify-start items-center">
-              {renderPages()}
-            </div>
-            <IconButton
-              variant="text"
-              size="sm"
-              onClick={() => setPage(currentPage + 1)}
-              className="flex"
-            >
-              <ChevronRightIcon className="h-4 w-4" />
-            </IconButton>
+          <div className="flex flex-row justify-between px-2 items-center h-16">
+            <>
+              <SectionScroller>{renderPages()}</SectionScroller>
+            </>
           </div>
         </div>
       </div>

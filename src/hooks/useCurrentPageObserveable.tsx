@@ -20,6 +20,7 @@ export function useCurrentPageObserveable() {
       });
 
     return () => subscription.unsubscribe();
+    // eslint-disable-next-line
   }, []);
 
   return state;

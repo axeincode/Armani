@@ -34,6 +34,7 @@ export const HomeContainer = () => {
       decks$.setInitialState(normalizeDecks);
       console.log("normalizeDecks", normalizeDecks);
     });
+    // eslint-disable-next-line
   }, []);
 
   // callbacks

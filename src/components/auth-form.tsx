@@ -25,6 +25,7 @@ export default function AuthForm({ currentUser }: any) {
       // navigate to the dashboard page
       router.push("/");
     }
+    // eslint-disable-next-line
   }, [user]);
 
   return (

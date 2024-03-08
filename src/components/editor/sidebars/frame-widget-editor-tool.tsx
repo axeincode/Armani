@@ -11,6 +11,7 @@ import {
   ChevronLeftIcon,
   PlusCircleIcon,
   TrashIcon,
+  XCircleIcon,
 } from "@heroicons/react/24/solid";
 import { cn } from "@/lib/utils";
 import { LabelInput } from "@/components/ui/label-input";
@@ -26,6 +27,12 @@ import { v4 } from "uuid";
 import { first, map, startCase } from "lodash";
 import { toast } from "react-toastify";
 import { WidgetElement } from "@/types";
+import { AddImageWidgetSidebar } from "./add-image-sidebar";
+import { DynamicForm } from "./add-key-value.form";
+import { DynamicBarForm } from "./add-series-value.form";
+import { TableForm } from "./table-data-editor-tool";
+import { AddTimelineWidgetSidebar } from "./add-timeline-values-sidebar";
+import { AddIconsGallerySidebar } from "./add-icons-gallery";
 
 export type FrameWidgetEditorToolProps = {
   toggleDrawer: () => void;
@@ -37,14 +44,15 @@ export const FrameWidgetEditorTool = ({
   // state
   const [isUploading, setIsUploading] = React.useState(false);
   const editorObs$ = useEditorObserveable();
-  const selectedWidgetObs$ = useSelectedWidgetRepo();
-  const selectedWidgetState = useObservable(selectedWidgetObs$.getObservable());
+  const selectedWidgetRepo = useSelectedWidgetRepo();
+  const selectedWidgetState = useObservable(selectedWidgetRepo.getObservable());
   const currentWidgetState = useCurrentWidgetObserveable();
   const editorWidgetState = useEditorWidgetObserveable(
     selectedWidgetState.widgetId
   );
+
+  const { pageId, widgetElement, widgetId } = selectedWidgetState || {};
   const deckInfo = useEditorDecksObserveable();
-  console.log("editorWidgetState", editorWidgetState);
 
   const handleOnTitleChange = (value: string) => {
     if (!currentWidgetState.widgetId) return;
@@ -100,6 +108,12 @@ export const FrameWidgetEditorTool = ({
       ...editorWidgetState,
       elementType: widgetElementType,
     });
+    selectedWidgetRepo.updateSelectedWidgetType(widgetElementType);
+  };
+
+  const handleOnUnselectWidget = () => {
+    if (!currentWidgetState.widgetId) return;
+    selectedWidgetRepo.unSelect();
   };
 
   return (
@@ -114,9 +128,9 @@ export const FrameWidgetEditorTool = ({
             size="sm"
             className="p-0 m-0 h-5 w-5 min-w-0 rounded-full"
             title="close"
-            onClick={toggleDrawer}
+            onClick={handleOnUnselectWidget}
           >
-            <ChevronLeftIcon className="h-4 w-4" />
+            <XCircleIcon className="h-4 w-4" />
           </IconButton>
         </div>
       </div>
@@ -154,34 +168,49 @@ export const FrameWidgetEditorTool = ({
                 onChange={(e) => handleHasElement(e.target.checked)}
               />
             </div>
-            {editorWidgetState && !!editorWidgetState.enableElements && (
-              <div className="h-60 overflow-auto scrollbar px-2">
-                {Object.values(WidgetElement).map((widget) => {
-                  return (
-                    <div
-                      className="flex flex-row justify-between items-start gap-2 "
-                      key={widget}
-                    >
-                      <Typography
-                        variant="small"
-                        color="blue-gray"
-                        className="text-xs w-10 lg:w-28 overflow-ellipsis overflow-hidden whitespace-nowrap"
+            {editorWidgetState &&
+              !!editorWidgetState.enableElements &&
+              widgetElement === WidgetElement.NONE && (
+                <div className="h-60 overflow-auto scrollbar px-2">
+                  {Object.values(WidgetElement).map((widget) => {
+                    return (
+                      <div
+                        className="flex flex-row justify-between items-start gap-2 "
+                        key={widget}
                       >
-                        {startCase(widget)}
-                      </Typography>
-                      <IconButton
-                        variant="text"
-                        size="sm"
-                        className="text-xs px-1 m-0 h-4 w-4 min-w-0"
-                        title="Add Element"
-                        onClick={() => handleOnUpdateWidgetElement(widget)}
-                      >
-                        <PlusCircleIcon className="h-4 w-4" />
-                      </IconButton>
-                    </div>
-                  );
-                })}
-              </div>
+                        <Typography
+                          variant="small"
+                          color="blue-gray"
+                          className="text-xs w-10 lg:w-28 overflow-ellipsis overflow-hidden whitespace-nowrap"
+                        >
+                          {startCase(widget)}
+                        </Typography>
+                        <IconButton
+                          variant="text"
+                          size="sm"
+                          className="text-xs px-1 m-0 h-4 w-4 min-w-0"
+                          title="Add Element"
+                          onClick={() => handleOnUpdateWidgetElement(widget)}
+                        >
+                          <PlusCircleIcon className="h-4 w-4" />
+                        </IconButton>
+                      </div>
+                    );
+                  })}
+                </div>
+              )}
+
+            {widgetElement === WidgetElement.PICTURE && (
+              <AddImageWidgetSidebar />
+            )}
+            {widgetElement === WidgetElement.PIE_CHART && <DynamicForm />}
+            {widgetElement === WidgetElement.CHART && <DynamicBarForm />}
+            {widgetElement === WidgetElement.TABLE && <TableForm />}
+            {widgetElement === WidgetElement.TIMELINE && (
+              <AddTimelineWidgetSidebar />
+            )}
+            {widgetElement === WidgetElement.ICON_GALLERY && (
+              <AddIconsGallerySidebar />
             )}
           </div>
           <div className="flex gap-1 my-4 px-1">
@@ -221,6 +250,12 @@ export const FrameWidgetEditorTool = ({
           </div>
         </motion.div>
       )}
+
+      <div className="flex flex-col gap-1 my-4 px-1">
+        <Button color="blue" fullWidth onClick={handleOnUnselectWidget}>
+          Unselect Widget
+        </Button>
+      </div>
     </>
   );
 };
