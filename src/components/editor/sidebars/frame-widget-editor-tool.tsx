@@ -33,6 +33,7 @@ import { DynamicBarForm } from "./add-series-value.form";
 import { TableForm } from "./table-data-editor-tool";
 import { AddTimelineWidgetSidebar } from "./add-timeline-values-sidebar";
 import { AddIconsGallerySidebar } from "./add-icons-gallery";
+import { AddContactusSidebar } from "./add-contact-card-sidebar";
 
 export type FrameWidgetEditorToolProps = {
   toggleDrawer: () => void;
@@ -211,6 +212,9 @@ export const FrameWidgetEditorTool = ({
             )}
             {widgetElement === WidgetElement.ICON_GALLERY && (
               <AddIconsGallerySidebar />
+            )}
+            {widgetElement === WidgetElement.CONTACT_CARD && (
+              <AddContactusSidebar />
             )}
           </div>
           <div className="flex gap-1 my-4 px-1">

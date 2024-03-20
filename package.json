@@ -13,6 +13,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@atlaskit/table-tree": "^9.7.0",
     "@cyntler/react-doc-viewer": "^1.14.1",
     "@daybrush/utils": "^1.13.0",
     "@emotion/react": "^11.11.3",
@@ -77,6 +78,7 @@
     "react-dnd": "^16.0.1",
     "react-dnd-html5-backend": "^16.0.1",
     "react-dom": "18.2.0",
+    "react-easy-edit": "^1.17.2",
     "react-file-icon": "^1.4.0",
     "react-grid-layout": "^1.4.4",
     "react-infinite-viewer": "^0.28.1",

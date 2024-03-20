@@ -176,6 +176,8 @@ class GridLayout extends React.Component<GridLayoutProps, GridLayoutState> {
       <div className="flex flex-grow flex-col resizegridlayout">
         <div className="h-[1080px]">
           <ResponsiveReactGridLayout
+            cols={{ lg: 12, md: 10, sm: 6, xs: 4, xxs: 2 }}
+            width={1920}
             // @ts-ignore
             layouts={this.props.data}
             isBounded={true}
@@ -185,6 +187,7 @@ class GridLayout extends React.Component<GridLayoutProps, GridLayoutState> {
             isResizable
             // I like to have it animate on mount. If you don't, delete `useCSSTransforms` (it's default `true`)
             // and set `measureBeforeMount={true}`.
+            measureBeforeMount={false}
             useCSSTransforms={true}
             allowOverlap={true}
             compactType={this.state.compactType}
@@ -192,7 +195,7 @@ class GridLayout extends React.Component<GridLayoutProps, GridLayoutState> {
             onDragStart={this.handleOnDragStart}
             onResizeStart={this.handleOnResizeStart}
             transformScale={1}
-            margin={[0, 0]}
+            margin={[2, 2]}
             autoSize={true}
             draggableHandle=".x-drag-handle"
           >

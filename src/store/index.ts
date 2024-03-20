@@ -7,3 +7,4 @@ export * from "./create-deck.observeable";
 export * from "./decks.observeable";
 export * from "./editor.observeable";
 export * from "./hover.observeable";
+export * from "./page-height";

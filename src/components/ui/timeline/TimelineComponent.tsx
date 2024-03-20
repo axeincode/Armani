@@ -55,7 +55,6 @@ export const TimelineComponent = ({ data }: TimelineComponentProps) => {
           fontSizes={{
             title: "1rem",
           }}
-          enableDarkToggle
         />
       </div>
     </div>

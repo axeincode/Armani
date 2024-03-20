@@ -8,48 +8,26 @@ import {
 } from "@/store";
 import { useEditorWidgetObserveable } from "@/hooks/useEditorWidgetsObserveable";
 import { useCurrentWidgetObserveable } from "@/hooks/useCurrentWidgetObserveable";
-import ReactTableWidget from "./react-table-widget";
 import { makeData } from "./helper.utils";
+import ReactTableViewWidget from "./react-table-view-widget";
 
 export type ReactTableWidgetProps = {
   data: WidgetTypes;
-  handleOnSaveTableData?: (data: any) => void;
 };
 
 const MemoziedTableWidget = (props: ReactTableWidgetProps) => {
   const { data: widgetData } = props;
-  let tableData = get(widgetData, "tableData", []);
-  const editorObs$ = useEditorObserveable();
-
-  const selectedWidgetObs$ = useSelectedWidgetRepo();
-  const selectedWidgetState = useObservable(selectedWidgetObs$.getObservable());
-  const currentWidgetState = useCurrentWidgetObserveable();
-  const editorWidgetState = useEditorWidgetObserveable(
-    selectedWidgetState.widgetId
-  );
+  let tableData = get(widgetData, "data.tableData", []);
 
   console.log("table data given", tableData);
+
   if (isEmpty(tableData)) {
     tableData = makeData() as unknown as any[];
   }
 
-  const saveData = React.useCallback(
-    (data: any) => {
-      editorObs$.updateWidget(currentWidgetState.widgetId, {
-        ...editorWidgetState,
-        data: {
-          tableData: data,
-        },
-      });
-    },
-    [currentWidgetState, editorWidgetState, editorObs$]
-  );
-
-  console.log("Memoized table widget", tableData);
   return (
-    <ReactTableWidget
+    <ReactTableViewWidget
       data={tableData}
-      handeOnSave={saveData}
       // Other props...
     />
   );

@@ -31,6 +31,7 @@ import { TabsComponent } from "@/components/ui/tabs/tabs";
 import { cn } from "@/lib/utils";
 import { TimelineComponent } from "@/components/ui/timeline";
 import { IconsGalleryViewer } from "@/components/ui/icon-viewer";
+import { ContactCardEdit } from "@/components/ui/contact-card";
 
 export type FrameWidgetProps = {
   data: WidgetTypes;
@@ -101,6 +102,15 @@ export function FrameWidget({ data }: FrameWidgetProps) {
     }
   };
 
+  const handleOnSaveTableData = (data: any) => {
+    editorObs$.updateWidget(data.id, {
+      ...editorWidgetState,
+      data: {
+        tableData: data,
+      },
+    });
+  };
+
   if (!data) return null;
 
   return (
@@ -113,27 +123,32 @@ export function FrameWidget({ data }: FrameWidgetProps) {
         data-widgetid={data.id}
         id={data.id}
       >
-        <CardHeader
-          className="flex flex-col max-h-28 -mt-0 min-w-0 min-h-[75px] m-0 gap-1"
-          data-widgetid={data.id}
-        >
-          <Typography
-            variant="h6"
-            color="blue-gray"
-            data-id="INTERNAL_WIDGET"
-            className="m-1 x-drag-handle cursor-move"
-          >
-            {data.title || "Title"}
-          </Typography>
-          <Typography
-            variant="small"
-            color="blue-gray"
-            data-id="INTERNAL_WIDGET"
-            className="m-1"
-          >
-            {data.subtitle || "Subtitle"}
-          </Typography>
-        </CardHeader>
+        {data.elementType &&
+          data.elementType !== WidgetElement.CONTACT_CARD && (
+            <>
+              <CardHeader
+                className="flex flex-col max-h-28 -mt-0 min-w-0 min-h-[75px] m-0 gap-1"
+                data-widgetid={data.id}
+              >
+                <Typography
+                  variant="h6"
+                  color="blue-gray"
+                  data-id="INTERNAL_WIDGET"
+                  className="m-1 x-drag-handle cursor-move"
+                >
+                  {data.title || "Title"}
+                </Typography>
+                <Typography
+                  variant="small"
+                  color="blue-gray"
+                  data-id="INTERNAL_WIDGET"
+                  className="m-1"
+                >
+                  {data.subtitle || "Subtitle"}
+                </Typography>
+              </CardHeader>
+            </>
+          )}
         <CardBody
           className={cn(
             "p-2 my-1 flex flex-grow flex-col justify-center items-center overflow-hidden",
@@ -172,13 +187,22 @@ export function FrameWidget({ data }: FrameWidgetProps) {
           )}
           {data.elementType &&
             data.elementType === WidgetElement.TABLE &&
-            !isEmpty(data) && <ReactTableWidget data={data} />}
+            !isEmpty(data) && (
+              <ReactTableWidget
+                data={data}
+                handleOnSaveTableData={handleOnSaveTableData}
+              />
+            )}
           {data.elementType && data.elementType === WidgetElement.TIMELINE && (
             <TimelineComponent data={data} />
           )}
           {data.elementType &&
             data.elementType === WidgetElement.ICON_GALLERY && (
               <IconsGalleryViewer data={data} />
+            )}
+          {data.elementType &&
+            data.elementType === WidgetElement.CONTACT_CARD && (
+              <ContactCardEdit data={data} />
             )}
         </CardBody>
         {data.captionEnabled && (

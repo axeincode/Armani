@@ -107,7 +107,7 @@ export const ViewContainer = ({ currentUser }: ViewContainerProps) => {
         {!isLoading && <ViewMainPage user={user} />}
       </div>
       {/** footer layout */}
-      <footer className="w-full p-2 flex flex-row gap-1 justify-center items-center border-t bg-gray-800">
+      <footer className="w-full flex flex-row gap-1 justify-center items-center border-t bg-gray-800">
         Powered by
         <Link
           href="https://canari.com"

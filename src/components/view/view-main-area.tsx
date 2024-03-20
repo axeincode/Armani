@@ -109,7 +109,7 @@ export const ViewMainArea = ({
 
   return (
     <div
-      className="flex-col flex flex-grow my-2 md:my-8 mx-1 md:mx-12 gap-1 lg:gap-2 bg-[#F9F6EE]"
+      className="flex flex-col flex-1 flex-grow my-2 md:my-8 mx-1 md:mx-12 gap-1 lg:gap-2 bg-[#F9F6EE]"
       ref={containerRef}
       /// onClick={(e: React.SyntheticEvent<HTMLElement>) => updateTarget(e.target)}
     >

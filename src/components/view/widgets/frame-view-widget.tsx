@@ -23,6 +23,9 @@ import { PieChartWidget } from "@/components/editor/widgets/pieChart-widget";
 import { MapWidget } from "@/components/editor/widgets/dynamic-map-widget";
 import { TimelineComponent } from "@/components/ui/timeline";
 import { IconsGalleryViewer } from "@/components/ui/icon-viewer";
+import { ReactTableViewWidget } from "@/components/ui/table";
+import { isEmpty } from "lodash";
+import { ContactCardView } from "@/components/ui/contact-card";
 
 export type FrameWidgetProps = {
   data: WidgetTypes;
@@ -49,27 +52,31 @@ export function FrameWidget({ data }: FrameWidgetProps) {
       data-element-type={elementType}
       id={data.id}
     >
-      <CardHeader
-        className="flex flex-col max-h-40 -mt-0 min-w-0 min-h-[75px] m-0 gap-1"
-        data-widget-id={data.id}
-      >
-        <Typography
-          variant="h6"
-          color="blue-gray"
-          data-id="INTERNAL_WIDGET"
-          className="m-1"
-        >
-          {data.title || "Title"}
-        </Typography>
-        <Typography
-          variant="small"
-          color="blue-gray"
-          data-id="INTERNAL_WIDGET"
-          className="m-1"
-        >
-          {data.subtitle || "Subtitle"}
-        </Typography>
-      </CardHeader>
+      {data.elementType && data.elementType !== WidgetElement.CONTACT_CARD && (
+        <>
+          <CardHeader
+            className="flex flex-col max-h-40 -mt-0 min-w-0 min-h-[75px] m-0 gap-1"
+            data-widget-id={data.id}
+          >
+            <Typography
+              variant="h6"
+              color="blue-gray"
+              data-id="INTERNAL_WIDGET"
+              className="m-1"
+            >
+              {data.title || "Title"}
+            </Typography>
+            <Typography
+              variant="small"
+              color="blue-gray"
+              data-id="INTERNAL_WIDGET"
+              className="m-1"
+            >
+              {data.subtitle || "Subtitle"}
+            </Typography>
+          </CardHeader>
+        </>
+      )}
       <CardBody
         className="p-2 my-1  flex flex-grow flex-col justify-center items-center overflow-hidden"
         data-id="FRAME_CARD_BODY"
@@ -107,6 +114,12 @@ export function FrameWidget({ data }: FrameWidgetProps) {
               <IconsGalleryViewer data={data} />
             </>
           )}
+        {data.elementType &&
+          data.elementType === WidgetElement.TABLE &&
+          !isEmpty(data) && <ReactTableViewWidget data={data} />}
+        {data.elementType &&
+          data.elementType === WidgetElement.CONTACT_CARD &&
+          !isEmpty(data) && <ContactCardView data={data} />}
       </CardBody>
       {data.captionEnabled && (
         <CardFooter
