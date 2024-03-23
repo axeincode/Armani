@@ -42,7 +42,6 @@ export const ContactCardView = ({ data }: ContactCardViewProps) => {
     "data.images.url",
     "https://images.unsplash.com/photo-1460472178825-e5240623afd5?q=80&w=800&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D 150w"
   );
-  console.log("contactus data props", data);
 
   return (
     <div className="flex flex-col flex-grow w-full">

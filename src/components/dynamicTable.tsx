@@ -49,12 +49,9 @@ export const DynamicTable: FC<DynamicTableProps> = (props) => {
         index === rowIndex ? { ...row, [columnName]: value } : row
       )
     );
-    console.log("columns:::", columns);
-    console.log("rows:::", rows);
   };
   const handleCellValueChangeColumn = (columnIndex: any, value: any) => {
     const valueq = columns[columnIndex];
-    console.log("column value", valueq);
     columns[columnIndex]["Header"] = value;
     setColumns([...columns]);
   };

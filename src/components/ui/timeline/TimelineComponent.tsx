@@ -42,7 +42,6 @@ export const TimelineComponent = ({ data }: TimelineComponentProps) => {
     setUpdateCount((prev) => prev + 1);
   }, [data]);
 
-  console.log("itemsInfoTimeline", items);
   return (
     <div className="w-full h-full">
       <div key={updateCount} className="w-full h-full">

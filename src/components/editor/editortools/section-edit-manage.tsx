@@ -133,7 +133,6 @@ export function SectionEditManage({ open, handler }: SectionEditManageProps) {
     setPages(pageInfoMap);
   }, [pages$]);
 
-  console.log("pages$", pages$);
   const handleOpenAcc1 = (pageNumber: number) =>
     setOpenAcc((prev) => {
       return prev === pageNumber ? -10 : pageNumber;

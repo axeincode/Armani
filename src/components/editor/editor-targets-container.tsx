@@ -1,7 +1,7 @@
 import React from "react";
 import { useEditorPageWidgetsObserveable } from "@/hooks/useEditorWidgetsObserveable";
 import { map } from "lodash";
-import { WidgetTypes, availableHandles } from "@/types/editor.types";
+import { PageTypes, WidgetTypes, availableHandles } from "@/types/editor.types";
 import GridLayout from "./gridlayout/resize-grid-layout";
 import {
   useHoveredWidgetRepo,
@@ -9,17 +9,21 @@ import {
   useSelectedWidgetRepo,
 } from "@/store";
 import { useMeasure } from "react-use";
+import { useEditorPageObserveable } from "@/hooks/useEditorPagesObserveable";
 
 type EditorTargetsProps = {
   pageId: string;
   onLayoutChange: (layout: any) => void;
+  allLayoutChange: (layouts: ReactGridLayout.Layouts) => void;
 };
 
 export const EditorTargetsContainer = ({
   pageId,
   onLayoutChange,
+  allLayoutChange,
 }: EditorTargetsProps) => {
   const allWidgets = useEditorPageWidgetsObserveable(pageId);
+  const pageData = useEditorPageObserveable(pageId) as PageTypes;
   const selectedWidgetObs$ = useSelectedWidgetRepo();
 
   const [ref, { width, height }] = useMeasure();
@@ -47,7 +51,6 @@ export const EditorTargetsContainer = ({
     element: HTMLElement
   ) => {
     const { i: itemId } = layout;
-    console.log("Dragging item ID:", itemId);
     console.log("onDragStart", {
       layout,
       oldItem,
@@ -93,11 +96,13 @@ export const EditorTargetsContainer = ({
       <GridLayout
         data={layoutData}
         onLayoutChange={onLayoutChange}
+        allLayoutChange={allLayoutChange}
         onDragStart={onDragStart}
         onResizeStart={onResizeStart}
         onHover={onHover}
         onMouseDown={onMouseDown}
         containerHeight={Math.floor(Math.ceil(height / 100) * 100)}
+        allLayouts={pageData?.layouts}
       />
     </div>
   );

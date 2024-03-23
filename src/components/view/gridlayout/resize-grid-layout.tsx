@@ -1,6 +1,6 @@
 "use client";
 import React, { Component } from "react";
-import { find, get, isEmpty, map } from "lodash";
+import { find, get, isEmpty, isEqual, map, merge } from "lodash";
 
 import "../../../../node_modules/react-grid-layout/css/styles.css";
 import "./styles.css";
@@ -22,11 +22,12 @@ const availableHandles = ["s", "w", "e", "n"];
 // ];
 // implement grid layout state
 export interface GridLayoutState {
-  currentBreakpoint: string;
+  breakpoint: string;
   compactType: any;
   resizeHandles: string[];
   mounted: boolean;
   layouts: any;
+  allLayouts?: ReactGridLayout.Layouts;
 }
 
 export interface GridLayoutProps {
@@ -35,6 +36,8 @@ export interface GridLayoutProps {
   cols?: any;
   initialLayout?: any;
   data: GridResponsiveLayoutData;
+  onLayoutChange: (layout: any[]) => void;
+  allLayouts?: ReactGridLayout.Layouts;
 }
 
 const ResponsiveReactGridLayout = WidthProvider(Responsive);
@@ -46,16 +49,18 @@ class GridLayout extends React.Component<GridLayoutProps, GridLayoutState> {
     cols: { lg: 12, md: 10, sm: 6, xs: 4, xxs: 2 },
     initialLayout: [],
     compactType: "vertical",
+    allLayouts: {},
   };
 
   constructor(props: GridLayoutProps) {
     super(props);
     this.state = {
-      currentBreakpoint: "lg",
+      breakpoint: "lg",
       compactType: "vertical",
       resizeHandles: availableHandles,
       mounted: false,
-      layouts: { lg: props.initialLayout },
+      layouts: merge({ lg: props.initialLayout }, props.allLayouts, props.data),
+      allLayouts: {},
     };
 
     this.onBreakpointChange = this.onBreakpointChange.bind(this);
@@ -64,7 +69,7 @@ class GridLayout extends React.Component<GridLayoutProps, GridLayoutState> {
 
   generateDOM() {
     const { data } = this.props;
-    console.log("generated DOM data", data);
+    console.log("generateDom data", data);
     return map(data.lg, function (layout, i) {
       return (
         <div
@@ -81,7 +86,7 @@ class GridLayout extends React.Component<GridLayoutProps, GridLayoutState> {
   onBreakpointChange = (breakpoint: string) => {
     console.log("onBreakpointChange", breakpoint);
     this.setState({
-      currentBreakpoint: breakpoint,
+      breakpoint: breakpoint,
     });
   };
 
@@ -91,28 +96,33 @@ class GridLayout extends React.Component<GridLayoutProps, GridLayoutState> {
   ) => {
     console.log("onLayoutChange", layout);
     console.log("all-layouts", layouts);
+    // this.props?.onLayoutChange(layout);
+    this.setState({ layouts });
   };
 
   render() {
+    console.log("thisprops", this.props);
     return (
       <div className="flex flex-grow flex-col">
         <div className="flex flex-grow flex-col flex-1">
           <ResponsiveReactGridLayout
-            {...this.props}
+            /// {...this.props}
+            breakpoints={{ lg: 1280, md: 992, sm: 767, xs: 480, xxs: 0 }}
+            cols={{ lg: 12, md: 10, sm: 6, xs: 4, xxs: 2 }}
             // @ts-ignore
-            layouts={this.props.data}
+            layouts={this.state.layouts}
             isBounded={true}
             onBreakpointChange={this.onBreakpointChange}
             onLayoutChange={this.onLayoutChange}
             isDraggable={false}
             isResizable={false}
             useCSSTransforms={true}
-            allowOverlap={true}
-            compactType={this.state.compactType}
-            preventCollision={false}
+            compactType={"vertical"}
+            preventCollision={true}
             transformScale={1}
-            margin={[0, 0]}
+            margin={[10, 10]}
             autoSize={true}
+            // measureBeforeMount={true}
           >
             {this.generateDOM()}
           </ResponsiveReactGridLayout>

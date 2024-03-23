@@ -1,6 +1,6 @@
 "use client";
 import React, { Component } from "react";
-import { find, get, isEmpty, map } from "lodash";
+import { find, get, isEmpty, isEqual, map, merge } from "lodash";
 
 import "../../../../node_modules/react-grid-layout/css/styles.css";
 import "./styles.css";
@@ -28,12 +28,15 @@ export interface GridLayoutState {
   resizeHandles: string[];
   mounted: boolean;
   layouts: any;
+  allLayouts?: ReactGridLayout.Layouts;
 }
 
 export interface GridLayoutProps {
   className?: string;
   rowHeight?: number;
   onLayoutChange: (layout: any[]) => void;
+  allLayoutChange: (layouts: ReactGridLayout.Layouts) => void;
+  allLayouts?: ReactGridLayout.Layouts;
   onDragStart?: (
     layout: any,
     oldItem: any,
@@ -67,6 +70,7 @@ class GridLayout extends React.Component<GridLayoutProps, GridLayoutState> {
     cols: { lg: 12, md: 10, sm: 6, xs: 4, xxs: 2 },
     initialLayout: [],
     compactType: "vertical",
+    allLayouts: {},
   };
 
   constructor(props: GridLayoutProps) {
@@ -76,21 +80,48 @@ class GridLayout extends React.Component<GridLayoutProps, GridLayoutState> {
       compactType: "vertical",
       resizeHandles: availableHandles,
       mounted: false,
-      layouts: { lg: props.initialLayout },
+      layouts: merge({ lg: props.initialLayout }, props.allLayouts, props.data),
+      allLayouts: {},
     };
 
     this.onBreakpointChange = this.onBreakpointChange.bind(this);
     this.onLayoutChange = this.onLayoutChange.bind(this);
   }
 
+  // componentDidMount() {
+  //   const layouts = merge(
+  //     { lg: this.props.initialLayout },
+  //     this.props.allLayouts,
+  //     this.props.data
+  //   );
+  //   this.setState({ mounted: true, layouts });
+  // }
+
+  // // implement derived state from props;
+  // static getDrivedStateFromProps(
+  //   nextProps: GridLayoutProps,
+  //   prevState: GridLayoutProps
+  // ) {
+  //   const { allLayouts: prevAllLayouts } = prevState;
+  //   const { allLayouts: nextAllLayouts } = nextProps;
+  //   if (!isEqual(nextAllLayouts, prevAllLayouts)) {
+  //     const layouts = merge(
+  //       { lg: nextProps.initialLayout },
+  //       nextProps.allLayouts,
+  //       nextProps.data
+  //     );
+  //     return { layouts };
+  //   } else {
+  //     return null;
+  //   }
+  // }
+
   generateDOM() {
     const { data } = this.props;
-    console.log("generated DOM data", data);
     // hover is added to the grid layout
     const onHover = (e: any) => {
       if (e && e.target) {
         const widgetId = e.target?.getAttribute("data-widgetid");
-        console.log("hovertarget", e.target);
         if (this.props.onHover) this.props.onHover(widgetId);
       }
     };
@@ -105,7 +136,7 @@ class GridLayout extends React.Component<GridLayoutProps, GridLayoutState> {
       return (
         <div
           key={layout.i}
-          className={"flex p-1 bg-blue-gray-700"}
+          className={"flex p-2 bg-transparent"}
           onMouseEnter={onHover}
           onMouseDown={onMouseDown}
           data-widget={"GRID_ITEM"}
@@ -118,7 +149,6 @@ class GridLayout extends React.Component<GridLayoutProps, GridLayoutState> {
   }
 
   onBreakpointChange = (breakpoint: string) => {
-    console.log("onBreakpointChange", breakpoint);
     this.setState({
       currentBreakpoint: breakpoint,
     });
@@ -128,9 +158,9 @@ class GridLayout extends React.Component<GridLayoutProps, GridLayoutState> {
     layout: ReactGridLayout.Layout[],
     layouts: ReactGridLayout.Layouts
   ) => {
-    console.log("onLayoutChange", layout);
-    console.log("all-layouts", layouts);
+    const { currentBreakpoint } = this.state;
     this.props?.onLayoutChange(layout);
+    ////this.props?.allLayoutChange(layouts);
   };
 
   handleOnDragStart = (
@@ -189,13 +219,13 @@ class GridLayout extends React.Component<GridLayoutProps, GridLayoutState> {
             // and set `measureBeforeMount={true}`.
             measureBeforeMount={false}
             useCSSTransforms={true}
-            allowOverlap={true}
+            allowOverlap={false}
             compactType={this.state.compactType}
-            preventCollision={false}
+            preventCollision={true}
             onDragStart={this.handleOnDragStart}
             onResizeStart={this.handleOnResizeStart}
             transformScale={1}
-            margin={[2, 2]}
+            margin={[0, 0]}
             autoSize={true}
             draggableHandle=".x-drag-handle"
           >

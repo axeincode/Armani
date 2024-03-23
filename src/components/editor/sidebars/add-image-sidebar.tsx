@@ -41,7 +41,6 @@ export const AddImageWidgetSidebar = ({}: AddImageWidgetSidebarProps) => {
     selectedWidgetState.widgetId
   );
   const deckInfo = useEditorDecksObserveable();
-  console.log("editorWidgetState", editorWidgetState);
 
   const handleOnFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = (e.target && e.target.files && e.target.files[0]) || null;

@@ -11,13 +11,10 @@ export type TableWidgetProps = {
 
 export const TableWidget: React.FC<TableWidgetProps> = (props) => {
   const { data } = props;
-  console.log("data:::", data);
   const selectedWidgetObs$ = useSelectedWidgetRepo();
   const selectedWidgetState = useObservable(selectedWidgetObs$.getObservable());
-  console.log("selectedWidgetState::", selectedWidgetState);
   const widgetData =
     find(selectedWidgetState, (widget) => widget?.id === data.id) || {};
-  console.log(widgetData);
   return (
     <DynamicTable
       data-widget={WidgetElement.TABLE}

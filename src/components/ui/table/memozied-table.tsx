@@ -28,7 +28,6 @@ const MemoziedTableWidget = (props: ReactTableWidgetProps) => {
     selectedWidgetState.widgetId
   );
 
-  console.log("table data given", tableData);
   if (isEmpty(tableData)) {
     tableData = makeData() as unknown as any[];
   }
@@ -45,7 +44,6 @@ const MemoziedTableWidget = (props: ReactTableWidgetProps) => {
     [currentWidgetState, editorWidgetState, editorObs$]
   );
 
-  console.log("Memoized table widget", tableData);
   return (
     <ReactTableWidget
       data={tableData}

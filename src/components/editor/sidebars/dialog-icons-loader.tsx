@@ -91,7 +91,6 @@ export function DialogIconsLoader({ open, handler }: DialogIconsLoaderProps) {
     fetch("/api/editor")
       .then((response) => response.json())
       .then((data) => {
-        console.log(data);
         const icons = get(data, "data.icons", {});
         const casedIcons = mapKeys(icons, (value, key) => {
           // camel case the keys

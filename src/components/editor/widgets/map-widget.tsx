@@ -27,12 +27,10 @@ const MapWidget: React.FC<MapWidgetProps> = (props) => {
   const editorWidgetState = useEditorWidgetObserveable(
     selectedWidgetState.widgetId
   );
-  console.log("selectedWidgetState::", editorWidgetState);
 
   const widgetData = editorWidgetState?.data?.[0] || {};
 
   const stateCallback = (value: Record<string, number>) => {
-    console.log("state value", value);
     editorObs$.updateWidget(currentWidgetState.widgetId, {
       ...editorWidgetState,
       data: [value],

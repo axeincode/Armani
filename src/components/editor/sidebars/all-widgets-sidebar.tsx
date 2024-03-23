@@ -51,7 +51,6 @@ export function AllWidgetsSidebar({ toggleDrawer }: AllWidgetsSidebarProps) {
     fetchFonts();
   }, []);
 
-  console.log("currentPage$", currentPage$);
   const handleOpen = (value: number) => {
     setOpen(open === value ? 0 : value);
   };

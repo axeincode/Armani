@@ -83,7 +83,6 @@ export async function getAgreementByUser(uid: string) {
     if (!querySnapshot.empty) {
       const userAgreements: Agreement[] = [];
       querySnapshot.forEach((doc) => {
-        console.log("userAgreement", doc.id, " => ", doc.data());
         const docData = doc.data();
         userAgreements.push({
           id: doc.id,

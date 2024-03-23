@@ -1,6 +1,7 @@
 import { values } from "lodash";
 import { denormalize, normalize, schema } from "normalizr";
 import { WidgetEnum as KWidgetTypes, WidgetElement } from "./widgets";
+import { Layout } from "react-grid-layout";
 
 export type WidgetElementTypes = {
   id: string;
@@ -24,6 +25,7 @@ export type GridResponsiveLayoutData = {
   md?: GridLayoutData[];
   sm?: GridLayoutData[];
   xs?: GridLayoutData[];
+  xxs?: GridLayoutData[];
 };
 
 export type WidgetTableTypes = {
@@ -51,6 +53,11 @@ export type WidgetTypes = {
     w: number;
     h: number;
     resizeHandles?: string[];
+    lg?: Layout;
+    md?: Layout;
+    sm?: Layout;
+    xs?: Layout;
+    xxs?: Layout;
   };
   title?: string;
   subtitle?: string;
@@ -78,6 +85,7 @@ export type PageTypes = {
   widgets?: string[];
   iconName?: string;
   status?: "draft" | "published" | "archived";
+  layouts?: ReactGridLayout.Layouts;
 };
 
 export enum DocumentTypeEnum {

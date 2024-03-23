@@ -124,8 +124,14 @@ export const EditorMainArea = ({
         };
       });
 
-      console.log("handleOnLayoutChange", correctedLayouts);
+      console.log("handleOnLayoutChange correctedLayouts", correctedLayouts);
       editorObs$.updateLayoutTransformations(correctedLayouts);
+    }
+  };
+
+  const handleOnAllLayoutChange = (layouts: ReactGridLayout.Layouts) => {
+    if (layouts && currentPage$.pageId!) {
+      editorObs$.updatePageLayouts(currentPage$.pageId!, layouts);
     }
   };
 
@@ -162,6 +168,7 @@ export const EditorMainArea = ({
             <EditorPages
               pageId={currentPage$.pageId || ""}
               onLayoutChange={handleOnLayoutChange}
+              allLayoutChange={handleOnAllLayoutChange}
             />
           )}
         </>

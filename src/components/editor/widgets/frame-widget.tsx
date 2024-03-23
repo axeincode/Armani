@@ -79,7 +79,6 @@ export function FrameWidget({ data }: FrameWidgetProps) {
 
   const handleOnRootClick = (e: React.MouseEvent<HTMLDivElement>) => {
     e.stopPropagation();
-    console.log("handleOnRootClick e.currentTarget", e.currentTarget);
     selectedWidgetRepo.setSelectedWidget(
       data.id,
       currentPage$.pageId!,
@@ -123,32 +122,28 @@ export function FrameWidget({ data }: FrameWidgetProps) {
         data-widgetid={data.id}
         id={data.id}
       >
-        {data.elementType &&
-          data.elementType !== WidgetElement.CONTACT_CARD && (
-            <>
-              <CardHeader
-                className="flex flex-col max-h-28 -mt-0 min-w-0 min-h-[75px] m-0 gap-1"
-                data-widgetid={data.id}
-              >
-                <Typography
-                  variant="h6"
-                  color="blue-gray"
-                  data-id="INTERNAL_WIDGET"
-                  className="m-1 x-drag-handle cursor-move"
-                >
-                  {data.title || "Title"}
-                </Typography>
-                <Typography
-                  variant="small"
-                  color="blue-gray"
-                  data-id="INTERNAL_WIDGET"
-                  className="m-1"
-                >
-                  {data.subtitle || "Subtitle"}
-                </Typography>
-              </CardHeader>
-            </>
-          )}
+        <CardHeader
+          className="flex flex-col max-h-28 -mt-0 min-w-0 min-h-[75px] m-0 gap-1"
+          data-widgetid={data.id}
+        >
+          <Typography
+            variant="h6"
+            color="blue-gray"
+            data-id="INTERNAL_WIDGET"
+            className="m-1 x-drag-handle cursor-move"
+          >
+            {data.title || "Title"}
+          </Typography>
+          <Typography
+            variant="small"
+            color="blue-gray"
+            data-id="INTERNAL_WIDGET"
+            className="m-1"
+          >
+            {data.subtitle || "Subtitle"}
+          </Typography>
+        </CardHeader>
+
         <CardBody
           className={cn(
             "p-2 my-1 flex flex-grow flex-col justify-center items-center overflow-hidden",

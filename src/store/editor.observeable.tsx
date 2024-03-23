@@ -250,6 +250,21 @@ export const useEditorObserveable = () => {
         },
         []
       );
+      // assign to correct widget id transformations
+    });
+    setNextState(updatedState);
+  };
+
+  // update page Name
+  const updatePageLayouts = (
+    pageId: string,
+    layouts: ReactGridLayout.Layouts
+  ) => {
+    const prevState = editorSubject.getValue();
+    const updatedState = produce(prevState, (draft) => {
+      if (draft.result.pages.some((page) => page === pageId)) {
+        draft.entities.pages[pageId].layouts = layouts;
+      }
     });
     setNextState(updatedState);
   };
@@ -277,5 +292,6 @@ export const useEditorObserveable = () => {
     updateDocument,
     deleteDocument,
     updateLayoutTransformations,
+    updatePageLayouts,
   };
 };

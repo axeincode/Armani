@@ -57,9 +57,6 @@ export const EditorGrid = ({ editorState }: EditorGridProps) => {
     unit = Math.floor(1 / zoom) * 50;
   }
 
-  console.log("horizontalSnapGuides", horizontalSnapGuides);
-  console.log("verticalSnapGuides", verticalSnapGuides, zoom);
-
   const setPage = (page: number) => {
     const getPage = Object.keys(pages$).filter((key) => {
       return pages$[key].pageNumber === page;
@@ -80,7 +77,6 @@ export const EditorGrid = ({ editorState }: EditorGridProps) => {
 
   React.useEffect(() => {
     if (!deckInfo?.fontFamily) return;
-    console.log("font failily", deckInfo?.fontFamily);
     loadWebFontCallback([deckInfo?.fontFamily]);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [deckInfo?.fontFamily]);

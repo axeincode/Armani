@@ -12,7 +12,6 @@ export type IconsViewerProps = {
 };
 
 export const IconsGalleryViewer = ({ data }: IconsViewerProps) => {
-  console.log("iconsViewer data", data);
   const iconsData = get(data, "data.icons", []);
   const iconColor = get(data, "data.color", "#000000");
   return (

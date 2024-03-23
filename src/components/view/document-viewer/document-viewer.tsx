@@ -59,8 +59,6 @@ const DocViewerManager = ({
     };
   }, [blobUrl, selectedDocument]);
 
-  console.log("docsavaialbe", docs);
-
   return (
     <div className="h-full">
       {isLoading && (

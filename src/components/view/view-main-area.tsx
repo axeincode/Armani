@@ -54,7 +54,6 @@ export const ViewMainArea = ({
     selectedWidgetState.widgetId
   );
   const deckId = deckInfo?.id;
-  console.log("userAgreement", userAgreementsObs$);
   React.useEffect(() => {
     if (!deckId) return;
     const getAgreement = filter(userAgreementsObs$, (agreement) => {

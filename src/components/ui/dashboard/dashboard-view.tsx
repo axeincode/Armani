@@ -63,7 +63,7 @@ export const DashboardViewComponent = ({
       <div className="flex flex-col md:flex-row items-center justify-center gap-3 bg-gray-100 border-2 border-solid border-gray-200">
         {map(pages, (page, key) => {
           return (
-            <>
+            <React.Fragment key={key}>
               {page.pageNumber > 0 && (
                 <div key={key} className="flex flex-col items-center w-28 h-20">
                   <div className="flex flex-col items-center p-3 gap-2">
@@ -86,7 +86,7 @@ export const DashboardViewComponent = ({
                   </div>
                 </div>
               )}
-            </>
+            </React.Fragment>
           );
         })}
       </div>

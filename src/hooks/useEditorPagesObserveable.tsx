@@ -38,7 +38,7 @@ export function useEditorPageObserveable(pageId: string) {
       .pipe(
         map((state: EditorStateTypes) => state.entities.pages[pageId]),
         distinctUntilChanged(isEqual),
-        debounceTime(10),
+        debounceTime(1),
         shareReplay(1)
       )
       .subscribe((currentPage: PageTypes) => {

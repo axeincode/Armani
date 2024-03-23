@@ -22,7 +22,6 @@ export function Sidebar() {
     setOpen(open === value ? 0 : value);
   };
   const { widgetElement: selectedWidget } = selectedWidgetState;
-  console.log("widgettype", selectedWidgetState);
 
   return (
     <div

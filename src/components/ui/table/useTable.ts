@@ -37,11 +37,6 @@ const useTable = (widgetData: any) => {
     }, {});
   });
 
-  console.log("tableData", tableData);
-  console.log("tableColumns", tableColumns);
-  console.log("tableRows", tableRows);
-  console.log("constructed data", data);
-
   const table = useReactTable({
     data: data || [],
     columns: columns || [],
@@ -52,8 +47,6 @@ const useTable = (widgetData: any) => {
     getCoreRowModel: getCoreRowModel(),
     debugTable: true,
   });
-
-  console.log("table", table);
 
   return {
     tableName,

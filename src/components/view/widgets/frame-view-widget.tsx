@@ -40,7 +40,7 @@ export function FrameWidget({ data }: FrameWidgetProps) {
   const editorWidgetState = useEditorWidgetObserveable(
     selectedWidgetState.widgetId
   );
-  console.log("current widget data", data);
+  // console.log("current widget data", data);
   const elementType = data.elementType;
 
   return (

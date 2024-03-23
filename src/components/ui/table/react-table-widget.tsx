@@ -228,7 +228,6 @@ export default function ReactTableWidget(props: ReactTableWidgetProps) {
     meta: {
       updateData: (rowIndex, columnId, value, originalRow) => {
         // Skip page index reset until after next rerender
-        console.log("originalRowUpdate", originalRow);
         const originalRowId = get(originalRow, "id");
         skipAutoResetPageIndex();
         if (originalRowId) {
