@@ -225,7 +225,7 @@ class GridLayout extends React.Component<GridLayoutProps, GridLayoutState> {
             onDragStart={this.handleOnDragStart}
             onResizeStart={this.handleOnResizeStart}
             transformScale={1}
-            margin={[10, 10]}
+            margin={[0, 0]}
             autoSize={true}
             draggableHandle=".x-drag-handle"
           >
