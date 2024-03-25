@@ -1,7 +1,6 @@
 "use client";
 import React, { Component } from "react";
 import { find, get, isEmpty, isEqual, map, merge } from "lodash";
-
 import "../../../../node_modules/react-grid-layout/css/styles.css";
 import "./styles.css";
 
@@ -87,6 +86,7 @@ class GridLayout extends React.Component<GridLayoutProps, GridLayoutState> {
     console.log("onBreakpointChange", breakpoint);
     this.setState({
       breakpoint: breakpoint,
+      compactType: breakpoint === "lg" ? "vertical" : "horizontal",
     });
   };
 
@@ -117,7 +117,7 @@ class GridLayout extends React.Component<GridLayoutProps, GridLayoutState> {
             isDraggable={false}
             isResizable={false}
             useCSSTransforms={true}
-            compactType={"vertical"}
+            compactType={this.state.compactType}
             preventCollision={true}
             transformScale={1}
             margin={[10, 10]}

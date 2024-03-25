@@ -10,6 +10,7 @@ import {
 } from "@/store";
 import { useMeasure } from "react-use";
 import { useEditorPageObserveable } from "@/hooks/useEditorPagesObserveable";
+import { Spinner } from "@material-tailwind/react";
 
 type EditorTargetsProps = {
   pageId: string;
@@ -25,6 +26,7 @@ export const EditorTargetsContainer = ({
   const allWidgets = useEditorPageWidgetsObserveable(pageId);
   const pageData = useEditorPageObserveable(pageId) as PageTypes;
   const selectedWidgetObs$ = useSelectedWidgetRepo();
+  const [isMounted, setIsMounted] = React.useState(false);
 
   const [ref, { width, height }] = useMeasure();
   const layoutData = React.useMemo(() => {
@@ -85,6 +87,15 @@ export const EditorTargetsContainer = ({
     selectedWidgetObs$.unSelect();
   };
 
+  // pageid use effect
+  React.useEffect(() => {
+    setIsMounted(false);
+    const timeout = setTimeout(() => {
+      setIsMounted(true);
+    }, 300);
+    return () => clearTimeout(timeout);
+  }, [pageId]);
+
   return (
     <div
       className="flex flex-grow"
@@ -93,17 +104,24 @@ export const EditorTargetsContainer = ({
       data-testid="editor-targets-container"
       onClick={onEditorLayoutClick}
     >
-      <GridLayout
-        data={layoutData}
-        onLayoutChange={onLayoutChange}
-        allLayoutChange={allLayoutChange}
-        onDragStart={onDragStart}
-        onResizeStart={onResizeStart}
-        onHover={onHover}
-        onMouseDown={onMouseDown}
-        containerHeight={Math.floor(Math.ceil(height / 100) * 100)}
-        allLayouts={pageData?.layouts}
-      />
+      {!isMounted && (
+        <div className="flex justify-center">
+          <Spinner />
+        </div>
+      )}
+      {isMounted && (
+        <GridLayout
+          data={layoutData}
+          onLayoutChange={onLayoutChange}
+          allLayoutChange={allLayoutChange}
+          onDragStart={onDragStart}
+          onResizeStart={onResizeStart}
+          onHover={onHover}
+          onMouseDown={onMouseDown}
+          containerHeight={Math.floor(Math.ceil(height / 100) * 100)}
+          allLayouts={pageData?.layouts}
+        />
+      )}
     </div>
   );
 };
