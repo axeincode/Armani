@@ -87,14 +87,6 @@ export const FrameWidgetEditorTool = ({
     });
   };
 
-  const handleOnOrderChange = (value: string) => {
-    if (!currentWidgetState.widgetId) return;
-    editorObs$.updateWidget(currentWidgetState.widgetId, {
-      ...editorWidgetState,
-      order: isNaN(parseInt(value)) ? 1 : parseInt(value),
-    });
-  };
-
   const handleHasCaption = (value: boolean) => {
     if (!currentWidgetState.widgetId) return;
     editorObs$.updateWidget(currentWidgetState.widgetId, {
@@ -162,15 +154,6 @@ export const FrameWidgetEditorTool = ({
               placeholder="Subtitle"
               value={editorWidgetState.subtitle || ""}
               onChange={handleOnSubtitleChange}
-            />
-          </div>
-
-          <div className="flex flex-col gap-1 mb-2 px-1">
-            <LabelInput
-              label="Order"
-              placeholder="Order"
-              value={String(editorWidgetState.order || 1)}
-              onChange={handleOnOrderChange}
             />
           </div>
 

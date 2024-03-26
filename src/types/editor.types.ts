@@ -59,7 +59,6 @@ export type WidgetTypes = {
     xs?: Layout;
     xxs?: Layout;
   };
-  order: number;
   title?: string;
   subtitle?: string;
   enableElements: boolean;

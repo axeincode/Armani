@@ -21,10 +21,8 @@ export const ViewPage = ({ pageId }: ViewPageProps) => {
   const [ref, { x, y, width, height, top, right, bottom, left }] = useMeasure();
 
   // const { width, height } = useWindowSize();
-
   const layoutData = React.useMemo(() => {
-    const orderedWidgets = orderBy(allWidgets, ["order"], ["asc"]);
-    const widgetLayoutData = map(orderedWidgets, (widget: WidgetTypes) => {
+    const widgetLayoutData = map(allWidgets, (widget: WidgetTypes) => {
       return {
         i: widget.id,
         x: widget.transformation.x,
@@ -34,7 +32,6 @@ export const ViewPage = ({ pageId }: ViewPageProps) => {
         resizeHandles: [],
       };
     });
-
     const gridlayoutsData = { lg: widgetLayoutData };
     return gridlayoutsData;
   }, [allWidgets]);
