@@ -52,31 +52,33 @@ export function FrameWidget({ data }: FrameWidgetProps) {
       data-element-type={elementType}
       id={data.id}
     >
-      {data.elementType && data.elementType !== WidgetElement.CONTACT_CARD && (
-        <>
-          <CardHeader
-            className="flex flex-col max-h-40 -mt-0 min-w-0 min-h-[75px] m-0 gap-1"
-            data-widget-id={data.id}
-          >
-            <Typography
-              variant="h6"
-              color="blue-gray"
-              data-id="INTERNAL_WIDGET"
-              className="m-1"
-            >
-              {data.title || "Title"}
-            </Typography>
-            <Typography
-              variant="small"
-              color="blue-gray"
-              data-id="INTERNAL_WIDGET"
-              className="m-1"
-            >
-              {data.subtitle || "Subtitle"}
-            </Typography>
-          </CardHeader>
-        </>
-      )}
+      {isEmpty(data.elementType) ||
+        (data.elementType &&
+          data.elementType !== WidgetElement.CONTACT_CARD && (
+            <>
+              <CardHeader
+                className="flex flex-col max-h-40 -mt-0 min-w-0 min-h-[75px] m-0 gap-1"
+                data-widget-id={data.id}
+              >
+                <Typography
+                  variant="h6"
+                  color="blue-gray"
+                  data-id="INTERNAL_WIDGET"
+                  className="m-1"
+                >
+                  {data.title || "Title"}
+                </Typography>
+                <Typography
+                  variant="small"
+                  color="blue-gray"
+                  data-id="INTERNAL_WIDGET"
+                  className="m-1"
+                >
+                  {data.subtitle || "Subtitle"}
+                </Typography>
+              </CardHeader>
+            </>
+          ))}
       <CardBody
         className="p-2 my-1  flex flex-grow flex-col justify-center items-center overflow-hidden"
         data-id="FRAME_CARD_BODY"
