@@ -1,25 +1,11 @@
 "use client";
-import React, { Component } from "react";
-import {
-  find,
-  flatMap,
-  get,
-  groupBy,
-  isEmpty,
-  isEqual,
-  map,
-  merge,
-  orderBy,
-} from "lodash";
+import React from "react";
+import { flatMap, groupBy, map, merge, orderBy } from "lodash";
 import "../../../../node_modules/react-grid-layout/css/styles.css";
 import "./styles.css";
 
 import { Responsive, WidthProvider } from "react-grid-layout";
-import {
-  GridLayoutData,
-  GridResponsiveLayoutData,
-  WidgetTypes,
-} from "@/types/editor.types";
+import { GridResponsiveLayoutData } from "@/types/editor.types";
 import { RenderWidgetItem } from "./render-widget";
 import { GridItemView } from "./grid-item-view";
 const availableHandles = ["s", "w", "e", "n"];
@@ -52,7 +38,7 @@ class GridLayout extends React.Component<GridLayoutProps, GridLayoutState> {
     className: "layout",
     rowHeight: 200,
     onLayoutChange: function () {},
-    cols: { lg: 12, md: 10, sm: 6, xs: 4, xxs: 2 },
+    cols: { lg: 12, md: 12, sm: 6, xs: 4, xxs: 2 },
     initialLayout: [],
     compactType: "vertical",
     allLayouts: {},
@@ -67,7 +53,7 @@ class GridLayout extends React.Component<GridLayoutProps, GridLayoutState> {
       mounted: false,
       layouts: merge({ lg: props.initialLayout }, props.allLayouts, props.data),
       allLayouts: {},
-      cols: { lg: 12, md: 10, sm: 6, xs: 4, xxs: 2 },
+      cols: { lg: 12, md: 12, sm: 6, xs: 4, xxs: 2 },
     };
 
     this.onBreakpointChange = this.onBreakpointChange.bind(this);
@@ -110,7 +96,7 @@ class GridLayout extends React.Component<GridLayoutProps, GridLayoutState> {
     console.log("grouped Layout newLayout", newLayout);
 
     const getCurrentLayouts = this.state.layouts;
-    if (breakpoint === "md") {
+    if (breakpoint === "sm") {
       this.setState({
         layouts: { ...getCurrentLayouts, [breakpoint]: newLayout },
       });
@@ -163,8 +149,8 @@ class GridLayout extends React.Component<GridLayoutProps, GridLayoutState> {
             preventCollision={true}
             transformScale={1}
             margin={[10, 10]}
-            autoSize={true}
-            width={this.props.width}
+            // autoSize={true}
+            // width={this.props.width}
             /// measureBeforeMount={true}
           >
             {map(this.props.data.lg, (layout: any) => {
