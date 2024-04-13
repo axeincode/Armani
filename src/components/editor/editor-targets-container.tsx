@@ -16,14 +16,16 @@ type EditorTargetsProps = {
   pageId: string;
   onLayoutChange: (layout: any) => void;
   allLayoutChange: (layouts: ReactGridLayout.Layouts) => void;
+  tabId?: string;
 };
 
 export const EditorTargetsContainer = ({
   pageId,
   onLayoutChange,
   allLayoutChange,
+  tabId = "",
 }: EditorTargetsProps) => {
-  const allWidgets = useEditorPageWidgetsObserveable(pageId);
+  const allWidgets = useEditorPageWidgetsObserveable(pageId, tabId);
   const pageData = useEditorPageObserveable(pageId) as PageTypes;
   const selectedWidgetObs$ = useSelectedWidgetRepo();
   const [isMounted, setIsMounted] = React.useState(false);

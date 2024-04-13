@@ -1,5 +1,5 @@
 import { BehaviorSubject } from "rxjs";
-import { merge, get, findIndex, reduce, filter, pick } from "lodash";
+import { merge, get, findIndex, reduce, filter, pick, flatMap } from "lodash";
 import { produce } from "immer";
 import { v4 as uuidV4 } from "uuid";
 import {
@@ -34,7 +34,11 @@ export const useEditorObserveable = () => {
     editorSubject.next(payload);
   };
 
-  const addWidget = (pageId: string, widgetdata: WidgetTypes) => {
+  const addWidget = (
+    pageId: string,
+    widgetdata: WidgetTypes,
+    tabId?: string
+  ) => {
     const { id: widgetId } = widgetdata;
     const prevState = editorSubject.getValue();
     const updatedState = produce(prevState, (draft) => {
@@ -53,6 +57,19 @@ export const useEditorObserveable = () => {
       // add widget to result
       if (!draft.result.widgets.some((widget) => widget === widgetId)) {
         draft.result.widgets.push(widgetId);
+      }
+
+      // if tabId, add widget to tab
+      if (tabId) {
+        const tab = draft.entities.pages[pageId].tabs?.find(
+          (tab) => tab.id === tabId
+        );
+        if (tab) {
+          if (!tab.widgets) {
+            tab.widgets = [];
+          }
+          tab.widgets.push(widgetId);
+        }
       }
     });
     setNextState(updatedState);
@@ -92,6 +109,14 @@ export const useEditorObserveable = () => {
         draft.result.widgets = draft.result.widgets.filter(
           (widget) => widget !== widgetId
         );
+      }
+
+      // delete widget from tab
+      const tab = draft.entities.pages[pageId].tabs?.find(
+        (tab) => tab.widgets?.some((w) => w === widgetId)
+      );
+      if (tab) {
+        tab.widgets = tab.widgets?.filter((w) => w !== widgetId);
       }
     });
     setNextState(updatedState);
@@ -269,6 +294,138 @@ export const useEditorObserveable = () => {
     setNextState(updatedState);
   };
 
+  // add tab info to pages
+  const addTab = (pageId: string, tabId: string) => {
+    const prevState = editorSubject.getValue();
+    const updatedState = produce(prevState, (draft) => {
+      if (draft.entities.pages[pageId]) {
+        if (!draft.entities.pages[pageId].tabs) {
+          draft.entities.pages[pageId].tabs = [];
+        }
+        const tabTypInfo = {
+          id: tabId,
+          name: "Tab",
+          widgets: [],
+        };
+        draft.entities.pages[pageId].tabs?.push(tabTypInfo);
+      }
+    });
+    setNextState(updatedState);
+  };
+
+  // remove tab
+  const deleteTab = (pageId: string) => {
+    const prevState = editorSubject.getValue();
+    const updatedState = produce(prevState, (draft) => {
+      if (draft.entities.pages[pageId]) {
+        const tabs = draft.entities.pages[pageId].tabs;
+        if (tabs) {
+          const widgetIds = flatMap(
+            tabs.map((tab) => tab.widgets),
+            (f) => f
+          );
+
+          for (const widgetId of widgetIds) {
+            // delete all widgets from the pages
+            if (draft.entities.pages[pageId]) {
+              // @ts-ignore
+              const index = draft.entities.pages[pageId].widgets.findIndex(
+                (widget) => widget === widgetId
+              );
+              if (index > -1) {
+                // @ts-ignore
+                draft.entities.pages[pageId].widgets.splice(index, 1);
+              }
+            }
+            // delete widget from entities
+            if (draft.entities.widgets && draft.entities.widgets[widgetId]) {
+              delete draft.entities.widgets[widgetId];
+            }
+            // delete widget from result
+            if (draft.result.widgets.some((widget) => widget === widgetId)) {
+              draft.result.widgets = draft.result.widgets.filter(
+                (widget) => widget !== widgetId
+              );
+            }
+          }
+        }
+        // empty the tabs
+        draft.entities.pages[pageId].tabs = [];
+      }
+    });
+    setNextState(updatedState);
+  };
+
+  // add tab names to tabs
+  const addTabName = (pageId: string, tabId: string, tabName: string) => {
+    const prevState = editorSubject.getValue();
+    const updatedState = produce(prevState, (draft) => {
+      if (draft.entities.pages[pageId]) {
+        if (draft.entities.pages[pageId].tabs) {
+          const tab = draft.entities.pages[pageId].tabs?.find(
+            (tab) => tab.id === tabId
+          );
+          if (tab) {
+            tab.name = tabName;
+          }
+        }
+      }
+    });
+    setNextState(updatedState);
+  };
+
+  // remove tab names to tabs
+  const removeTabName = (pageId: string, tabId: string) => {
+    const prevState = editorSubject.getValue();
+    const updatedState = produce(prevState, (draft) => {
+      if (draft.entities.pages[pageId]) {
+        if (draft.entities.pages[pageId].tabs) {
+          const afterDelTabs = draft.entities.pages[pageId].tabs?.filter(
+            (ftab) => ftab.id !== tabId
+          );
+          draft.entities.pages[pageId].tabs = afterDelTabs;
+        }
+      }
+    });
+    setNextState(updatedState);
+  };
+
+  // add widget to tabs
+  const addTabWidgets = (
+    pageId: string,
+    tabId: string,
+    widgetdata: WidgetTypes
+  ) => {
+    const { id: widgetId } = widgetdata;
+    const prevState = editorSubject.getValue();
+    const updatedState = produce(prevState, (draft) => {
+      if (draft.entities.pages[pageId]) {
+        if (draft.entities.pages[pageId].tabs) {
+          const tab = draft.entities.pages[pageId].tabs?.find(
+            (tab) => tab.id === tabId
+          );
+          if (tab) {
+            // add widget array if it is first one
+            if (!tab.widgets) {
+              tab.widgets = [];
+            }
+            tab.widgets.push(widgetId);
+          }
+        }
+      }
+      // add widget to entities
+      if (!draft.entities.widgets) {
+        draft.entities.widgets = {};
+      }
+      draft.entities.widgets[widgetId] = widgetdata;
+      // add widget to result
+      if (!draft.result.widgets.some((widget) => widget === widgetId)) {
+        draft.result.widgets.push(widgetId);
+      }
+    });
+    setNextState(updatedState);
+  };
+
   const setNextState = (payload: EditorStateTypes) => {
     editorSubject.next(payload);
   };
@@ -293,5 +450,10 @@ export const useEditorObserveable = () => {
     deleteDocument,
     updateLayoutTransformations,
     updatePageLayouts,
+    addTab,
+    deleteTab,
+    addTabName,
+    removeTabName,
+    addTabWidgets,
   };
 };

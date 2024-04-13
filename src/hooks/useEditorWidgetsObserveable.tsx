@@ -6,7 +6,10 @@ import { editorSubject } from "@/store";
 import { filter, includes } from "lodash";
 
 // write a hook that takes in a subject and returns the current state for editor decks
-export function useEditorPageWidgetsObserveable(pageId: string) {
+export function useEditorPageWidgetsObserveable(
+  pageId: string,
+  tabId?: string
+) {
   const editorState$ = editorSubject.value;
   const page = editorState$.entities.pages[pageId];
   const pageOnlyWidgets = page && (page.widgets as string[]);
@@ -26,6 +29,14 @@ export function useEditorPageWidgetsObserveable(pageId: string) {
           const widgetsInfo = filter(state.entities.widgets, (f: WidgetTypes) =>
             includes(pageOnlyWidgets, f.id as string)
           );
+          const tabs = page.tabs;
+          if (tabs && tabId) {
+            const tab = filter(tabs, (f) => f.id === tabId);
+            const tabWidgets = tab && (tab[0]?.widgets as string[]);
+            return filter(widgetsInfo, (f: WidgetTypes) =>
+              includes(tabWidgets, f.id as string)
+            );
+          }
           return widgetsInfo;
         }),
         distinctUntilChanged(isEqual),
@@ -37,7 +48,7 @@ export function useEditorPageWidgetsObserveable(pageId: string) {
       });
 
     return () => subscription.unsubscribe();
-  }, [pageId]);
+  }, [pageId, tabId]);
 
   return state;
 }

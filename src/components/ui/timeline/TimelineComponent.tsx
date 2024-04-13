@@ -17,8 +17,6 @@ export const TimelineComponent = ({ data }: TimelineComponentProps) => {
   ]);
   const [updateCount, setUpdateCount] = React.useState(0);
 
-  console.log("incoming timeline data", data);
-
   React.useEffect(() => {
     const timelineData = get(data, "data", []);
     const itemData = map(timelineData, (item) => {

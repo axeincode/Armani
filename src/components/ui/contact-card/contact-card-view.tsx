@@ -14,6 +14,7 @@ import {
 } from "@heroicons/react/24/solid";
 import { get } from "lodash";
 import { LinkedinIcon } from "lucide-react";
+import { cn } from "@/lib/utils";
 
 export type ContactCardViewProps = {
   data: any;
@@ -44,7 +45,7 @@ export const ContactCardView = ({ data }: ContactCardViewProps) => {
   );
 
   return (
-    <div className="flex flex-col flex-grow w-full">
+    <div className={cn("flex flex-col")} data-testid="contact-card-view-root">
       <div className="flex justify-center items-center h-32">
         <img src={imgUrl} alt="contact" className="h-32 w-32" />
       </div>
@@ -77,7 +78,7 @@ export const ContactCardView = ({ data }: ContactCardViewProps) => {
               color="blue-gray"
               className="m-1 text-wrap"
             >
-              {widgetData.phone || ""}
+              {widgetData.bio || ""}
             </Typography>
           </AccordionBody>
         </Accordion>

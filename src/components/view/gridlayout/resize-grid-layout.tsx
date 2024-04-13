@@ -79,6 +79,7 @@ class GridLayout extends React.Component<GridLayoutProps, GridLayoutState> {
     const sortedLayout = orderBy(layout, ["y", "x"], ["asc", "asc"]);
     const groupedLayout = groupBy(sortedLayout, "y");
     const { breakpoint, cols } = this.state;
+    console.log("current breakpoint + layout", breakpoint, layout);
     // @ts-ignore
     const numColumns = cols[breakpoint];
     for (const key in groupedLayout) {
@@ -116,15 +117,15 @@ class GridLayout extends React.Component<GridLayoutProps, GridLayoutState> {
     layout: ReactGridLayout.Layout[],
     layouts: ReactGridLayout.Layouts
   ) => {
-    // console.log("onLayoutChange", layout);
-    // console.log("all-layouts", layouts);
+    console.log("ViewOnly onLayoutChange", layout);
+    console.log("ViewOnly all-layouts", layouts);
     // this.props?.onLayoutChange(layout);
     const prevState = this.state;
-    this.setState({ ...prevState, layouts });
-    const newLayout = layout.map((item) => ({
-      ...item,
-    }));
-    this.equalizeWidgetWidths(newLayout);
+    // this.setState({ ...prevState, layouts });
+    // const newLayout = layout.map((item) => ({
+    //   ...item,
+    // }));
+    /// this.equalizeWidgetWidths(newLayout);
   };
 
   render() {

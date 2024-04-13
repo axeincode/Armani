@@ -73,7 +73,7 @@ export const AddTimelineWidgetSidebar = ({}: AddTimelineWidgetSidebarProps) => {
 
   return (
     <>
-      <div className="max-h-72 overflow-x-hidden scrollbar-thin scrollbar-thumb-gray-600 scrollbar-track-gray-900">
+      <div className="flex flex-col">
         {formData.map((pair, index) => (
           <div key={index} className="flex flex-col mb-4">
             <LabelInput

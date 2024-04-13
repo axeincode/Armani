@@ -4,6 +4,7 @@ import { useWindowSize } from "react-use";
 import useCallbackRefDimensions from "@/hooks/useCallbackRefDimensions";
 import { EditorPagination } from "./editor-pagination";
 import { EditorPages } from "./editor-pages";
+import { EditorTabPages } from "./editor-tab-pages";
 import { PageTitle } from "./page-title";
 import {
   IPageState,
@@ -17,15 +18,19 @@ import { WidgetElement } from "@/types";
 import {
   EditorStateTypes,
   GridLayoutData,
+  PageTypes,
   availableHandles,
 } from "@/types/editor.types";
-import { map, orderBy, pick } from "lodash";
+import { get, map, orderBy, pick } from "lodash";
 import { useCurrentPageObserveable } from "@/hooks/useCurrentPageObserveable";
 import { useEditorWidgetObserveable } from "@/hooks/useEditorWidgetsObserveable";
 import { useCurrentWidgetObserveable } from "@/hooks/useCurrentWidgetObserveable";
 import ReactGridLayout from "react-grid-layout";
 import { ReactTableWidget } from "../ui/table";
-import { useEditorPagesObserveable } from "@/hooks/useEditorPagesObserveable";
+import {
+  useEditorPageObserveable,
+  useEditorPagesObserveable,
+} from "@/hooks/useEditorPagesObserveable";
 import { DashboardViewComponent } from "@/components/ui/dashboard/dashboard-view";
 
 export type EditorMainAreaProps = {
@@ -57,7 +62,19 @@ export const EditorMainArea = ({
   const editorWidgetState = useEditorWidgetObserveable(
     selectedWidgetState.widgetId
   );
-  console.log("selectedWidget", selectedWidgetState);
+
+  /// current pageInfo;
+  const currentPageInfo$ = React.useMemo(() => {
+    if (currentPage$.pageId) {
+      return pages$[currentPage$.pageId];
+    }
+    return {} as unknown as PageTypes;
+  }, [currentPage$, pages$]);
+
+  const hasTabs = currentPageInfo$.tabs && currentPageInfo$.tabs.length > 0;
+
+  console.log("currentPageInfo$", currentPageInfo$);
+  console.log("pages$", pages$);
 
   React.useEffect(() => {
     if (selectedWidgetState.widgetId === "") {
@@ -123,8 +140,6 @@ export const EditorMainArea = ({
           y: isNaN(y) ? Infinity : y,
         };
       });
-
-      console.log("handleOnLayoutChange correctedLayouts", correctedLayouts);
       editorObs$.updateLayoutTransformations(correctedLayouts);
     }
   };
@@ -164,11 +179,20 @@ export const EditorMainArea = ({
               />
             </>
           )}
-          {currentPage > 0 && (
+          {currentPage > 0 && !hasTabs && (
             <EditorPages
               pageId={currentPage$.pageId || ""}
               onLayoutChange={handleOnLayoutChange}
               allLayoutChange={handleOnAllLayoutChange}
+            />
+          )}
+          {currentPage > 0 && hasTabs && (
+            <EditorTabPages
+              pageId={currentPage$.pageId || ""}
+              onLayoutChange={handleOnLayoutChange}
+              allLayoutChange={handleOnAllLayoutChange}
+              currentPage={currentPage$}
+              currentPageInfo={currentPageInfo$}
             />
           )}
         </>

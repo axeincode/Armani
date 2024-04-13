@@ -15,12 +15,15 @@ import {
   useEditorDecksObserveable,
   useEditorObserveable,
   useSelectedWidgetRepo,
+  IPageState,
 } from "@/store";
-import { WidgetTypes, availableHandles } from "@/types/editor.types";
+import { PageTypes, WidgetTypes, availableHandles } from "@/types/editor.types";
 import ColorPicker from "@/components/ui/color-picker";
 import { fontFaceTypes } from "@/components/ui/types/font-face-types";
 import { WebFontSelect } from "@/components/ui/webfont-select";
 import { debounce } from "lodash";
+import { useEditorPagesObserveable } from "@/hooks/useEditorPagesObserveable";
+import { AddTabNames } from "./add-tab-names";
 
 export type AllWidgetsSidebarProps = {
   toggleDrawer: () => void;
@@ -32,8 +35,27 @@ export function AllWidgetsSidebar({ toggleDrawer }: AllWidgetsSidebarProps) {
   const currentPage$ = useCurrentPageObserveable();
   const selectedWidgetRepo = useSelectedWidgetRepo();
   const editor$ = useEditorObserveable();
+  const pages$ = useEditorPagesObserveable();
   const deckInfo = useEditorDecksObserveable();
   const [fontFaces, setFontFaces] = React.useState<fontFaceTypes[]>([]);
+
+  console.log("currentPageInfo$ Widget Sidebar", currentPage$);
+
+  const currentPageInfo$: PageTypes = React.useMemo(() => {
+    if (currentPage$.pageId) {
+      return pages$[currentPage$.pageId];
+    }
+    return {} as unknown as PageTypes;
+  }, [currentPage$, pages$]);
+
+  const hasWidgets =
+    currentPageInfo$ &&
+    currentPageInfo$.widgets &&
+    currentPageInfo$.widgets.length > 0;
+  const hasTabs =
+    currentPageInfo$ &&
+    currentPageInfo$.tabs &&
+    currentPageInfo$.tabs.length > 0;
 
   React.useEffect(() => {
     const fetchFonts = async () => {
@@ -83,6 +105,7 @@ export function AllWidgetsSidebar({ toggleDrawer }: AllWidgetsSidebarProps) {
 
   const handleOnAddWidget = (widgetType: WidgetEnum) => {
     const pageId = currentPage$.pageId;
+    const tabId = currentPage$.currentTabId;
     if (pageId) {
       const widgetId = v4();
       const widgetdata: WidgetTypes = {
@@ -103,9 +126,17 @@ export function AllWidgetsSidebar({ toggleDrawer }: AllWidgetsSidebarProps) {
         images: [],
         enableElements: false,
       };
-      editor$.addWidget(pageId, widgetdata);
+      editor$.addWidget(pageId, widgetdata, tabId);
       // selected widget id on add
       handleDebounceOnAdd(widgetId, pageId);
+    }
+  };
+
+  const handleOnAddTabs = () => {
+    const pageId = currentPage$.pageId;
+    if (pageId) {
+      const tabId = v4();
+      editor$.addTab(pageId, tabId);
     }
   };
 
@@ -128,63 +159,86 @@ export function AllWidgetsSidebar({ toggleDrawer }: AllWidgetsSidebarProps) {
         </div>
       </div>
       <List className="min-w-[10px]">
-        <ListItem onClick={() => handleOnAddWidget(WidgetEnum.FRAME)}>
-          Frame
-          <ListItemSuffix>
-            <PlusCircleIcon className="h-5 w-5" />
-          </ListItemSuffix>
-        </ListItem>
-        <ListItem>
-          Background
-          <ListItemSuffix>
-            <ColorPicker
-              open={openColor}
-              value={deckInfo?.background || "#aabbcc"}
-              onChange={(color) => handleOnBackgroundChange(color)}
-            />
-          </ListItemSuffix>
-        </ListItem>
-        <ListItem>
-          Navbar
-          <ListItemSuffix>
-            <ColorPicker
-              open={openColor}
-              value={deckInfo?.navbar || "#aabbcc"}
-              onChange={(color) => handleOnNavbarColorChange(color)}
-            />
-          </ListItemSuffix>
-        </ListItem>
-        <ListItem>
-          Sidebar
-          <ListItemSuffix>
-            <ColorPicker
-              open={openColor}
-              value={deckInfo?.sidebar || "#aabbcc"}
-              onChange={(color) => handleOnSidebarColorChange(color)}
-            />
-          </ListItemSuffix>
-        </ListItem>
-        <ListItem>
-          Font
-          <ListItemSuffix>
-            <WebFontSelect
-              font="Poppins"
-              fontFaces={fontFaces}
-              value={deckInfo?.fontFamily}
-              onChange={handleOnFontChange}
-            />
-          </ListItemSuffix>
-        </ListItem>
-        <ListItem>
-          Shadow
-          <ListItemSuffix>
-            <Switch
-              checked={Boolean(deckInfo?.shadow)}
-              onChange={handleOnShadowChange}
-              crossOrigin={"true"}
-            />
-          </ListItemSuffix>
-        </ListItem>
+        {currentPage$ && Number(currentPage$.currentPage) > 0 && (
+          <>
+            <ListItem onClick={() => handleOnAddWidget(WidgetEnum.FRAME)}>
+              Frame
+              <ListItemSuffix>
+                <PlusCircleIcon className="h-5 w-5" />
+              </ListItemSuffix>
+            </ListItem>
+            {!hasWidgets && !hasTabs && (
+              <>
+                <ListItem onClick={handleOnAddTabs}>
+                  Add Tabs
+                  <ListItemSuffix>
+                    <PlusCircleIcon className="h-5 w-5" />
+                  </ListItemSuffix>
+                </ListItem>
+              </>
+            )}
+          </>
+        )}
+        {hasTabs && (
+          <>
+            <AddTabNames />
+          </>
+        )}
+        {!hasTabs && (
+          <>
+            <ListItem>
+              Background
+              <ListItemSuffix>
+                <ColorPicker
+                  open={openColor}
+                  value={deckInfo?.background || "#aabbcc"}
+                  onChange={(color) => handleOnBackgroundChange(color)}
+                />
+              </ListItemSuffix>
+            </ListItem>
+            <ListItem>
+              Navbar
+              <ListItemSuffix>
+                <ColorPicker
+                  open={openColor}
+                  value={deckInfo?.navbar || "#aabbcc"}
+                  onChange={(color) => handleOnNavbarColorChange(color)}
+                />
+              </ListItemSuffix>
+            </ListItem>
+            <ListItem>
+              Sidebar
+              <ListItemSuffix>
+                <ColorPicker
+                  open={openColor}
+                  value={deckInfo?.sidebar || "#aabbcc"}
+                  onChange={(color) => handleOnSidebarColorChange(color)}
+                />
+              </ListItemSuffix>
+            </ListItem>
+            <ListItem>
+              Font
+              <ListItemSuffix>
+                <WebFontSelect
+                  font="Poppins"
+                  fontFaces={fontFaces}
+                  value={deckInfo?.fontFamily}
+                  onChange={handleOnFontChange}
+                />
+              </ListItemSuffix>
+            </ListItem>
+            <ListItem>
+              Shadow
+              <ListItemSuffix>
+                <Switch
+                  checked={Boolean(deckInfo?.shadow)}
+                  onChange={handleOnShadowChange}
+                  crossOrigin={"true"}
+                />
+              </ListItemSuffix>
+            </ListItem>
+          </>
+        )}
       </List>
     </>
   );

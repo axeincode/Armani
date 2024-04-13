@@ -11,7 +11,7 @@ export const RenderWidgetItem = ({ id }: RenderWidgetItemProps) => {
   const editorWidgetState = useEditorWidgetObserveable(id);
 
   return (
-    <div className="flex flex-grow items-start" data-widgetid={id}>
+    <div className="flex h-full items-start" data-widgetid={id}>
       {editorWidgetState && <FrameWidget key={id} data={editorWidgetState} />}
     </div>
   );

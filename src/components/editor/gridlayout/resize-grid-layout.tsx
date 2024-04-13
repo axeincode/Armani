@@ -1,7 +1,7 @@
 "use client";
 import React, { Component } from "react";
 import { find, get, isEmpty, isEqual, map, merge } from "lodash";
-
+import { v4 } from "uuid";
 import "../../../../node_modules/react-grid-layout/css/styles.css";
 import "./styles.css";
 
@@ -13,6 +13,8 @@ import {
 } from "@/types/editor.types";
 import { RenderWidgetItem } from "./render-widget";
 import { cn } from "@/lib/utils";
+import ResizeHandle from "./resize-handle";
+import { RoundedRectangleSVG } from "./rounded-rect-svg";
 const availableHandles = ["s", "w", "e", "n"];
 
 // const initialLayout = [
@@ -29,6 +31,7 @@ export interface GridLayoutState {
   mounted: boolean;
   layouts: any;
   allLayouts?: ReactGridLayout.Layouts;
+  uniqueId: string;
 }
 
 export interface GridLayoutProps {
@@ -82,6 +85,7 @@ class GridLayout extends React.Component<GridLayoutProps, GridLayoutState> {
       mounted: false,
       layouts: merge({ lg: props.initialLayout }, props.allLayouts, props.data),
       allLayouts: {},
+      uniqueId: v4(),
     };
 
     this.onBreakpointChange = this.onBreakpointChange.bind(this);
@@ -136,12 +140,13 @@ class GridLayout extends React.Component<GridLayoutProps, GridLayoutState> {
       return (
         <div
           key={layout.i}
-          className={"flex p-2 bg-transparent"}
+          className={"flex flex-col p-2 pt-0 bg-transparent react-gap"}
           onMouseEnter={onHover}
           onMouseDown={onMouseDown}
           data-widget={"GRID_ITEM"}
           data-widgetid={layout.i}
         >
+          <RoundedRectangleSVG />
           <RenderWidgetItem id={layout.i} />
         </div>
       );
@@ -204,8 +209,9 @@ class GridLayout extends React.Component<GridLayoutProps, GridLayoutState> {
   render() {
     return (
       <div className="flex flex-grow flex-col resizegridlayout">
-        <div className="h-[1080px]">
+        <div className="h-[1080px]" key={this.state.uniqueId}>
           <ResponsiveReactGridLayout
+            key={this.state.uniqueId}
             cols={{ lg: 12, md: 10, sm: 6, xs: 4, xxs: 2 }}
             width={1920}
             // @ts-ignore
@@ -228,6 +234,10 @@ class GridLayout extends React.Component<GridLayoutProps, GridLayoutState> {
             margin={[0, 0]}
             autoSize={true}
             draggableHandle=".x-drag-handle"
+            // resizeHandle={(
+            //   resizeHandleAxis: ResizeHandleAxis,
+            //   ref: ReactRef<HTMLElement>
+            // ) => <ResizeHandle handleAxis={resizeHandleAxis} ref={ref} />}
           >
             {this.generateDOM()}
           </ResponsiveReactGridLayout>

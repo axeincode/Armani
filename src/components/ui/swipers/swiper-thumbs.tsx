@@ -39,7 +39,7 @@ export const SwiperThumbs = ({ images, onClick }: SwiperThumbsProps) => {
                   <img
                     src={image.url}
                     alt="card-image"
-                    className="object-cover h-full w-full rounded-md"
+                    className="w-full rounded-md"
                     data-id="swiper-thumbs-image"
                   />
                 </SwiperSlide>

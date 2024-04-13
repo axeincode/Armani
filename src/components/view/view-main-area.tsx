@@ -10,7 +10,7 @@ import {
   useObservable,
   useSelectedWidgetRepo,
 } from "@/store";
-import { EditorStateTypes, User } from "@/types/editor.types";
+import { EditorStateTypes, PageTypes, User } from "@/types/editor.types";
 import { filter, orderBy } from "lodash";
 import { useCurrentPageObserveable } from "@/hooks/useCurrentPageObserveable";
 import { useEditorWidgetObserveable } from "@/hooks/useEditorWidgetsObserveable";
@@ -19,7 +19,7 @@ import { useUserAgreementObserveable } from "@/hooks/useUserAgreementObserveable
 import { fetchAndUpdateAgreement } from "@/lib/firebase/firestore/user.agreements";
 import { ViewDashboardPage } from "./view-dashboard-page";
 import { useEditorPagesObserveable } from "@/hooks/useEditorPagesObserveable";
-import * as ExcelUtil from "./excel-utils/ExcelUtility";
+import { ViewTabPages } from "./view-tab-pages";
 
 export type ViewMainAreaProps = {
   page: IPageState;
@@ -54,6 +54,17 @@ export const ViewMainArea = ({
     selectedWidgetState.widgetId
   );
   const deckId = deckInfo?.id;
+
+  /// current pageInfo;
+  const currentPageInfo$ = React.useMemo(() => {
+    if (currentPage$.pageId) {
+      return pages$[currentPage$.pageId];
+    }
+    return {} as unknown as PageTypes;
+  }, [currentPage$, pages$]);
+
+  const hasTabs = currentPageInfo$.tabs && currentPageInfo$.tabs.length > 0;
+
   React.useEffect(() => {
     if (!deckId) return;
     const getAgreement = filter(userAgreementsObs$, (agreement) => {
@@ -114,7 +125,20 @@ export const ViewMainArea = ({
     >
       {currentPage > 0 && <PageTitle page={currentPage} />}
       <div className="flex flex-grow relative border-2 border-gray-10 border-solid px-2">
-        {currentPage > 0 && <ViewPage pageId={currentPage$.pageId || ""} />}
+        {currentPage > 0 && (
+          <>
+            {hasTabs && (
+              <>
+                <ViewTabPages
+                  pageId={currentPage$.pageId || ""}
+                  currentPageInfo={currentPageInfo$}
+                  currentPage={currentPage$}
+                />
+              </>
+            )}
+            {!hasTabs && <ViewPage pageId={currentPage$.pageId || ""} />}
+          </>
+        )}
         <>
           {currentPage === 0 && (
             <>

@@ -55,7 +55,7 @@ export const SwiperCarousel = ({ images, onClick }: SwiperCarouselProps) => {
               <img
                 src={image.url}
                 alt="card-image"
-                className="object-cover h-full w-full rounded-md"
+                className="object-cover w-full rounded-md"
                 data-id="swiper-thumbs-image"
               />
             </SwiperSlide>

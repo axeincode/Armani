@@ -11,10 +11,11 @@ import { useMeasure } from "react-use";
 
 type ViewPageProps = {
   pageId: string;
+  tabId?: string;
 };
 
-export const ViewPage = ({ pageId }: ViewPageProps) => {
-  const allWidgets = useEditorPageWidgetsObserveable(pageId);
+export const ViewPage = ({ pageId, tabId }: ViewPageProps) => {
+  const allWidgets = useEditorPageWidgetsObserveable(pageId, tabId);
   const editorObs$ = useEditorObserveable();
   const pageData = useEditorPageObserveable(pageId) as PageTypes;
   const [isMounted, setIsMounted] = React.useState(false);

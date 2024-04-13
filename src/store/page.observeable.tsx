@@ -5,6 +5,7 @@ export interface IPageState {
   totalPages: number;
   pageName?: string;
   pageId?: string;
+  currentTabId?: string;
 }
 
 const iniState = {
@@ -23,6 +24,14 @@ export const usePageObserveable = () => {
     });
   };
 
+  const setActiveTab = (tabId: string) => {
+    const state = selectedSubject.getValue();
+    selectedSubject.next({
+      ...state,
+      currentTabId: tabId,
+    });
+  };
+
   const setPageInfo = (page: IPageState) => {
     selectedSubject.next(page);
   };
@@ -35,5 +44,6 @@ export const usePageObserveable = () => {
     getObservable,
     setPage,
     setPageInfo,
+    setActiveTab,
   };
 };

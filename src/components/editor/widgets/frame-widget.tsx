@@ -110,6 +110,15 @@ export function FrameWidget({ data }: FrameWidgetProps) {
     });
   };
 
+  const handleOnSaveContactData = (data: any) => {
+    editorObs$.updateWidget(data.id, {
+      ...editorWidgetState,
+      data: {
+        contactData: data,
+      },
+    });
+  };
+
   if (!data) return null;
 
   return (
@@ -122,33 +131,37 @@ export function FrameWidget({ data }: FrameWidgetProps) {
         data-widgetid={data.id}
         id={data.id}
       >
-        <CardHeader
-          className="flex flex-col max-h-28 -mt-0 min-w-0 min-h-[75px] m-0 gap-1"
-          data-widgetid={data.id}
-        >
-          <Typography
-            variant="h6"
-            color="blue-gray"
-            data-id="INTERNAL_WIDGET"
-            className="m-1 x-drag-handle cursor-move"
-          >
-            {data.title || "Title"}
-          </Typography>
-          <Typography
-            variant="small"
-            color="blue-gray"
-            data-id="INTERNAL_WIDGET"
-            className="m-1"
-          >
-            {data.subtitle || "Subtitle"}
-          </Typography>
-        </CardHeader>
-
+        {data.titleEnabled && (
+          <>
+            <CardHeader
+              className="flex flex-col max-h-28 -mt-0 min-w-0 min-h-[75px] m-0 gap-1"
+              data-widgetid={data.id}
+            >
+              <Typography
+                variant="h6"
+                color="blue-gray"
+                data-id="INTERNAL_WIDGET"
+                className="m-1 x-drag-handle cursor-move"
+              >
+                {data.title || "Title"}
+              </Typography>
+              <Typography
+                variant="small"
+                color="blue-gray"
+                data-id="INTERNAL_WIDGET"
+                className="m-1"
+              >
+                {data.subtitle || "Subtitle"}
+              </Typography>
+            </CardHeader>
+          </>
+        )}
         <CardBody
           className={cn(
-            "p-2 my-1 flex flex-grow flex-col justify-center items-center overflow-hidden",
+            "p-2 my-1 mb-1 flex flex-col justify-center items-center overflow-hidden",
             data.elementType === WidgetElement.TIMELINE && "items-start",
-            data.elementType === WidgetElement.PICTURE && "items-center"
+            data.elementType === WidgetElement.PICTURE && "items-center",
+            "overflow-x-hidden overflow-y-auto scrollbar-thin scrollbar-thumb-gray-700 scrollbar-track-gray-900"
           )}
           data-id="FRAME_CARD_BODY"
           data-root="true"
@@ -197,7 +210,10 @@ export function FrameWidget({ data }: FrameWidgetProps) {
             )}
           {data.elementType &&
             data.elementType === WidgetElement.CONTACT_CARD && (
-              <ContactCardEdit data={data} />
+              <ContactCardEdit
+                data={data}
+                handleOnSave={handleOnSaveContactData}
+              />
             )}
         </CardBody>
         {data.captionEnabled && (

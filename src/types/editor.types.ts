@@ -59,6 +59,7 @@ export type WidgetTypes = {
     xs?: Layout;
     xxs?: Layout;
   };
+  titleEnabled?: boolean;
   title?: string;
   subtitle?: string;
   enableElements: boolean;
@@ -76,6 +77,12 @@ export type WidgetTypes = {
   tableData?: WidgetTableDataTypes[];
 };
 
+export type TabTypes = {
+  id: string;
+  name: string;
+  widgets: string[];
+};
+
 export type PageTypes = {
   id: string;
   pageNumber: number;
@@ -86,6 +93,8 @@ export type PageTypes = {
   iconName?: string;
   status?: "draft" | "published" | "archived";
   layouts?: ReactGridLayout.Layouts;
+  isTabView?: boolean;
+  tabs?: TabTypes[];
 };
 
 export enum DocumentTypeEnum {

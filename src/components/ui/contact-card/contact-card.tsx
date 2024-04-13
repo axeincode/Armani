@@ -14,7 +14,7 @@ import {
   DevicePhoneMobileIcon,
   EnvelopeIcon,
 } from "@heroicons/react/24/solid";
-import { get, debounce } from "lodash";
+import { get, debounce, isEmpty } from "lodash";
 // @ts-ignore
 import EasyEdit, { Types } from "react-easy-edit";
 import { LinkedinIcon } from "lucide-react";
@@ -24,9 +24,11 @@ import {
   useObservable,
   useSelectedWidgetRepo,
 } from "@/store";
+import useDebounce from "@/hooks/useDeepCompareMemoize";
 import { BasicInput } from "../basic-input";
 export type ContactCardProps = {
   data: any;
+  handleOnSave?: (data: any) => void;
 };
 
 function Icon({ id, open }: { id: number; open: boolean }) {
@@ -75,6 +77,9 @@ export const ContactCardEdit = ({ data }: ContactCardProps) => {
     data?.data?.contactData?.phone || "Phone"
   );
 
+  const [saveData, setSaveData] = React.useState(false);
+  const debouncedSaveData = useDebounce(saveData, 500);
+
   // state
   const editorObs$ = useEditorObserveable();
   const selectedWidgetRepo = useSelectedWidgetRepo();
@@ -82,6 +87,9 @@ export const ContactCardEdit = ({ data }: ContactCardProps) => {
   const editorWidgetState = useEditorWidgetObserveable(
     selectedWidgetState.widgetId
   );
+
+  console.log("selectedWidgetState", selectedWidgetState);
+  console.log("editorWidgetState", editorWidgetState);
   const widgetData = get(data, "data.contactData", {});
   const imgUrl = get(
     data,
@@ -89,10 +97,14 @@ export const ContactCardEdit = ({ data }: ContactCardProps) => {
     "https://images.unsplash.com/photo-1460472178825-e5240623afd5?q=80&w=800&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D 150w"
   );
 
+  React.useEffect(() => {
+    setSaveData(true);
+  }, [phone, email, linkedin]);
+
   const cancel = () => {};
 
-  const handleOnSaveData = () => {
-    editorObs$.updateWidget(data.id, {
+  const handleOnSaveData = React.useCallback(() => {
+    console.log("updating contact card", {
       ...editorWidgetState,
       data: {
         contactData: {
@@ -105,9 +117,40 @@ export const ContactCardEdit = ({ data }: ContactCardProps) => {
         },
       },
     });
-  };
+    if (!isEmpty(editorWidgetState)) {
+      editorObs$.updateWidget(data.id, {
+        ...editorWidgetState,
+        data: {
+          ...(editorWidgetState && editorWidgetState.data),
+          contactData: {
+            title,
+            subtitle,
+            bio,
+            email,
+            linkedin,
+            phone,
+          },
+        },
+      });
+    }
+  }, [
+    bio,
+    data.id,
+    editorObs$,
+    editorWidgetState,
+    email,
+    linkedin,
+    phone,
+    subtitle,
+    title,
+  ]);
 
-  const handleOnSaveDebounce = debounce(handleOnSaveData, 1000);
+  React.useEffect(() => {
+    if (debouncedSaveData) {
+      handleOnSaveData();
+      setSaveData(false);
+    }
+  }, [debouncedSaveData, handleOnSaveData]);
 
   return (
     <div className="flex flex-col flex-grow w-full">
@@ -119,7 +162,7 @@ export const ContactCardEdit = ({ data }: ContactCardProps) => {
           type={Types.TEXT}
           onSave={(value: any) => {
             setTitle(value);
-            handleOnSaveDebounce();
+            setSaveData(true);
           }}
           onCancel={cancel}
           attributes={{ name: "awesome-input", id: 1 }}
@@ -132,7 +175,7 @@ export const ContactCardEdit = ({ data }: ContactCardProps) => {
           type={Types.TEXT}
           onSave={(value: any) => {
             setSubtitle(value);
-            handleOnSaveDebounce();
+            setSaveData(true);
           }}
           onCancel={cancel}
           attributes={{ name: "awesome-input", id: 1 }}
@@ -147,7 +190,6 @@ export const ContactCardEdit = ({ data }: ContactCardProps) => {
           <AccordionHeader
             onClick={() => {
               setExpandBio(!expandBio);
-              handleOnSaveDebounce();
             }}
           >
             Bio
@@ -155,10 +197,13 @@ export const ContactCardEdit = ({ data }: ContactCardProps) => {
           <AccordionBody className="flex-wrap text-wrap">
             <EasyEdit
               type={Types.TEXT}
-              onSave={(value: any) => setBio(value)}
+              onSave={(value: any) => {
+                setBio(value);
+                setSaveData(true);
+              }}
               onCancel={cancel}
               attributes={{ name: "bio-input", id: 1 }}
-              value={widgetData.subtitle || "Subtitle"}
+              value={bio || "bio"}
               displayComponent={<CustomDisplay variant="small" />}
               saveButtonLabel={<CheckIcon className="h-4 w-4" />}
               cancelButtonLabel={<XMarkIcon className="h-4 w-4" />}

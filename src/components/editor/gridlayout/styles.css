@@ -77,3 +77,23 @@ li b {
   height: 20px; /* Adjust height as needed */
   margin: -10px; 
 }
+
+.react-grid-item::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 50%; /* Position the SVG at the center */
+  transform: translateX(-50%);
+  width: 50px; /* Adjust width of SVG */
+  height: 20px; /* Adjust height of SVG */
+  background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcvIiB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwIiB2aWV3Qm94PSIwIDAgMTAwIDEwIiBmaWxsPSJub25lIj48cmVjdCB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwIiByeD0iNSIgcmk9IjUiIGZpbGw9IiM2OTYyRDIiLz48Y2lyY2xlIGN4PSI0MCIgY3k9IjUiIHI9IjMiIGZpbGw9IndoaXRlIj48L2NpcmNsZT48Y2lyY2xlIGN4PSI1MCIgY3k9IjUiIHI9IjMiIGZpbGw9IndoaXRlIj48L2NpcmNsZT48Y2lyY2xlIGN4PSI2MCIgY3k9IjUiIHI9IjMiIGZpbGw9IndoaXRlIj48L2NpcmNsZT48L3N2Zz4='); /* Replace with your Base64-encoded SVG */
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  border-radius: 5px; /* Adjust as needed */
+}
+
+
+.react-gap + .react-gap {
+  margin-left:5px;
+}
