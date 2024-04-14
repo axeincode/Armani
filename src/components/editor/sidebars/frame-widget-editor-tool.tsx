@@ -35,6 +35,8 @@ import { TableForm } from "./table-data-editor-tool";
 import { AddTimelineWidgetSidebar } from "./add-timeline-values-sidebar";
 import { AddIconsGallerySidebar } from "./add-icons-gallery";
 import { AddContactusSidebar } from "./add-contact-card-sidebar";
+import { AddVideoWidgetSidebar } from "./add-video-sidebar";
+import { AddCalendlyWidgetSidebar } from "./add-calendly";
 
 export type FrameWidgetEditorToolProps = {
   toggleDrawer: () => void;
@@ -251,6 +253,12 @@ export const FrameWidgetEditorTool = ({
               )}
               {widgetElement === WidgetElement.CONTACT_CARD && (
                 <AddContactusSidebar />
+              )}
+              {widgetElement === WidgetElement.VIDEO && (
+                <AddVideoWidgetSidebar />
+              )}
+              {widgetElement === WidgetElement.CALENDLY && (
+                <AddCalendlyWidgetSidebar />
               )}
             </div>
             <div className="flex gap-1 my-4 px-1">

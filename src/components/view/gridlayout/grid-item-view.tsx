@@ -10,7 +10,6 @@ export const GridItemView = ({
   children,
   ...props
 }: any) => {
-  console.log("Grid ITem View", { data, className, root, title, ...props });
   return (
     <div
       key={data.i}

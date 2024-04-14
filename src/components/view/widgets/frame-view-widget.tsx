@@ -29,12 +29,16 @@ import { useMeasure } from "react-use";
 import { isEmpty } from "lodash";
 import { ContactCardView } from "@/components/ui/contact-card";
 import { cn } from "@/lib/utils";
+import { VideoPlayer } from "@/components/ui/video-player";
+import { ReactCalendly } from "@/components/ui/calendly";
 
 export type FrameWidgetProps = {
   data: WidgetTypes;
+  height?: number;
+  width?: number;
 };
 
-export function FrameWidget({ data }: FrameWidgetProps) {
+export function FrameWidget({ data, height, width }: FrameWidgetProps) {
   // state
   const selectedWidgetRepo = useSelectedWidgetRepo();
   const hoveredWidgetObs = useHoveredWidgetRepo();
@@ -43,9 +47,8 @@ export function FrameWidget({ data }: FrameWidgetProps) {
   const editorWidgetState = useEditorWidgetObserveable(
     selectedWidgetState.widgetId
   );
-  const [cardRef, cardRefProps] = useMeasure();
 
-  // console.log("current widget data", data);
+  console.log("current widget height width", height, width);
   const elementType = data.elementType;
 
   return (
@@ -56,16 +59,15 @@ export function FrameWidget({ data }: FrameWidgetProps) {
       data-target={data.id}
       data-element-type={elementType}
       id={data.id}
-      // @ts-ignore
-      ref={cardRef}
     >
       <div
         className={cn(
           "flex flex-col",
-          cardRefProps.height &&
-            `h-[${Math.floor(Number(cardRefProps.height))}px]`,
-          "overflow-x-hidden overflow-y-auto scrollbar-thin scrollbar-thumb-gray-700 scrollbar-track-gray-900"
+          "overflow-x-hidden overflow-y-auto scrollbar-thin"
         )}
+        style={{
+          height: height ? `${Math.floor(Number(height))}px` : "100%",
+        }}
       >
         {isEmpty(data.elementType) ||
           (data.elementType && data.titleEnabled && (
@@ -139,6 +141,13 @@ export function FrameWidget({ data }: FrameWidgetProps) {
           {data.elementType &&
             data.elementType === WidgetElement.CONTACT_CARD &&
             !isEmpty(data) && <ContactCardView data={data} />}
+
+          {data.elementType && data.elementType === WidgetElement.VIDEO && (
+            <VideoPlayer data={data} />
+          )}
+          {data.elementType && data.elementType === WidgetElement.CALENDLY && (
+            <ReactCalendly data={data} />
+          )}
         </CardBody>
         {data.captionEnabled && (
           <CardFooter

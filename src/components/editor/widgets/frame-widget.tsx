@@ -32,6 +32,8 @@ import { cn } from "@/lib/utils";
 import { TimelineComponent } from "@/components/ui/timeline";
 import { IconsGalleryViewer } from "@/components/ui/icon-viewer";
 import { ContactCardEdit } from "@/components/ui/contact-card";
+import { VideoPlayer } from "@/components/ui/video-player";
+import { ReactCalendly } from "@/components/ui/calendly";
 
 export type FrameWidgetProps = {
   data: WidgetTypes;
@@ -158,10 +160,10 @@ export function FrameWidget({ data }: FrameWidgetProps) {
         )}
         <CardBody
           className={cn(
-            "p-2 my-1 mb-1 flex flex-col justify-center items-center overflow-hidden",
+            "p-2 my-1 mb-1 flex flex-grow flex-col justify-center items-center overflow-hidden",
             data.elementType === WidgetElement.TIMELINE && "items-start",
             data.elementType === WidgetElement.PICTURE && "items-center",
-            "overflow-x-hidden overflow-y-auto scrollbar-thin scrollbar-thumb-gray-700 scrollbar-track-gray-900"
+            "overflow-x-hidden overflow-y-auto scrollbar-thin"
           )}
           data-id="FRAME_CARD_BODY"
           data-root="true"
@@ -215,6 +217,12 @@ export function FrameWidget({ data }: FrameWidgetProps) {
                 handleOnSave={handleOnSaveContactData}
               />
             )}
+          {data.elementType && data.elementType === WidgetElement.VIDEO && (
+            <VideoPlayer data={data} />
+          )}
+          {data.elementType && data.elementType === WidgetElement.CALENDLY && (
+            <ReactCalendly data={data} />
+          )}
         </CardBody>
         {data.captionEnabled && (
           <CardFooter
