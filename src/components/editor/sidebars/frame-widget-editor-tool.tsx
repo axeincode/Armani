@@ -37,6 +37,9 @@ import { AddIconsGallerySidebar } from "./add-icons-gallery";
 import { AddContactusSidebar } from "./add-contact-card-sidebar";
 import { AddVideoWidgetSidebar } from "./add-video-sidebar";
 import { AddCalendlyWidgetSidebar } from "./add-calendly";
+import { AddParagraphSidebar } from "./add-paragraph-sidebar";
+import { AddSpreadSheetWidgetSidebar } from "./add-spreadsheet-sidebar";
+import { AddPdfWidgetSidebar } from "./add-pdf-sidebar";
 
 export type FrameWidgetEditorToolProps = {
   toggleDrawer: () => void;
@@ -150,17 +153,10 @@ export const FrameWidgetEditorTool = ({
       </div>
       {/** divider line */}
       <div className="flex h-[0.5px] w-full bg-gray-300 mb-2" />
-      <div
-        className={cn(
-          "",
-          sidebarMeausreProps.height &&
-            `h-[500px] overflow-x-hidden scrollbar-thin scrollbar-thumb-gray-700 scrollbar-track-gray-900`
-        )}
-        data-testid="sidebar-grouped-widget-editor-tool"
-      >
+      <div data-testid="sidebar-grouped-widget-editor-tool">
         {editorWidgetState && (
           <>
-            <div className="flex gap-1 my-4 px-1">
+            <div className="flex gap-1 my-2 px-1">
               <Typography variant="h6" color="blue-gray" className="w-16">
                 Title
               </Typography>
@@ -177,7 +173,7 @@ export const FrameWidgetEditorTool = ({
                 transition={{ duration: 0.3 }}
                 className="flex flex-col px-1"
               >
-                <div className="flex flex-col gap-1 my-4 px-1">
+                <div className="flex flex-col gap-1 my-2 px-1">
                   <LabelInput
                     label="Title"
                     placeholder="Title"
@@ -185,7 +181,7 @@ export const FrameWidgetEditorTool = ({
                     onChange={handleOnTitleChange}
                   />
                 </div>
-                <div className="flex flex-col gap-1 mb-2 px-1">
+                <div className="flex flex-col gap-1 mb-1 px-1">
                   <LabelInput
                     label="Subtitle"
                     placeholder="Subtitle"
@@ -255,11 +251,21 @@ export const FrameWidgetEditorTool = ({
                 <AddContactusSidebar />
               )}
               {widgetElement === WidgetElement.VIDEO && (
-                <AddVideoWidgetSidebar />
+                <AddVideoWidgetSidebar label="Video Source" />
               )}
               {widgetElement === WidgetElement.CALENDLY && (
-                <AddCalendlyWidgetSidebar />
+                <AddVideoWidgetSidebar label="Calendly Source" />
               )}
+              {widgetElement === WidgetElement.IFRAME && (
+                <AddVideoWidgetSidebar label="Iframe Source" />
+              )}
+              {widgetElement === WidgetElement.PARAGRAPH && (
+                <AddParagraphSidebar label="Text" />
+              )}
+              {widgetElement === WidgetElement.SPREADSHEET && (
+                <AddSpreadSheetWidgetSidebar />
+              )}
+              {widgetElement === WidgetElement.PDF && <AddPdfWidgetSidebar />}
             </div>
             <div className="flex gap-1 my-4 px-1">
               <Typography variant="h6" color="blue-gray" className="w-16">

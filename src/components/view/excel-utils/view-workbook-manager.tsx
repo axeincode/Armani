@@ -9,12 +9,14 @@ export type ViewWorkBookManagerProps = {
   open: boolean;
   selectedDocument: DocumentTypes;
   handler: () => void;
+  isView?: boolean;
 };
 
 const ViewWorkBookManager = ({
   open,
   selectedDocument,
   handler,
+  isView,
 }: ViewWorkBookManagerProps) => {
   const [isLoading, setIsLoading] = React.useState(true);
   const [isError, setIsError] = React.useState(false);
@@ -42,7 +44,7 @@ const ViewWorkBookManager = ({
   }, [selectedDocument, open, ExcelUtility, spreadsheetRef]);
 
   return (
-    <div className="h-full">
+    <div className="h-full w-full">
       {isLoading && (
         <div className="flex items-center justify-center h-12">
           <Spinner color="light-blue" className="h-12 w-12" />
@@ -58,26 +60,35 @@ const ViewWorkBookManager = ({
         height="calc(100% - 30px)"
         width="100%"
       />
-      <div className="flex flex-grow gap-2 justify-end">
-        <Button variant="text" color="red" onClick={handler} className="mr-1">
-          <span>Cancel</span>
-        </Button>
-        <Button
-          variant="gradient"
-          color="green"
-          onClick={() => {
-            if (spreadsheetRef.current?.workbook) {
-              ExcelUtility.save(
-                spreadsheetRef.current.workbook,
-                selectedDocument.name,
-                selectedDocument
-              );
-            }
-          }}
-        >
-          <span>Save</span>
-        </Button>
-      </div>
+      {!isView && (
+        <>
+          <div className="flex flex-grow gap-2 justify-end">
+            <Button
+              variant="text"
+              color="red"
+              onClick={handler}
+              className="mr-1"
+            >
+              <span>Cancel</span>
+            </Button>
+            <Button
+              variant="gradient"
+              color="green"
+              onClick={() => {
+                if (spreadsheetRef.current?.workbook) {
+                  ExcelUtility.save(
+                    spreadsheetRef.current.workbook,
+                    selectedDocument.name,
+                    selectedDocument
+                  );
+                }
+              }}
+            >
+              <span>Save</span>
+            </Button>
+          </div>
+        </>
+      )}
     </div>
   );
 };

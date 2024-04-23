@@ -212,6 +212,9 @@ dependencies:
   react-grid-layout:
     specifier: ^1.4.4
     version: 1.4.4(react-dom@18.2.0)(react@18.2.0)
+  react-iframe:
+    specifier: ^1.8.5
+    version: 1.8.5(react@18.2.0)
   react-infinite-viewer:
     specifier: ^0.28.1
     version: 0.28.1
@@ -7372,6 +7375,15 @@ packages:
       react-draggable: 4.4.6(react-dom@18.2.0)(react@18.2.0)
       react-resizable: 3.0.5(react-dom@18.2.0)(react@18.2.0)
       resize-observer-polyfill: 1.5.1
+    dev: false
+
+  /react-iframe@1.8.5(react@18.2.0):
+    resolution: {integrity: sha512-F4cQJGs3ydaG6fJWfuz9yLwOU0Trzl6kttXuUG+vYwosH8enOOFxZWEDQCSbNVO8ayjfYZeqLxEvdvcsSy4GvA==}
+    peerDependencies:
+      react: '>=16.x.x'
+    dependencies:
+      object-assign: 4.1.1
+      react: 18.2.0
     dev: false
 
   /react-infinite-viewer@0.28.1:

@@ -34,6 +34,10 @@ import { IconsGalleryViewer } from "@/components/ui/icon-viewer";
 import { ContactCardEdit } from "@/components/ui/contact-card";
 import { VideoPlayer } from "@/components/ui/video-player";
 import { ReactCalendly } from "@/components/ui/calendly";
+import { ReactIFrame } from "@/components/ui/iframe/react-iframe";
+import { TextWidget } from "@/components/ui/text";
+import { SpreadSheetWidget } from "@/components/ui/spreadsheet";
+import { PdfWidget } from "@/components/ui/pdf-widget";
 
 export type FrameWidgetProps = {
   data: WidgetTypes;
@@ -222,6 +226,19 @@ export function FrameWidget({ data }: FrameWidgetProps) {
           )}
           {data.elementType && data.elementType === WidgetElement.CALENDLY && (
             <ReactCalendly data={data} />
+          )}
+          {data.elementType && data.elementType === WidgetElement.IFRAME && (
+            <ReactIFrame data={data} />
+          )}
+          {data.elementType && data.elementType === WidgetElement.PARAGRAPH && (
+            <TextWidget data={data} />
+          )}
+          {data.elementType &&
+            data.elementType === WidgetElement.SPREADSHEET && (
+              <SpreadSheetWidget data={data} />
+            )}
+          {data.elementType && data.elementType === WidgetElement.PDF && (
+            <PdfWidget data={data} />
           )}
         </CardBody>
         {data.captionEnabled && (

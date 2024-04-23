@@ -9,12 +9,14 @@ export type DocViewerManagerProps = {
   open: boolean;
   selectedDocument: DocumentTypes;
   handler: () => void;
+  isView?: boolean;
 };
 
 const DocViewerManager = ({
   open,
   selectedDocument,
   handler,
+  isView,
 }: DocViewerManagerProps) => {
   const [isLoading, setIsLoading] = React.useState(false);
   const [isError, setIsError] = React.useState(false);
@@ -85,14 +87,16 @@ const DocViewerManager = ({
           />
         </>
       )}
-      <div className="flex flex-grow gap-2 justify-end">
-        <Button variant="text" color="red" onClick={handler} className="mr-1">
-          <span>Cancel</span>
-        </Button>
-        <Button variant="gradient" color="green" onClick={() => {}}>
-          <span>Save</span>
-        </Button>
-      </div>
+      {!isView && (
+        <div className="flex flex-grow gap-2 justify-end">
+          <Button variant="text" color="red" onClick={handler} className="mr-1">
+            <span>Cancel</span>
+          </Button>
+          <Button variant="gradient" color="green" onClick={() => {}}>
+            <span>Save</span>
+          </Button>
+        </div>
+      )}
     </div>
   );
 };

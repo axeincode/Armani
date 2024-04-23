@@ -12,7 +12,7 @@ import { uploadDocumentToStorage } from "@/lib/firebase/storage";
 import { useEditorDecksObserveable, useEditorObserveable } from "@/store";
 import { DocumentUploadDialog } from "@/components/ui/document-upload-dialog";
 import { v4 } from "uuid";
-import { DocumentTypeEnum, DocumentTypes } from "@/types/editor.types";
+import { DocumentTypeEnum } from "@/types/editor.types";
 import { useMedia } from "react-use";
 import { map } from "lodash";
 import { FileIcon, defaultStyles } from "react-file-icon";

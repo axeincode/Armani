@@ -10,15 +10,13 @@ import { useEditorWidgetObserveable } from "@/hooks/useEditorWidgetsObserveable"
 import { v4 } from "uuid";
 import { debounce, get } from "lodash";
 
-export type AddVideoWidgetSidebarProps = {
+export type AddParagraphSidebarProps = {
   label?: string;
 };
 
-export const AddVideoWidgetSidebar = ({
-  label,
-}: AddVideoWidgetSidebarProps) => {
+export const AddParagraphSidebar = ({ label }: AddParagraphSidebarProps) => {
   // state
-  const [url, setUrl] = React.useState<string>("");
+  const [text, setText] = React.useState<string>("");
   const editorObs$ = useEditorObserveable();
   const selectedWidgetObs$ = useSelectedWidgetRepo();
   const selectedWidgetState = useObservable(selectedWidgetObs$.getObservable());
@@ -27,12 +25,11 @@ export const AddVideoWidgetSidebar = ({
     selectedWidgetState.widgetId
   );
 
-  const videoData = get(editorWidgetState, "data", { id: 0, url: "" });
+  const videoData = get(editorWidgetState, "data", { id: 0, text: "" });
 
   React.useEffect(() => {
-    if (videoData && videoData.url) {
-      const url = videoData.url;
-      setUrl(url);
+    if (videoData && videoData.text) {
+      setText(videoData.text);
     }
   }, [videoData]);
 
@@ -42,7 +39,7 @@ export const AddVideoWidgetSidebar = ({
       const getId = currentVideoId ? currentVideoId : v4();
       const data = {
         id: getId,
-        url: value,
+        text: value,
       };
       editorObs$.updateWidget(currentWidgetState.widgetId, {
         ...editorWidgetState,
@@ -63,9 +60,9 @@ export const AddVideoWidgetSidebar = ({
             <LabelInput
               label={label || "Video Source"}
               placeholder=""
-              value={url || ""}
+              value={text || ""}
               onChange={(value: any) => {
-                setUrl(value);
+                setText(value);
                 handleOnChange(value);
               }}
             />

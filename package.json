@@ -82,6 +82,7 @@
     "react-easy-edit": "^1.17.2",
     "react-file-icon": "^1.4.0",
     "react-grid-layout": "^1.4.4",
+    "react-iframe": "^1.8.5",
     "react-infinite-viewer": "^0.28.1",
     "react-leaflet": "^4.2.1",
     "react-moveable": "^0.56.0",
