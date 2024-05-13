@@ -1,12 +1,7 @@
 "use client";
 import React from "react";
-import {
-  ChevronLeftIcon,
-  ChevronRightIcon,
-  CloudArrowUpIcon,
-  XCircleIcon,
-} from "@heroicons/react/24/outline";
-import { Button, IconButton, Typography } from "@material-tailwind/react";
+import { XCircleIcon } from "@heroicons/react/24/outline";
+import { Typography } from "@material-tailwind/react";
 import { UploadButton } from "@/components/ui/upload-button";
 import { uploadDocumentToStorage } from "@/lib/firebase/storage";
 import { useEditorDecksObserveable, useEditorObserveable } from "@/store";
@@ -17,7 +12,8 @@ import { useMedia } from "react-use";
 import { map } from "lodash";
 import { FileIcon, defaultStyles } from "react-file-icon";
 import { SectionScroller } from "@/components/ui/sections/section-scroller";
-import { Swiper, SwiperSlide } from "swiper/react";
+import { SwiperSlide } from "swiper/react";
+import { toast } from "react-toastify";
 
 export const DataRoomEditTools = () => {
   // states
@@ -45,7 +41,10 @@ export const DataRoomEditTools = () => {
     setCurrentPage(page);
   };
 
-  const handleOnDocumentChange = async (eachFile: HTMLInputElement) => {
+  const handleOnDocumentChange = async (
+    eachFile: File,
+    isLastFile: boolean
+  ) => {
     const file = eachFile || null;
     if (!file) return;
     setIsUploading(true);
@@ -62,6 +61,9 @@ export const DataRoomEditTools = () => {
         url: imageUrl,
         docType: extension as DocumentTypeEnum,
       });
+    }
+    if (isLastFile) {
+      toast.success("Document uploaded successfully");
     }
   };
 

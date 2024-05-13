@@ -17,7 +17,7 @@ export type DocumentUploadDialogProps = {
   open: boolean;
   handler: () => void;
   deckInfo: DeckInfoTypes;
-  handleOnFileChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  handleOnFileChange: (e: File, isLastFile: boolean) => void;
   isUploading: boolean;
 };
 
@@ -34,10 +34,12 @@ export function DocumentUploadDialog({
 
   const hasFileName = deckInfo?.logo?.name ? true : false;
   const onDrop = React.useCallback(
-    (acceptedFiles: any) => {
+    (acceptedFiles: File[]) => {
+      const totalFiles = acceptedFiles.length;
       // write a for loop and invoke handleOnFileChange for each file
-      acceptedFiles.forEach((file: any) => {
-        handleOnFileChange(file);
+      acceptedFiles.forEach((file: File, idx: number) => {
+        const isLastFile = idx === totalFiles - 1;
+        handleOnFileChange(file, isLastFile);
       });
     },
     [handleOnFileChange]
