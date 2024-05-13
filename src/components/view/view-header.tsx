@@ -1,6 +1,12 @@
 "use client";
 import React from "react";
-import { Bars3Icon } from "@heroicons/react/24/solid";
+import {
+  XMarkIcon,
+  Bars3Icon,
+  ArrowLeftCircleIcon,
+  HomeIcon,
+} from "@heroicons/react/24/solid";
+import Link from "next/link";
 import { Typography, IconButton, Drawer } from "@material-tailwind/react";
 import { InputWithSearchAddon } from "../ui/input-search-addon";
 import { useEditorDecksObserveable } from "@/store";
@@ -34,19 +40,37 @@ export const ViewHeader = () => {
       }}
     >
       {isMedium && (
-        <InputWithSearchAddon onChange={() => {}} value="Search the deck" />
+        <div className="flex items-center gap-2 ml-1">
+          <ArrowLeftCircleIcon className="h-4 w-4 text-yellow-500" />
+          <Link href="/" className="hover:underline">
+            <Typography color="yellow" className="text-sm font-bold">
+              Dashboard
+            </Typography>
+          </Link>
+        </div>
       )}
       {!isMedium && (
         <>
           <IconButton variant="text" size="sm" onClick={() => openDrawer()}>
             <Bars3Icon className="h-6 w-6 text-white" />
           </IconButton>
+
+          <>
+            <Link href={"/"}>
+              <HomeIcon className="h-6 w-6 text-white" />
+            </Link>
+          </>
         </>
       )}
       {!isMedium && (
         <>
-          <Drawer open={open} onClose={closeDrawer} className="p-1" size={200}>
-            <div className="mb-6 flex items-center justify-between">
+          <Drawer
+            open={open}
+            onClose={closeDrawer}
+            className="p-1 h-full"
+            size={200}
+          >
+            <div className="mb-6 flex items-center justify-between h-full">
               <ViewMiniSidebar
                 page={currentPage$}
                 setPage={setPage}

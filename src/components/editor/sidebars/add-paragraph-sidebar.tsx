@@ -16,7 +16,6 @@ export type AddParagraphSidebarProps = {
 
 export const AddParagraphSidebar = ({ label }: AddParagraphSidebarProps) => {
   // state
-  const [text, setText] = React.useState<string>("");
   const editorObs$ = useEditorObserveable();
   const selectedWidgetObs$ = useSelectedWidgetRepo();
   const selectedWidgetState = useObservable(selectedWidgetObs$.getObservable());
@@ -25,13 +24,7 @@ export const AddParagraphSidebar = ({ label }: AddParagraphSidebarProps) => {
     selectedWidgetState.widgetId
   );
 
-  const videoData = get(editorWidgetState, "data", { id: 0, text: "" });
-
-  React.useEffect(() => {
-    if (videoData && videoData.text) {
-      setText(videoData.text);
-    }
-  }, [videoData]);
+  const textData = get(editorWidgetState, "data", { id: 0, text: "" });
 
   const handleOnChange = React.useCallback(
     debounce((value: string) => {
@@ -45,7 +38,7 @@ export const AddParagraphSidebar = ({ label }: AddParagraphSidebarProps) => {
         ...editorWidgetState,
         data: data,
       });
-    }, 1500),
+    }, 10),
     [editorObs$, editorWidgetState, currentWidgetState]
   );
 
@@ -60,9 +53,8 @@ export const AddParagraphSidebar = ({ label }: AddParagraphSidebarProps) => {
             <LabelInput
               label={label || "Video Source"}
               placeholder=""
-              value={text || ""}
+              value={textData?.text || ""}
               onChange={(value: any) => {
-                setText(value);
                 handleOnChange(value);
               }}
             />

@@ -26,6 +26,8 @@ import {
 } from "@/store";
 import useDebounce from "@/hooks/useDeepCompareMemoize";
 import { BasicInput } from "../basic-input";
+import { EditTextDisplay } from "../EditText";
+
 export type ContactCardProps = {
   data: any;
   handleOnSave?: (data: any) => void;
@@ -42,19 +44,6 @@ function Icon({ id, open }: { id: number; open: boolean }) {
     </>
   );
 }
-
-const CustomDisplay = (props: any) => {
-  return (
-    <Typography
-      variant={props.variant || "small"}
-      color="blue-gray"
-      data-id="INTERNAL_WIDGET"
-      className="m-1 text-wrap"
-    >
-      {props.value || ""}
-    </Typography>
-  );
-};
 
 export const ContactCardEdit = ({ data }: ContactCardProps) => {
   // state
@@ -104,19 +93,6 @@ export const ContactCardEdit = ({ data }: ContactCardProps) => {
   const cancel = () => {};
 
   const handleOnSaveData = React.useCallback(() => {
-    console.log("updating contact card", {
-      ...editorWidgetState,
-      data: {
-        contactData: {
-          title,
-          subtitle,
-          bio,
-          email,
-          linkedin,
-          phone,
-        },
-      },
-    });
     if (!isEmpty(editorWidgetState)) {
       editorObs$.updateWidget(data.id, {
         ...editorWidgetState,
@@ -167,7 +143,7 @@ export const ContactCardEdit = ({ data }: ContactCardProps) => {
           onCancel={cancel}
           attributes={{ name: "awesome-input", id: 1 }}
           value={widgetData.title || "Title"}
-          displayComponent={<CustomDisplay variant="h6" />}
+          displayComponent={<EditTextDisplay variant="h6" />}
           saveButtonLabel={<CheckIcon className="h-4 w-4" />}
           cancelButtonLabel={<XMarkIcon className="h-4 w-4" />}
         />
@@ -180,7 +156,7 @@ export const ContactCardEdit = ({ data }: ContactCardProps) => {
           onCancel={cancel}
           attributes={{ name: "awesome-input", id: 1 }}
           value={widgetData.subtitle || "Subtitle"}
-          displayComponent={<CustomDisplay variant="small" />}
+          displayComponent={<EditTextDisplay variant="small" />}
           saveButtonLabel={<CheckIcon className="h-4 w-4" />}
           cancelButtonLabel={<XMarkIcon className="h-4 w-4" />}
         />
@@ -204,7 +180,7 @@ export const ContactCardEdit = ({ data }: ContactCardProps) => {
               onCancel={cancel}
               attributes={{ name: "bio-input", id: 1 }}
               value={bio || "bio"}
-              displayComponent={<CustomDisplay variant="small" />}
+              displayComponent={<EditTextDisplay variant="small" />}
               saveButtonLabel={<CheckIcon className="h-4 w-4" />}
               cancelButtonLabel={<XMarkIcon className="h-4 w-4" />}
             />

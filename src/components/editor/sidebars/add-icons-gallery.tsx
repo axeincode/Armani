@@ -1,27 +1,14 @@
 import React from "react";
-import { motion } from "framer-motion";
+import { Typography, Button, Spinner } from "@material-tailwind/react";
+import { PlusCircleIcon } from "@heroicons/react/24/solid";
 import {
-  Typography,
-  IconButton,
-  Switch,
-  Button,
-  Spinner,
-} from "@material-tailwind/react";
-import { PlusCircleIcon, TrashIcon } from "@heroicons/react/24/solid";
-import { deleteImageReference, updateDeckImage } from "@/lib/firebase/storage";
-import { cn } from "@/lib/utils";
-import {
-  useEditorDecksObserveable,
   useEditorObserveable,
   useObservable,
   useSelectedWidgetRepo,
 } from "@/store";
 import { useCurrentWidgetObserveable } from "@/hooks/useCurrentWidgetObserveable";
 import { useEditorWidgetObserveable } from "@/hooks/useEditorWidgetsObserveable";
-import { v4 } from "uuid";
-import { first, map, startCase, get, debounce } from "lodash";
-import { toast } from "react-toastify";
-import { WidgetElement } from "@/types";
+import { get, debounce } from "lodash";
 import { DialogIconsLoader } from "./dialog-icons-loader";
 import ColorPicker from "@/components/ui/color-picker";
 
@@ -48,6 +35,7 @@ export const AddIconsGallerySidebar = ({}: AddIconsGallerySidebarProps) => {
       },
     });
   };
+
   // debounce function to save icon color
   const debounceFn = debounce(handleOnIconColorChange, 1000);
 

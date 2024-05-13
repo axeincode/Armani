@@ -134,7 +134,7 @@ export const FrameWidgetEditorTool = ({
   console.log("sidebarRefProps", sidebarMeausreProps);
 
   return (
-    <div className="flex flex-col flex-grow" ref={sidebarRef}>
+    <div className="flex flex-col flex-grow h-full" ref={sidebarRef}>
       <div className="mb-2 flex justify-between">
         <Typography variant="h6" color="blue-gray">
           Frame
@@ -153,7 +153,10 @@ export const FrameWidgetEditorTool = ({
       </div>
       {/** divider line */}
       <div className="flex h-[0.5px] w-full bg-gray-300 mb-2" />
-      <div data-testid="sidebar-grouped-widget-editor-tool">
+      <div
+        className="flex flex-col flex-grow h-full"
+        data-testid="sidebar-grouped-widget-editor-tool"
+      >
         {editorWidgetState && (
           <>
             <div className="flex gap-1 my-2 px-1">
@@ -191,7 +194,10 @@ export const FrameWidgetEditorTool = ({
                 </div>
               </motion.div>
             )}
-            <div className="flex flex-col gap-1 my-4 px-1">
+            <div
+              className="flex flex-col gap-1 my-4 px-1"
+              style={{ width: sidebarMeausreProps?.width - 200 || 500 }}
+            >
               <div className="flex justify-between">
                 <Typography variant="h6" color="blue-gray" className="mb-0">
                   {"Elements"}
@@ -236,6 +242,9 @@ export const FrameWidgetEditorTool = ({
                 )}
 
               {widgetElement === WidgetElement.PICTURE && (
+                <AddImageWidgetSidebar />
+              )}
+              {widgetElement === WidgetElement.GALLERY && (
                 <AddImageWidgetSidebar />
               )}
               {widgetElement === WidgetElement.PIE_CHART && <DynamicForm />}
