@@ -41,7 +41,7 @@ export const SectionScroller = ({ children }: SectionScrollerProps) => {
           },
           1024: {
             slidesPerView: 7,
-            spaceBetween: 2,
+            spaceBetween: 3,
           },
         }}
       >
