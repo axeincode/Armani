@@ -1,12 +1,7 @@
 "use client";
 import React from "react";
-import {
-  ChevronLeftIcon,
-  ChevronRightIcon,
-  CloudArrowUpIcon,
-  XCircleIcon,
-} from "@heroicons/react/24/outline";
-import { Button, IconButton, Typography } from "@material-tailwind/react";
+import { XCircleIcon } from "@heroicons/react/24/outline";
+import { Typography } from "@material-tailwind/react";
 import { UploadButton } from "@/components/ui/upload-button";
 import { uploadDocumentToStorage } from "@/lib/firebase/storage";
 import { useEditorDecksObserveable, useEditorObserveable } from "@/store";
@@ -17,7 +12,8 @@ import { useMedia } from "react-use";
 import { map } from "lodash";
 import { FileIcon, defaultStyles } from "react-file-icon";
 import { SectionScroller } from "@/components/ui/sections/section-scroller";
-import { Swiper, SwiperSlide } from "swiper/react";
+import { SwiperSlide } from "swiper/react";
+import { toast } from "react-toastify";
 
 export const DataRoomEditTools = () => {
   // states
@@ -46,9 +42,10 @@ export const DataRoomEditTools = () => {
   };
 
   const handleOnDocumentChange = async (
-    e: React.ChangeEvent<HTMLInputElement>
+    eachFile: File,
+    isLastFile: boolean
   ) => {
-    const file = (e.target && e.target.files && e.target.files[0]) || null;
+    const file = eachFile || null;
     if (!file) return;
     setIsUploading(true);
     const uniqueDocumentId = v4();
@@ -64,6 +61,9 @@ export const DataRoomEditTools = () => {
         url: imageUrl,
         docType: extension as DocumentTypeEnum,
       });
+    }
+    if (isLastFile) {
+      toast.success("Document uploaded successfully");
     }
   };
 
@@ -81,7 +81,7 @@ export const DataRoomEditTools = () => {
           : name;
 
       return (
-        <SwiperSlide key={page.id} className="!bg-transparent">
+        <SwiperSlide key={page.id} className="!bg-transparent mt-[-4px]">
           <div key={id} className="flex flex-col justify-center items-center">
             <div
               className="flex h-12 w-12 p-1 box-border shadow relative bg-gray-800 dark:bg-gray-800 dark:border-gray-600 border-2 border-gray-300 rounded-lg cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:border-gray-500"

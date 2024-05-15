@@ -143,22 +143,26 @@ export function FrameWidget({ data }: FrameWidgetProps) {
               className="flex flex-col max-h-28 -mt-0 min-w-0 min-h-[75px] m-0 gap-1"
               data-widgetid={data.id}
             >
-              <Typography
-                variant="h6"
-                color="blue-gray"
-                data-id="INTERNAL_WIDGET"
-                className="m-1 x-drag-handle cursor-move"
-              >
-                {data.title || "Title"}
-              </Typography>
-              <Typography
-                variant="small"
-                color="blue-gray"
-                data-id="INTERNAL_WIDGET"
-                className="m-1"
-              >
-                {data.subtitle || "Subtitle"}
-              </Typography>
+              {data.title && (
+                <Typography
+                  variant="h6"
+                  color="blue-gray"
+                  data-id="INTERNAL_WIDGET"
+                  className="m-1 x-drag-handle cursor-move"
+                >
+                  {data.title || "Title"}
+                </Typography>
+              )}
+              {data.subtitle && (
+                <Typography
+                  variant="small"
+                  color="blue-gray"
+                  data-id="INTERNAL_WIDGET"
+                  className="m-1"
+                >
+                  {data.subtitle || "Subtitle"}
+                </Typography>
+              )}
             </CardHeader>
           </>
         )}
@@ -247,22 +251,26 @@ export function FrameWidget({ data }: FrameWidgetProps) {
             data-testid="cardfooter"
           >
             <>
-              <Typography
-                variant="h6"
-                color="blue-gray"
-                data-id="INTERNAL_WIDGET"
-                className="m-1"
-              >
-                {data.captionTitle || "Title"}
-              </Typography>
-              <Typography
-                variant="small"
-                color="blue-gray"
-                data-id="INTERNAL_WIDGET"
-                className="m-1"
-              >
-                {data.captionSubtitle || "Subtitle"}
-              </Typography>
+              {data.captionTitle && (
+                <Typography
+                  variant="h6"
+                  color="blue-gray"
+                  data-id="INTERNAL_WIDGET"
+                  className="m-1"
+                >
+                  {data.captionTitle || "Title"}
+                </Typography>
+              )}
+              {data.captionSubtitle && (
+                <Typography
+                  variant="small"
+                  color="blue-gray"
+                  data-id="INTERNAL_WIDGET"
+                  className="m-1"
+                >
+                  {data.captionSubtitle || "Subtitle"}
+                </Typography>
+              )}
             </>
           </CardFooter>
         )}

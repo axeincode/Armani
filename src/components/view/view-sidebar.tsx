@@ -146,6 +146,7 @@ export const ViewSidebar = ({ page, setPage }: EditorSidebarProps) => {
               >
                 <Bars3Icon className="h-6 w-6 text-white" />
               </IconButton>
+              <div className="flex h-[0.5px] w-full bg-gray-300 mb-2" />
               {map(pages$, (page: PageTypes) => {
                 return (
                   <IconButton

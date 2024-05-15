@@ -33,15 +33,15 @@ export const SectionScroller = ({ children }: SectionScrollerProps) => {
         breakpoints={{
           640: {
             slidesPerView: 2,
-            spaceBetween: 5,
+            spaceBetween: 2,
           },
           768: {
-            slidesPerView: 3,
-            spaceBetween: 5,
+            slidesPerView: 5,
+            spaceBetween: 2,
           },
           1024: {
-            slidesPerView: 4,
-            spaceBetween: 5,
+            slidesPerView: 7,
+            spaceBetween: 3,
           },
         }}
       >
