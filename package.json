@@ -12,6 +12,9 @@
     "start": "next start",
     "lint": "next lint"
   },
+  "resolutions": {
+    "**/@types/react": "18.2.20"
+  },
   "dependencies": {
     "@atlaskit/table-tree": "^9.7.0",
     "@cyntler/react-doc-viewer": "^1.14.1",
