@@ -1,21 +1,21 @@
-"use client";
-import React, { Component } from "react";
-import { find, get, isEmpty, isEqual, map, merge } from "lodash";
-import { v4 } from "uuid";
-import "../../../../node_modules/react-grid-layout/css/styles.css";
-import "./styles.css";
+"use client"
+import React, { Component } from "react"
+import { find, get, isEmpty, isEqual, map, merge } from "lodash"
+import { v4 } from "uuid"
+import "../../../../node_modules/react-grid-layout/css/styles.css"
+import "./styles.css"
 
-import { Responsive, WidthProvider } from "react-grid-layout";
+import { Responsive, WidthProvider } from "react-grid-layout"
 import {
   GridLayoutData,
   GridResponsiveLayoutData,
   WidgetTypes,
-} from "@/types/editor.types";
-import { RenderWidgetItem } from "./render-widget";
-import { cn } from "@/lib/utils";
-import ResizeHandle from "./resize-handle";
-import { RoundedRectangleSVG } from "./rounded-rect-svg";
-const availableHandles = ["s", "w", "e", "n"];
+} from "@/types/editor.types"
+import { RenderWidgetItem } from "./render-widget"
+import { cn } from "@/lib/utils"
+import ResizeHandle from "./resize-handle"
+import { RoundedRectangleSVG } from "./rounded-rect-svg"
+const availableHandles = ["s", "w", "e", "n"]
 
 // const initialLayout = [
 //   { i: "0", x: 0, y: 0, w: 3, h: 2, resizeHandles: availableHandles },
@@ -25,21 +25,21 @@ const availableHandles = ["s", "w", "e", "n"];
 // ];
 // implement grid layout state
 export interface GridLayoutState {
-  currentBreakpoint: string;
-  compactType: any;
-  resizeHandles: string[];
-  mounted: boolean;
-  layouts: any;
-  allLayouts?: ReactGridLayout.Layouts;
-  uniqueId: string;
+  currentBreakpoint: string
+  compactType: any
+  resizeHandles: string[]
+  mounted: boolean
+  layouts: any
+  allLayouts?: ReactGridLayout.Layouts
+  uniqueId: string
 }
 
 export interface GridLayoutProps {
-  className?: string;
-  rowHeight?: number;
-  onLayoutChange: (layout: any[]) => void;
-  allLayoutChange: (layouts: ReactGridLayout.Layouts) => void;
-  allLayouts?: ReactGridLayout.Layouts;
+  className?: string
+  rowHeight?: number
+  onLayoutChange: (layout: any[]) => void
+  allLayoutChange: (layouts: ReactGridLayout.Layouts) => void
+  allLayouts?: ReactGridLayout.Layouts
   onDragStart?: (
     layout: any,
     oldItem: any,
@@ -47,7 +47,7 @@ export interface GridLayoutProps {
     placeholder: any,
     e: MouseEvent,
     element: HTMLElement
-  ) => void;
+  ) => void
   onResizeStart?: (
     layout: any,
     oldItem: any,
@@ -55,16 +55,16 @@ export interface GridLayoutProps {
     placeholder: any,
     e: MouseEvent,
     element: HTMLElement
-  ) => void;
-  onHover?: (widgetId: string) => void;
-  onMouseDown?: (e: any) => void;
-  cols?: any;
-  initialLayout?: any;
-  data: GridResponsiveLayoutData;
-  containerHeight?: number;
+  ) => void
+  onHover?: (widgetId: string) => void
+  onMouseDown?: (e: any) => void
+  cols?: any
+  initialLayout?: any
+  data: GridResponsiveLayoutData
+  containerHeight?: number
 }
 
-const ResponsiveReactGridLayout = WidthProvider(Responsive);
+const ResponsiveReactGridLayout = WidthProvider(Responsive)
 class GridLayout extends React.Component<GridLayoutProps, GridLayoutState> {
   static defaultProps = {
     className: "layout",
@@ -74,10 +74,10 @@ class GridLayout extends React.Component<GridLayoutProps, GridLayoutState> {
     initialLayout: [],
     compactType: "vertical",
     allLayouts: {},
-  };
+  }
 
   constructor(props: GridLayoutProps) {
-    super(props);
+    super(props)
     this.state = {
       currentBreakpoint: "lg",
       compactType: "vertical",
@@ -86,10 +86,10 @@ class GridLayout extends React.Component<GridLayoutProps, GridLayoutState> {
       layouts: merge({ lg: props.initialLayout }, props.allLayouts, props.data),
       allLayouts: {},
       uniqueId: v4(),
-    };
+    }
 
-    this.onBreakpointChange = this.onBreakpointChange.bind(this);
-    this.onLayoutChange = this.onLayoutChange.bind(this);
+    this.onBreakpointChange = this.onBreakpointChange.bind(this)
+    this.onLayoutChange = this.onLayoutChange.bind(this)
   }
 
   // componentDidMount() {
@@ -121,20 +121,20 @@ class GridLayout extends React.Component<GridLayoutProps, GridLayoutState> {
   // }
 
   generateDOM() {
-    const { data } = this.props;
+    const { data } = this.props
     // hover is added to the grid layout
     const onHover = (e: any) => {
       if (e && e.target) {
-        const widgetId = e.target?.getAttribute("data-widgetid");
-        if (this.props.onHover) this.props.onHover(widgetId);
+        const widgetId = e.target?.getAttribute("data-widgetid")
+        if (this.props.onHover) this.props.onHover(widgetId)
       }
-    };
+    }
 
     const onMouseDown = (e: any) => {
       if (e && e.target) {
-        if (this.props.onMouseDown) this.props.onMouseDown(e);
+        if (this.props.onMouseDown) this.props.onMouseDown(e)
       }
-    };
+    }
 
     return map(data.lg, function (layout, i) {
       return (
@@ -149,24 +149,24 @@ class GridLayout extends React.Component<GridLayoutProps, GridLayoutState> {
           <RoundedRectangleSVG />
           <RenderWidgetItem id={layout.i} />
         </div>
-      );
-    });
+      )
+    })
   }
 
   onBreakpointChange = (breakpoint: string) => {
     this.setState({
       currentBreakpoint: breakpoint,
-    });
-  };
+    })
+  }
 
   onLayoutChange = (
     layout: ReactGridLayout.Layout[],
     layouts: ReactGridLayout.Layouts
   ) => {
-    const { currentBreakpoint } = this.state;
-    this.props?.onLayoutChange(layout);
+    const { currentBreakpoint } = this.state
+    this.props?.onLayoutChange(layout)
     ////this.props?.allLayoutChange(layouts);
-  };
+  }
 
   handleOnDragStart = (
     layout: any,
@@ -177,15 +177,8 @@ class GridLayout extends React.Component<GridLayoutProps, GridLayoutState> {
     element: HTMLElement
   ) => {
     if (this.props.onDragStart)
-      this.props?.onDragStart(
-        layout,
-        oldItem,
-        newItem,
-        placeholder,
-        e,
-        element
-      );
-  };
+      this.props?.onDragStart(layout, oldItem, newItem, placeholder, e, element)
+  }
 
   handleOnResizeStart = (
     layout: any,
@@ -203,13 +196,13 @@ class GridLayout extends React.Component<GridLayoutProps, GridLayoutState> {
         placeholder,
         e,
         element
-      );
-  };
+      )
+  }
 
   render() {
     return (
-      <div className="flex flex-grow flex-col resizegridlayout">
-        <div className="h-[1080px]" key={this.state.uniqueId}>
+      <div className='flex flex-grow flex-col resizegridlayout'>
+        <div className='h-[1080px]' key={this.state.uniqueId}>
           <ResponsiveReactGridLayout
             key={this.state.uniqueId}
             cols={{ lg: 12, md: 10, sm: 6, xs: 4, xxs: 2 }}
@@ -233,7 +226,7 @@ class GridLayout extends React.Component<GridLayoutProps, GridLayoutState> {
             transformScale={1}
             margin={[0, 0]}
             autoSize={true}
-            draggableHandle=".x-drag-handle"
+            draggableHandle='.x-drag-handle'
             // resizeHandle={(
             //   resizeHandleAxis: ResizeHandleAxis,
             //   ref: ReactRef<HTMLElement>
@@ -243,8 +236,8 @@ class GridLayout extends React.Component<GridLayoutProps, GridLayoutState> {
           </ResponsiveReactGridLayout>
         </div>
       </div>
-    );
+    )
   }
 }
 
-export default GridLayout;
+export default GridLayout

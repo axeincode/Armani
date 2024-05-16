@@ -21,10 +21,21 @@ This project is built with Next.js App Router. This project aims to show how to 
 
 ## Getting Started
 
+# Things to check first
+
+Make sure you node version is 18.x.x.
+
+pnpm i  should do installations
+pnpm build should do the build.
+pnpm dev should start the local server
+
 1. Install dependencies using npm:
 
 ```sh
-npm install
+pnpm i
+pnpm build
+pnpm dev
+
 ```
 
 2. Copy `.env.example` to `.env.local` and update the variables.
