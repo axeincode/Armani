@@ -12,9 +12,6 @@
     "start": "next start",
     "lint": "next lint"
   },
-  "resolutions": {
-    "**/@types/react": "18.2.20"
-  },
   "dependencies": {
     "@atlaskit/table-tree": "^9.7.0",
     "@cyntler/react-doc-viewer": "^1.14.1",
@@ -82,7 +79,6 @@
     "react-dnd": "^16.0.1",
     "react-dnd-html5-backend": "^16.0.1",
     "react-dom": "18.2.0",
-    "react-dropzone": "^14.2.3",
     "react-easy-edit": "^1.17.2",
     "react-file-icon": "^1.4.0",
     "react-grid-layout": "^1.4.4",
