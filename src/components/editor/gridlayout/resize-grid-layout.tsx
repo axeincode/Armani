@@ -140,13 +140,15 @@ class GridLayout extends React.Component<GridLayoutProps, GridLayoutState> {
       return (
         <div
           key={layout.i}
-          className={"flex flex-col p-2 pt-0 bg-transparent react-gap"}
+          className={"flex flex-col p-2 bg-transparent react-gap x-drag-handle cursor-move"}
           onMouseEnter={onHover}
           onMouseDown={onMouseDown}
           data-widget={"GRID_ITEM"}
           data-widgetid={layout.i}
         >
-          <RoundedRectangleSVG />
+          {/* I dont think we need this Round rectangle SVG if you can just move the box from anywhere, if you still think we need it then uncomment  */}
+          {/* <RoundedRectangleSVG /> */}
+          {/* <RoundedRectangleSVG /> */}
           <RenderWidgetItem id={layout.i} />
         </div>
       )
