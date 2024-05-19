@@ -122,6 +122,7 @@ export function DialogIconsLoader({ open, handler }: DialogIconsLoaderProps) {
     editorObs$.updateWidget(currentWidgetState.widgetId, {
       ...editorWidgetState,
       data: {
+        ...(editorWidgetState && editorWidgetState.data),
         icons: selectedIcons,
         color: iconColor,
       },
