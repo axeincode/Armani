@@ -134,8 +134,12 @@ export const TextWidget = ({ data, isView }: TextWidgetProps) => {
             init={{
               // @ts-ignore
               readonly: true,
+              toolbar: false,
+              menubar: false,
+              readOnly: true,
             }}
             initialValue={txtData.text}
+            disabled={true}
           />
         </>
       )}
