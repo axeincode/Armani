@@ -30,23 +30,6 @@ export const AddParagraphSidebar = ({ label }: AddParagraphSidebarProps) => {
     text: "",
   });
 
-  const handleOnChange = React.useCallback(
-    debounce((value: string) => {
-      const currentVideoId = get(textData, "id", null);
-      const getId = currentVideoId ? currentVideoId : v4();
-      const data = {
-        ...textData,
-        id: getId,
-        text: value,
-      };
-      editorObs$.updateWidget(currentWidgetState.widgetId, {
-        ...editorWidgetState,
-        data: data,
-      });
-    }, 5),
-    [editorObs$, editorWidgetState, currentWidgetState, textData]
-  );
-
   const handleOnTitleChange = React.useCallback(
     debounce((value: string) => {
       const textid = get(textData, "id", null);
@@ -82,15 +65,6 @@ export const AddParagraphSidebar = ({ label }: AddParagraphSidebarProps) => {
                 }}
               />
             </div>
-
-            <LabelInput
-              label={label || "paragraph text"}
-              placeholder=""
-              value={textData?.text || ""}
-              onChange={(value: any) => {
-                handleOnChange(value);
-              }}
-            />
           </div>
         </>
       )}
