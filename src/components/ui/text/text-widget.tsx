@@ -23,13 +23,7 @@ export const TextWidget = ({ data, isView }: TextWidgetProps) => {
               {txtData.title || ""}
             </Typography>
           )}
-          <Textarea
-            className="flex flex-grow relative"
-            value={txtData.text}
-            labelProps={{
-              className: "min-w-1 min-h-0 w-0 h-0",
-            }}
-          />
+          <Textarea className="flex flex-grow relative" value={txtData.text} />
         </>
       )}
       {isView && (
