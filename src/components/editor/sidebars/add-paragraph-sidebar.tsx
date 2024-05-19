@@ -24,13 +24,18 @@ export const AddParagraphSidebar = ({ label }: AddParagraphSidebarProps) => {
     selectedWidgetState.widgetId
   );
 
-  const textData = get(editorWidgetState, "data", { id: 0, text: "" });
+  const textData = get(editorWidgetState, "data", {
+    id: 0,
+    title: "",
+    text: "",
+  });
 
   const handleOnChange = React.useCallback(
     debounce((value: string) => {
-      const currentVideoId = get(editorWidgetState, "data.id", null);
+      const currentVideoId = get(textData, "id", null);
       const getId = currentVideoId ? currentVideoId : v4();
       const data = {
+        ...textData,
         id: getId,
         text: value,
       };
@@ -38,8 +43,25 @@ export const AddParagraphSidebar = ({ label }: AddParagraphSidebarProps) => {
         ...editorWidgetState,
         data: data,
       });
-    }, 10),
-    [editorObs$, editorWidgetState, currentWidgetState]
+    }, 5),
+    [editorObs$, editorWidgetState, currentWidgetState, textData]
+  );
+
+  const handleOnTitleChange = React.useCallback(
+    debounce((value: string) => {
+      const textid = get(textData, "id", null);
+      const getId = textid ? textid : v4();
+      const data = {
+        ...textData,
+        id: getId,
+        title: value,
+      };
+      editorObs$.updateWidget(currentWidgetState.widgetId, {
+        ...editorWidgetState,
+        data: data,
+      });
+    }, 5),
+    [editorObs$, editorWidgetState, currentWidgetState, textData]
   );
 
   return (
@@ -49,9 +71,20 @@ export const AddParagraphSidebar = ({ label }: AddParagraphSidebarProps) => {
 
       {editorWidgetState && (
         <>
-          <div className="flex flex-col mb-4">
+          <div className="flex flex-col mb-4 gap-2">
+            <div className="text-sm font-semibold text-gray-500">
+              <LabelInput
+                label={"Title"}
+                placeholder=""
+                value={textData?.title || ""}
+                onChange={(value: any) => {
+                  handleOnTitleChange(value);
+                }}
+              />
+            </div>
+
             <LabelInput
-              label={label || "Video Source"}
+              label={label || "paragraph text"}
               placeholder=""
               value={textData?.text || ""}
               onChange={(value: any) => {

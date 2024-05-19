@@ -25,7 +25,7 @@ This project is built with Next.js App Router. This project aims to show how to 
 
 Make sure you node version is 18.x.x.
 
-pnpm i  should do installations
+pnpm i should do installations
 pnpm build should do the build.
 pnpm dev should start the local server
 
@@ -63,3 +63,9 @@ vercel:
 https://vercel.com/help?email=canari.dna%40gmail.com
 
 ## test
+
+## Syncfusion Keys
+
+```
+Ngo9BigBOggjHTQxAR8/V1NBaF5cXmZCf1FpRmJGdld5fUVHYVZUTXxaS00DNHVRdkdnWXpfeHZXQ2dfWEFyX0Y=
+```

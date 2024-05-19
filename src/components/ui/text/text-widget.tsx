@@ -1,28 +1,58 @@
 import React from "react";
 import { Textarea, Typography } from "@material-tailwind/react";
-import { get } from "lodash";
+import { get, isEmpty } from "lodash";
 
 export interface TextWidgetProps {
   data?: any;
   isView?: boolean;
 }
 export const TextWidget = ({ data, isView }: TextWidgetProps) => {
-  const txtData = get(data, "data", { id: 0, text: "" });
+  const txtData = get(data, "data", { id: 0, text: "", title: "" });
 
   return (
-    <div className="flex flex-grow w-full">
+    <div className="flex flex-col flex-grow w-full gap-2">
       {!isView && (
-        <Textarea className="flex flex-grow relative" value={txtData.text} />
+        <>
+          {!isEmpty(txtData.title) && (
+            <Typography
+              variant="h6"
+              color="blue-gray"
+              data-id="INTERNAL_WIDGET"
+              className="m-1"
+            >
+              {txtData.title || ""}
+            </Typography>
+          )}
+          <Textarea
+            className="flex flex-grow relative"
+            value={txtData.text}
+            labelProps={{
+              className: "min-w-1 min-h-0 w-0 h-0",
+            }}
+          />
+        </>
       )}
       {isView && (
-        <Typography
-          variant="small"
-          color="blue-gray"
-          data-id="INTERNAL_WIDGET"
-          className="m-1"
-        >
-          {txtData.text || "..."}
-        </Typography>
+        <>
+          {!isEmpty(txtData.title) && (
+            <Typography
+              variant="h6"
+              color="blue-gray"
+              data-id="INTERNAL_WIDGET"
+              className="m-1"
+            >
+              {txtData.title || ""}
+            </Typography>
+          )}
+          <Typography
+            variant="small"
+            color="blue-gray"
+            data-id="INTERNAL_WIDGET"
+            className="m-1"
+          >
+            {txtData.text || "..."}
+          </Typography>
+        </>
       )}
     </div>
   );
