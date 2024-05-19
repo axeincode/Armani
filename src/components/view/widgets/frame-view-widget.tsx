@@ -77,7 +77,10 @@ export function FrameWidget({ data, height, width }: FrameWidgetProps) {
           (data.elementType && data.titleEnabled && (
             <>
               <CardHeader
-                className="flex flex-col max-h-40 -mt-0 min-w-0 min-h-[75px] m-0 gap-1"
+                className={cn(
+                  "flex flex-col max-h-28 -mt-0 min-w-0 min-h-[25px] m-0 gap-1",
+                  !isEmpty(data.subtitle) && "min-h-[75px]"
+                )}
                 data-widget-id={data.id}
               >
                 {data.title && (

@@ -16,7 +16,7 @@ export const EditorTopNav = () => {
         }),
       }}
     >
-      <InputWithSearchAddon onChange={() => {}} value="Search the deck" />
+      <div>{``}</div>
       <div className="flex text-xs items-center justify-between gap-1">
         <Typography
           as="h4"
