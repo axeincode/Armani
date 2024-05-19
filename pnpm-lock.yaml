@@ -46,7 +46,7 @@ dependencies:
     version: 5.15.6(@emotion/react@11.11.3)(@emotion/styled@11.11.0)(@types/react@18.2.20)(react-dom@18.2.0)(react@18.2.0)
   '@mui/x-date-pickers':
     specifier: ^6.19.2
-    version: 6.19.2(@emotion/react@11.11.3)(@emotion/styled@11.11.0)(@mui/material@5.15.6)(@mui/system@5.15.6)(@types/react@18.2.20)(date-fns@2.30.0)(react-dom@18.2.0)(react@18.2.0)
+    version: 6.19.2(@emotion/react@11.11.3)(@emotion/styled@11.11.0)(@mui/material@5.15.6)(@mui/system@5.15.6)(@types/react@18.2.20)(date-fns@2.30.0)(dayjs@1.11.11)(react-dom@18.2.0)(react@18.2.0)
   '@radix-ui/react-avatar':
     specifier: ^1.0.3
     version: 1.0.3(@types/react-dom@18.2.7)(@types/react@18.2.20)(react-dom@18.2.0)(react@18.2.0)
@@ -68,75 +68,18 @@ dependencies:
   '@scena/react-guides':
     specifier: ^0.28.2
     version: 0.28.2
-  '@syncfusion/ej2-base':
-    specifier: 25.2.3
-    version: 25.2.3
-  '@syncfusion/ej2-buttons':
-    specifier: 25.2.4
-    version: 25.2.4
-  '@syncfusion/ej2-calendars':
-    specifier: 25.2.4
-    version: 25.2.4
-  '@syncfusion/ej2-compression':
-    specifier: 25.2.3
-    version: 25.2.3
-  '@syncfusion/ej2-data':
-    specifier: 25.2.3
-    version: 25.2.3
-  '@syncfusion/ej2-dropdowns':
-    specifier: 25.2.4
-    version: 25.2.4
-  '@syncfusion/ej2-excel-export':
-    specifier: 25.2.3
-    version: 25.2.3
-  '@syncfusion/ej2-file-utils':
-    specifier: 25.2.3
-    version: 25.2.3
-  '@syncfusion/ej2-grids':
-    specifier: 25.2.3
-    version: 25.2.3
-  '@syncfusion/ej2-inputs':
-    specifier: 25.2.3
-    version: 25.2.3
-  '@syncfusion/ej2-lists':
-    specifier: 25.2.3
-    version: 25.2.3
-  '@syncfusion/ej2-navigations':
-    specifier: 25.2.4
-    version: 25.2.4
-  '@syncfusion/ej2-notifications':
-    specifier: 25.2.3
-    version: 25.2.3
-  '@syncfusion/ej2-pdf-export':
-    specifier: 25.2.3
-    version: 25.2.3
-  '@syncfusion/ej2-popups':
-    specifier: 25.2.4
-    version: 25.2.4
-  '@syncfusion/ej2-react-base':
-    specifier: 25.2.3
-    version: 25.2.3
-  '@syncfusion/ej2-react-buttons':
-    specifier: 25.2.4
-    version: 25.2.4
-  '@syncfusion/ej2-react-grids':
-    specifier: 25.2.3
-    version: 25.2.3
-  '@syncfusion/ej2-react-treegrid':
-    specifier: 25.2.4
-    version: 25.2.4
-  '@syncfusion/ej2-splitbuttons':
-    specifier: 25.2.4
-    version: 25.2.4
-  '@syncfusion/ej2-treegrid':
-    specifier: 25.2.4
-    version: 25.2.4
+  '@tanstack/react-query':
+    specifier: ^5.35.1
+    version: 5.35.1(react@18.2.0)
   '@tanstack/react-table':
     specifier: ^8.11.7
     version: 8.11.7(react-dom@18.2.0)(react@18.2.0)
   '@tanstack/react-virtual':
     specifier: ^3.1.3
     version: 3.1.3(react-dom@18.2.0)(react@18.2.0)
+  '@tinymce/tinymce-react':
+    specifier: ^5.0.1
+    version: 5.0.1(react-dom@18.2.0)(react@18.2.0)
   '@tremor/react':
     specifier: ^3.6.1
     version: 3.6.1(prop-types@15.8.1)(react-dom@18.2.0)(react@18.2.0)(tailwindcss@3.3.3)
@@ -170,6 +113,9 @@ dependencies:
   clsx:
     specifier: ^2.0.0
     version: 2.0.0
+  dayjs:
+    specifier: ^1.11.11
+    version: 1.11.11
   eslint:
     specifier: 8.47.0
     version: 8.47.0
@@ -216,8 +162,8 @@ dependencies:
     specifier: ^0.268.0
     version: 0.268.0(react@18.2.0)
   material-react-table:
-    specifier: ^2.9.2
-    version: 2.9.2(@emotion/react@11.11.3)(@emotion/styled@11.11.0)(@mui/icons-material@5.15.6)(@mui/material@5.15.6)(@mui/x-date-pickers@6.19.2)(react-dom@18.2.0)(react@18.2.0)
+    specifier: ^2.13.0
+    version: 2.13.0(@emotion/react@11.11.3)(@emotion/styled@11.11.0)(@mui/icons-material@5.15.6)(@mui/material@5.15.6)(@mui/x-date-pickers@6.19.2)(react-dom@18.2.0)(react@18.2.0)
   next:
     specifier: 13.5.3
     version: 13.5.3(react-dom@18.2.0)(react@18.2.0)(sass@1.71.1)
@@ -2055,7 +2001,7 @@ packages:
       react-is: 18.2.0
     dev: false
 
-  /@mui/x-date-pickers@6.19.2(@emotion/react@11.11.3)(@emotion/styled@11.11.0)(@mui/material@5.15.6)(@mui/system@5.15.6)(@types/react@18.2.20)(date-fns@2.30.0)(react-dom@18.2.0)(react@18.2.0):
+  /@mui/x-date-pickers@6.19.2(@emotion/react@11.11.3)(@emotion/styled@11.11.0)(@mui/material@5.15.6)(@mui/system@5.15.6)(@types/react@18.2.20)(date-fns@2.30.0)(dayjs@1.11.11)(react-dom@18.2.0)(react@18.2.0):
     resolution: {integrity: sha512-/bdWZabexuz+1rKG15XryxiMGb5D0XVx65NU7CZYKm/1+HuUzc0FX9smKEa/YVZnLSNsAp6SULIyPZtAKE+3AA==}
     engines: {node: '>=14.0.0'}
     peerDependencies:
@@ -2102,6 +2048,7 @@ packages:
       '@types/react-transition-group': 4.4.10
       clsx: 2.1.0
       date-fns: 2.30.0
+      dayjs: 1.11.11
       prop-types: 15.8.1
       react: 18.2.0
       react-dom: 18.2.0(react@18.2.0)
@@ -2926,189 +2873,24 @@ packages:
       tslib: 2.6.2
     dev: false
 
-  /@syncfusion/ej2-base@25.2.3:
-    resolution: {integrity: sha512-BG19rDmr0pCcww5pcssDIdyZ1FjPC9kqRKbBtYFc3maIwMz595GQHSjsAfxWvl8XO+qRZtSMPv3lHs9foM9Zew==}
-    hasBin: true
-    dependencies:
-      '@syncfusion/ej2-icons': 25.2.3
-    dev: false
-
-  /@syncfusion/ej2-buttons@25.2.4:
-    resolution: {integrity: sha512-FK0O+fy4qrbbpd5Q+E7NBgzAIeqfqnqqB+vpBex0d7FvpmgSoM5iSvcMqlXsbwWpb1ZJ9ORETItML4G9WgS8ZA==}
-    dependencies:
-      '@syncfusion/ej2-base': 25.2.3
-    dev: false
-
-  /@syncfusion/ej2-calendars@25.2.4:
-    resolution: {integrity: sha512-/wpnY0eloXRqa1lggP1R0S03DTgrW4s8cL2JfdPEOukv8rB+vDA/FU/UV4sKcitu8sULRwDk9QQgcLL8Cp2p4g==}
-    dependencies:
-      '@syncfusion/ej2-base': 25.2.3
-      '@syncfusion/ej2-buttons': 25.2.4
-      '@syncfusion/ej2-inputs': 25.2.3
-      '@syncfusion/ej2-lists': 25.2.3
-      '@syncfusion/ej2-popups': 25.2.4
-    dev: false
-
-  /@syncfusion/ej2-compression@25.2.3:
-    resolution: {integrity: sha512-fDlsQcLUb0jhB2JgZJ6wGJ8DkwEU74F/AX07IYZCzHXRCVvLL1UEZEaR3lA6YLqoMit3UWJZv9Di1fhhwMfdKg==}
-    dependencies:
-      '@syncfusion/ej2-file-utils': 25.2.3
-    dev: false
-
-  /@syncfusion/ej2-data@25.2.3:
-    resolution: {integrity: sha512-lzULJdW4ok79opA+FGppfPx1nUGiDwIA2KGr8XBOLmShW1o+Jt+KNOx3EVkW2r3VqRX3E0Pg5OlNk3uHFPe7sw==}
-    dependencies:
-      '@syncfusion/ej2-base': 25.2.3
-    dev: false
-
-  /@syncfusion/ej2-dropdowns@25.2.4:
-    resolution: {integrity: sha512-Qltr4dc1FdWOTrwV1CkzaLr33ZIFCa5qJVMzs3j5lyGYoyxuOzf/jT2GkHYHwVf1qtxLgHQej2oxsbYI3sLx1A==}
-    dependencies:
-      '@syncfusion/ej2-base': 25.2.3
-      '@syncfusion/ej2-data': 25.2.3
-      '@syncfusion/ej2-inputs': 25.2.3
-      '@syncfusion/ej2-lists': 25.2.3
-      '@syncfusion/ej2-navigations': 25.2.4
-      '@syncfusion/ej2-notifications': 25.2.3
-      '@syncfusion/ej2-popups': 25.2.4
-    dev: false
-
-  /@syncfusion/ej2-excel-export@25.2.3:
-    resolution: {integrity: sha512-5ctlageHY4m/ox4Y5LGsWcwCIR+B/zZ7ZE0nExh09LH9N/C3lofBUlpV/sdS5cQDA5aEhhO2MT+n4IPNBzLSwA==}
-    dependencies:
-      '@syncfusion/ej2-base': 25.2.3
-      '@syncfusion/ej2-compression': 25.2.3
-    dev: false
-
-  /@syncfusion/ej2-file-utils@25.2.3:
-    resolution: {integrity: sha512-Ju+U6jmDx+PMiyKWkv/jLWWXKp1+N+ym7TlEUBZguYR0/tuqedHDhliL9/R4ZhMGpwlB9oBFwX4+5VgJzdk0yA==}
-    dev: false
-
-  /@syncfusion/ej2-grids@25.2.3:
-    resolution: {integrity: sha512-HiwUl3u14bH1E0wtFokzAap4laiYr4LIsVIosCZsdHH2ZArEFTUeFn9qJetg7XFxwRV/W46K96y9StdSMszdqQ==}
-    dependencies:
-      '@syncfusion/ej2-base': 25.2.3
-      '@syncfusion/ej2-buttons': 25.2.4
-      '@syncfusion/ej2-calendars': 25.2.4
-      '@syncfusion/ej2-compression': 25.2.3
-      '@syncfusion/ej2-data': 25.2.3
-      '@syncfusion/ej2-dropdowns': 25.2.4
-      '@syncfusion/ej2-excel-export': 25.2.3
-      '@syncfusion/ej2-file-utils': 25.2.3
-      '@syncfusion/ej2-inputs': 25.2.3
-      '@syncfusion/ej2-lists': 25.2.3
-      '@syncfusion/ej2-navigations': 25.2.4
-      '@syncfusion/ej2-notifications': 25.2.3
-      '@syncfusion/ej2-pdf-export': 25.2.3
-      '@syncfusion/ej2-popups': 25.2.4
-      '@syncfusion/ej2-splitbuttons': 25.2.4
-    dev: false
-
-  /@syncfusion/ej2-icons@25.2.3:
-    resolution: {integrity: sha512-WptrAR3YShA8S+mushGCojRmBgLUCYpsYq1Nw1S1ynWNRcijlZgdil5L7LjaGA8H6CA/mFG5BMBDCmZ76hYX1A==}
-    dev: false
-
-  /@syncfusion/ej2-inputs@25.2.3:
-    resolution: {integrity: sha512-7AUriTHyZcSlzXxinqAujVORR6UEDvNjgLZAGUMQJL5CLUffMPa2c+Aj6Fgerkm7kUbgpwwSZ8ej5FzSD5eW9w==}
-    dependencies:
-      '@syncfusion/ej2-base': 25.2.3
-      '@syncfusion/ej2-buttons': 25.2.4
-      '@syncfusion/ej2-popups': 25.2.4
-      '@syncfusion/ej2-splitbuttons': 25.2.4
-    dev: false
-
-  /@syncfusion/ej2-lists@25.2.3:
-    resolution: {integrity: sha512-IunnsCjkHsDRMOgJ20wclxpB0UJsDDwsLTwlNqIi6ddDkluBmZBlviS8Zb16YthUO020YNTLN10HgP7JRevvlA==}
-    dependencies:
-      '@syncfusion/ej2-base': 25.2.3
-      '@syncfusion/ej2-buttons': 25.2.4
-      '@syncfusion/ej2-data': 25.2.3
-      '@syncfusion/ej2-popups': 25.2.4
-    dev: false
-
-  /@syncfusion/ej2-navigations@25.2.4:
-    resolution: {integrity: sha512-3MWUdBCZZkmA7wezcTuEM9jjZd6OWe/dIB8nBwACdstkv5nEIyOPaHf1btZmMPkBeMkkLhSWoZThHzq2PokMSg==}
-    dependencies:
-      '@syncfusion/ej2-base': 25.2.3
-      '@syncfusion/ej2-buttons': 25.2.4
-      '@syncfusion/ej2-data': 25.2.3
-      '@syncfusion/ej2-inputs': 25.2.3
-      '@syncfusion/ej2-lists': 25.2.3
-      '@syncfusion/ej2-popups': 25.2.4
-    dev: false
-
-  /@syncfusion/ej2-notifications@25.2.3:
-    resolution: {integrity: sha512-V3p5qvWYasCPfUqr5vyOIKSRs5jpIXEtYZR5b0QY7dv/RkssXyaTRjIVYrV7Zd7qUYMFZxsku15mc9M5NypE+A==}
-    dependencies:
-      '@syncfusion/ej2-base': 25.2.3
-      '@syncfusion/ej2-buttons': 25.2.4
-      '@syncfusion/ej2-popups': 25.2.4
-    dev: false
-
-  /@syncfusion/ej2-pdf-export@25.2.3:
-    resolution: {integrity: sha512-2TN6YbkPrvqGX3CQUMgUq/rQ0995POMoUiTklIxK7ylmIvD6Wc0gtKsHnEqepUN59s89Uxj4fKw/g5U+cB2kcA==}
-    dependencies:
-      '@syncfusion/ej2-compression': 25.2.3
-    dev: false
-
-  /@syncfusion/ej2-popups@25.2.4:
-    resolution: {integrity: sha512-A6NqEAUXThOY+Rvt/KLY/tG0XvvDKK6Je5miomdkOnYU5+i+SjsLHQavRLsIrJiaY/0lFCNtaN+l4ZIx3uFHvQ==}
-    dependencies:
-      '@syncfusion/ej2-base': 25.2.3
-      '@syncfusion/ej2-buttons': 25.2.4
-    dev: false
-
-  /@syncfusion/ej2-react-base@25.2.3:
-    resolution: {integrity: sha512-DJxjhHR9QJzAGIEl4XCmHNVxpkL5uFm0PU0pufQrjNgmorQDo0iQJ4abk59B8Uw1WFmuU4/5Y+KFImExdE92gg==}
-    dependencies:
-      '@syncfusion/ej2-base': 25.2.3
-    dev: false
-
-  /@syncfusion/ej2-react-buttons@25.2.4:
-    resolution: {integrity: sha512-GCEx8zRwRhytFSOrt5VboN0dDOxQqh0i8M8tfdno/AmGZPBmgZzURIX5kyAxRehxDW4IOgFBZKyW5Jqaqhi8Nw==}
-    dependencies:
-      '@syncfusion/ej2-base': 25.2.3
-      '@syncfusion/ej2-buttons': 25.2.4
-      '@syncfusion/ej2-react-base': 25.2.3
-    dev: false
-
-  /@syncfusion/ej2-react-grids@25.2.3:
-    resolution: {integrity: sha512-R48/TRf97vlRfhYqqaom/iknsuQGqnlAsJg3zIa6OcafNn+OS8cF2ebf+7C5fCYjI/ypzxJ5umQrprDQvX7wcQ==}
-    dependencies:
-      '@syncfusion/ej2-base': 25.2.3
-      '@syncfusion/ej2-grids': 25.2.3
-      '@syncfusion/ej2-react-base': 25.2.3
-    dev: false
-
-  /@syncfusion/ej2-react-treegrid@25.2.4:
-    resolution: {integrity: sha512-cpDDcXOq4vKt322KHNvGNbyNREEE9AyQ0Axp8bi9pvj6ByFTh6vtr+umlhp+3O9UwuTO1yHebD9cygcjo2K73g==}
-    dependencies:
-      '@syncfusion/ej2-base': 25.2.3
-      '@syncfusion/ej2-react-base': 25.2.3
-      '@syncfusion/ej2-treegrid': 25.2.4
-    dev: false
-
-  /@syncfusion/ej2-splitbuttons@25.2.4:
-    resolution: {integrity: sha512-9C3sXLg9+fCJPX3tdQPKUJfxMw7FKFm4lLRGHliSVqbnK6dsSw2NzR8yt5gtTDgQgSGCCwL87e9g1QCAc7GTAQ==}
-    dependencies:
-      '@syncfusion/ej2-base': 25.2.3
-      '@syncfusion/ej2-popups': 25.2.4
-    dev: false
-
-  /@syncfusion/ej2-treegrid@25.2.4:
-    resolution: {integrity: sha512-uwJPxoOGS+L71N/1jttPlgAybHtfUru8PQ2jVFtW8G98k46nzY9FD2zsiLXIQG/LHOXsWlJHrQxPWajcZVGxpQ==}
-    dependencies:
-      '@syncfusion/ej2-base': 25.2.3
-      '@syncfusion/ej2-data': 25.2.3
-      '@syncfusion/ej2-grids': 25.2.3
-      '@syncfusion/ej2-popups': 25.2.4
-    dev: false
-
-  /@tanstack/match-sorter-utils@8.11.7:
-    resolution: {integrity: sha512-4PUKgaaFpiB7MK406N5VAiLu2VUhDumojGWhEC8kNQ767RGU2vsJDI7Xp4D8lMBzijqswRWz3U8ioa2zUKnFeQ==}
+  /@tanstack/match-sorter-utils@8.15.1:
+    resolution: {integrity: sha512-PnVV3d2poenUM31ZbZi/yXkBu3J7kd5k2u51CGwwNojag451AjTH9N6n41yjXz2fpLeewleyLBmNS6+HcGDlXw==}
     engines: {node: '>=12'}
     dependencies:
-      remove-accents: 0.4.2
+      remove-accents: 0.5.0
+    dev: false
+
+  /@tanstack/query-core@5.35.1:
+    resolution: {integrity: sha512-0Dnpybqb8+ps6WgqBnqFEC+1F/xLvUosRAq+wiGisTgolOZzqZfkE2995dEXmhuzINiTM7/a6xSGznU0NIvBkw==}
+    dev: false
+
+  /@tanstack/react-query@5.35.1(react@18.2.0):
+    resolution: {integrity: sha512-i2T7m2ffQdNqlX3pO+uMsnQ0H4a59Ens2GxtlMsRiOvdSB4SfYmHb27MnvFV8rGmtWRaa4gPli0/rpDoSS5LbQ==}
+    peerDependencies:
+      react: ^18.0.0
+    dependencies:
+      '@tanstack/query-core': 5.35.1
+      react: 18.2.0
     dev: false
 
   /@tanstack/react-table@8.11.7(react-dom@18.2.0)(react@18.2.0):
@@ -3123,13 +2905,14 @@ packages:
       react-dom: 18.2.0(react@18.2.0)
     dev: false
 
-  /@tanstack/react-virtual@3.0.2(react-dom@18.2.0)(react@18.2.0):
-    resolution: {integrity: sha512-9XbRLPKgnhMwwmuQMnJMv+5a9sitGNCSEtf/AZXzmJdesYk7XsjYHaEDny+IrJzvPNwZliIIDwCRiaUqR3zzCA==}
+  /@tanstack/react-table@8.16.0(react-dom@18.2.0)(react@18.2.0):
+    resolution: {integrity: sha512-rKRjnt8ostqN2fercRVOIH/dq7MAmOENCMvVlKx6P9Iokhh6woBGnIZEkqsY/vEJf1jN3TqLOb34xQGLVRuhAg==}
+    engines: {node: '>=12'}
     peerDependencies:
-      react: ^16.8.0 || ^17.0.0 || ^18.0.0
-      react-dom: ^16.8.0 || ^17.0.0 || ^18.0.0
+      react: '>=16.8'
+      react-dom: '>=16.8'
     dependencies:
-      '@tanstack/virtual-core': 3.0.0
+      '@tanstack/table-core': 8.16.0
       react: 18.2.0
       react-dom: 18.2.0(react@18.2.0)
     dev: false
@@ -3145,17 +2928,45 @@ packages:
       react-dom: 18.2.0(react@18.2.0)
     dev: false
 
+  /@tanstack/react-virtual@3.3.0(react-dom@18.2.0)(react@18.2.0):
+    resolution: {integrity: sha512-QFxmTSZBniq15S0vSZ55P4ToXquMXwJypPXyX/ux7sYo6a2FX3/zWoRLLc4eIOGWTjvzqcIVNKhcuFb+OZL3aQ==}
+    peerDependencies:
+      react: ^16.8.0 || ^17.0.0 || ^18.0.0
+      react-dom: ^16.8.0 || ^17.0.0 || ^18.0.0
+    dependencies:
+      '@tanstack/virtual-core': 3.3.0
+      react: 18.2.0
+      react-dom: 18.2.0(react@18.2.0)
+    dev: false
+
   /@tanstack/table-core@8.11.7:
     resolution: {integrity: sha512-N3ksnkbPbsF3PjubuZCB/etTqvctpXWRHIXTmYfJFnhynQKjeZu8BCuHvdlLPpumKbA+bjY4Ay9AELYLOXPWBg==}
     engines: {node: '>=12'}
     dev: false
 
-  /@tanstack/virtual-core@3.0.0:
-    resolution: {integrity: sha512-SYXOBTjJb05rXa2vl55TTwO40A6wKu0R5i1qQwhJYNDIqaIGF7D0HsLw+pJAyi2OvntlEIVusx3xtbbgSUi6zg==}
+  /@tanstack/table-core@8.16.0:
+    resolution: {integrity: sha512-dCG8vQGk4js5v88/k83tTedWOwjGnIyONrKpHpfmSJB8jwFHl8GSu1sBBxbtACVAPtAQgwNxl0rw1d3RqRM1Tg==}
+    engines: {node: '>=12'}
     dev: false
 
   /@tanstack/virtual-core@3.1.3:
     resolution: {integrity: sha512-Y5B4EYyv1j9V8LzeAoOVeTg0LI7Fo5InYKgAjkY1Pu9GjtUwX/EKxNcU7ng3sKr99WEf+bPTcktAeybyMOYo+g==}
+    dev: false
+
+  /@tanstack/virtual-core@3.3.0:
+    resolution: {integrity: sha512-A0004OAa1FcUkPHeeGoKgBrAgjH+uHdDPrw1L7RpkwnODYqRvoilqsHPs8cyTjMg1byZBbiNpQAq2TlFLIaQag==}
+    dev: false
+
+  /@tinymce/tinymce-react@5.0.1(react-dom@18.2.0)(react@18.2.0):
+    resolution: {integrity: sha512-tw6yNRqrMGP1iJNeY14wvGsUayC9fc1QpJa7tAvdmeBrUlllyF9PpsrbfvYd+2k8t+w0r2Hq+foTzLZ1d27Fyw==}
+    peerDependencies:
+      react: ^18.0.0 || ^17.0.1 || ^16.7.0
+      react-dom: ^18.0.0 || ^17.0.1 || ^16.7.0
+    dependencies:
+      prop-types: 15.8.1
+      react: 18.2.0
+      react-dom: 18.2.0(react@18.2.0)
+      tinymce: 7.1.0
     dev: false
 
   /@tootallnate/once@2.0.0:
@@ -4456,8 +4267,8 @@ packages:
       '@babel/runtime': 7.23.8
     dev: false
 
-  /dayjs@1.11.10:
-    resolution: {integrity: sha512-vjAczensTgRcqDERK0SR2XMwsF/tSvnvlv6VcF2GIhg6Sx4yOIt/irsr1RDJsKiIyBzJDpCoXiWWq28MqH2cnQ==}
+  /dayjs@1.11.11:
+    resolution: {integrity: sha512-okzr3f11N6WuqYtZSvm+F776mB41wRZMhKP+hc34YdW+KmtYYK9iqvHSwo2k9FEH3fhGXvOPV6yz2IcSrfRUDg==}
     dev: false
 
   /debug@3.2.7:
@@ -6621,8 +6432,8 @@ packages:
     hasBin: true
     dev: false
 
-  /material-react-table@2.9.2(@emotion/react@11.11.3)(@emotion/styled@11.11.0)(@mui/icons-material@5.15.6)(@mui/material@5.15.6)(@mui/x-date-pickers@6.19.2)(react-dom@18.2.0)(react@18.2.0):
-    resolution: {integrity: sha512-w7y6tUU64rDSs8PZE2NF8//eaaUz8ZcGrGoY5YyeOtyNxB0S7fB+1/gu2tsx8IKMlC8aOubJsiKYoQK0vi3bvw==}
+  /material-react-table@2.13.0(@emotion/react@11.11.3)(@emotion/styled@11.11.0)(@mui/icons-material@5.15.6)(@mui/material@5.15.6)(@mui/x-date-pickers@6.19.2)(react-dom@18.2.0)(react@18.2.0):
+    resolution: {integrity: sha512-ds4/cupDsXvoz8K8OpM3UqUyqKoAMkVdvmvP/+ovuWA23fPcjYvFFkUpBxtnZq5GKWM0+SZWzr14KQ1DgKCaFQ==}
     engines: {node: '>=16'}
     peerDependencies:
       '@emotion/react': '>=11.11'
@@ -6630,17 +6441,17 @@ packages:
       '@mui/icons-material': '>=5.11'
       '@mui/material': '>=5.13'
       '@mui/x-date-pickers': '>=6.15.0'
-      react: '>=18.0'
-      react-dom: '>=18.0'
+      react: '>=17.0'
+      react-dom: '>=17.0'
     dependencies:
       '@emotion/react': 11.11.3(@types/react@18.2.20)(react@18.2.0)
       '@emotion/styled': 11.11.0(@emotion/react@11.11.3)(@types/react@18.2.20)(react@18.2.0)
       '@mui/icons-material': 5.15.6(@mui/material@5.15.6)(@types/react@18.2.20)(react@18.2.0)
       '@mui/material': 5.15.6(@emotion/react@11.11.3)(@emotion/styled@11.11.0)(@types/react@18.2.20)(react-dom@18.2.0)(react@18.2.0)
-      '@mui/x-date-pickers': 6.19.2(@emotion/react@11.11.3)(@emotion/styled@11.11.0)(@mui/material@5.15.6)(@mui/system@5.15.6)(@types/react@18.2.20)(date-fns@2.30.0)(react-dom@18.2.0)(react@18.2.0)
-      '@tanstack/match-sorter-utils': 8.11.7
-      '@tanstack/react-table': 8.11.7(react-dom@18.2.0)(react@18.2.0)
-      '@tanstack/react-virtual': 3.0.2(react-dom@18.2.0)(react@18.2.0)
+      '@mui/x-date-pickers': 6.19.2(@emotion/react@11.11.3)(@emotion/styled@11.11.0)(@mui/material@5.15.6)(@mui/system@5.15.6)(@types/react@18.2.20)(date-fns@2.30.0)(dayjs@1.11.11)(react-dom@18.2.0)(react@18.2.0)
+      '@tanstack/match-sorter-utils': 8.15.1
+      '@tanstack/react-table': 8.16.0(react-dom@18.2.0)(react@18.2.0)
+      '@tanstack/react-virtual': 3.3.0(react-dom@18.2.0)(react@18.2.0)
       highlight-words: 1.2.2
       react: 18.2.0
       react-dom: 18.2.0(react@18.2.0)
@@ -7502,7 +7313,7 @@ packages:
       react-dom: ^18.1.0
     dependencies:
       classnames: 2.5.1
-      dayjs: 1.11.10
+      dayjs: 1.11.11
       focus-visible: 5.2.0
       react: 18.2.0
       react-dom: 18.2.0(react@18.2.0)
@@ -8048,8 +7859,8 @@ packages:
       set-function-name: 2.0.1
     dev: false
 
-  /remove-accents@0.4.2:
-    resolution: {integrity: sha512-7pXIJqJOq5tFgG1A2Zxti3Ht8jJF337m4sowbuHsW30ZnkQFnDzy9qBNhgzX8ZLW4+UBcXiiR7SwR6pokHsxiA==}
+  /remove-accents@0.5.0:
+    resolution: {integrity: sha512-8g3/Otx1eJaVD12e31UbJj1YzdtVvzH85HV7t+9MJYk/u3XmkOUJ5Ys9wQrf9PCPK8+xn4ymzqYCiZl6QWKn+A==}
     dev: false
 
   /request@2.88.2:
@@ -8878,6 +8689,10 @@ packages:
 
   /tiny-warning@1.0.3:
     resolution: {integrity: sha512-lBN9zLN/oAf68o3zNXYrdCt1kP8WsiGW8Oo2ka41b2IM5JL/S1CTyX1rW0mb/zSuJun0ZUrDxx4sqvYS2FWzPA==}
+    dev: false
+
+  /tinymce@7.1.0:
+    resolution: {integrity: sha512-KP5X9P7CIvaafu0XLiMidFWhjyYiOWcfY9hj/YbQSu9LcrZv7XXnXgb5Fgw7dA12lg7hqdTiRva+NKxoXaAbIA==}
     dev: false
 
   /tmp@0.2.1:
