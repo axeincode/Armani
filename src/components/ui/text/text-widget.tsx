@@ -96,9 +96,11 @@ export const TextWidget = ({ data, isView }: TextWidgetProps) => {
           )}
           <>
             <Editor
+              // @ts-ignore
               onInit={(evt, editor) => (editorRef.current = editor)}
               apiKey="i86omrgpdaqm9vsa3xzdv1flo1i5o6ib5xrsyah35oqckmsp"
               init={{
+                // @ts-ignore
                 selector: "#tinymce",
                 setup: function (editor) {
                   editor.ui.registry.addIcon(
