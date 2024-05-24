@@ -140,15 +140,16 @@ class GridLayout extends React.Component<GridLayoutProps, GridLayoutState> {
       return (
         <div
           key={layout.i}
-          className={"flex flex-col p-2 bg-transparent react-gap x-drag-handle cursor-move"}
+          className={
+            "flex flex-col p-4 bg-transparent react-gap"
+          }
           onMouseEnter={onHover}
           onMouseDown={onMouseDown}
           data-widget={"GRID_ITEM"}
           data-widgetid={layout.i}
         >
-          {/* I dont think we need this Round rectangle SVG if you can just move the box from anywhere, if you still think we need it then uncomment  */}
-          {/* <RoundedRectangleSVG /> */}
-          {/* <RoundedRectangleSVG /> */}
+
+          <RoundedRectangleSVG />
           <RenderWidgetItem id={layout.i} />
         </div>
       )
@@ -214,7 +215,7 @@ class GridLayout extends React.Component<GridLayoutProps, GridLayoutState> {
             isBounded={true}
             onBreakpointChange={this.onBreakpointChange}
             onLayoutChange={this.onLayoutChange}
-            isDraggable
+            // isDraggable
             isResizable
             // I like to have it animate on mount. If you don't, delete `useCSSTransforms` (it's default `true`)
             // and set `measureBeforeMount={true}`.
@@ -234,6 +235,7 @@ class GridLayout extends React.Component<GridLayoutProps, GridLayoutState> {
             //   ref: ReactRef<HTMLElement>
             // ) => <ResizeHandle handleAxis={resizeHandleAxis} ref={ref} />}
           >
+
             {this.generateDOM()}
           </ResponsiveReactGridLayout>
         </div>
