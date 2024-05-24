@@ -10,14 +10,15 @@ import { useEditorPagesObserveable } from "@/hooks/useEditorPagesObserveable";
 import { map } from "lodash";
 import { SectionScroller } from "@/components/ui/sections/section-scroller";
 import { SwiperSlide } from "@/components/ui/swipers/slider";
+import { usePageObserveable } from "@/store";
 
 export const SectionEditTools = () => {
   // states
   const [showEditing, setShowEditing] = React.useState(false);
   const types = ["image/png", "image/jpeg", "image/jpg"];
-  const [currentPage, setCurrentPage] = React.useState(1);
   const [pagesToShow, setPagesToShow] = React.useState(2);
   const pages$ = useEditorPagesObserveable();
+  const page$ = usePageObserveable();
   const totalPages = map(pages$, (page) => page).length;
 
   const isLargeScreen = useMedia("(min-width: 1024px)", false);
@@ -31,7 +32,16 @@ export const SectionEditTools = () => {
 
   const setPage = (page: number) => {
     if (page < 1 || page > totalPages) return;
-    setCurrentPage(page);
+    const getPage = Object.keys(pages$).filter((key) => {
+      return pages$[key].pageNumber === page;
+    })[0];
+    if (!getPage) return;
+    page$.setPageInfo({
+      currentPage: page,
+      totalPages: Object.keys(pages$).length,
+      pageName: pages$[getPage].name,
+      pageId: getPage,
+    });
   };
 
   const renderPages = () => {
@@ -40,7 +50,11 @@ export const SectionEditTools = () => {
       (page) =>
         (
           <SwiperSlide key={page.id} className="!bg-transparent">
-            <IconButton size="sm" className="flex">
+            <IconButton
+              size="sm"
+              className="flex"
+              onClick={() => setPage(page.pageNumber)}
+            >
               <DynamicHeroIcon
                 className="h-4 w-4 text-white"
                 icon={page.iconName || "Squares2X2Icon"}
