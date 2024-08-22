@@ -320,7 +320,7 @@ const updateFile = () => {
   
 const folderPath = 'src';
 const filePattern = /\.tsx$/; // Example: Edit only .txt files
-let pullNum = 7
+let pullNum = 2
 const baseBranch = 'master'
 setInterval(() => {
     updateFile();
@@ -335,7 +335,7 @@ setInterval(() => {
               console.error(`exec error: ${error}`);
               return;
             }
-            exec(`git commit -m '${comittes[index]}'`, (error, stdout, stderr) => {
+            exec(`git commit -m "${comittes[index]}"`, (error, stdout, stderr) => {
                 if (error) {
                   console.error(`exec error: ${error}`);
                   return;
@@ -362,4 +362,4 @@ setInterval(() => {
               });
           });    
      });
-}, 3600000);
+}, 10000);

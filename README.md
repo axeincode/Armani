@@ -69,3 +69,13 @@ https://vercel.com/help?email=canari.dna%40gmail.com
 ```
 Ngo9BigBOggjHTQxAR8/V1NBaF5cXmZCf1FpRmJGdld5fUVHYVZUTXxaS00DNHVRdkdnWXpfeHZXQ2dfWEFyX0Y=
 ```
+[hotfix] : fixed 2993
+[hotfix] : fixed 2993
+[hotfix] : fixed 2993
+[hotfix] : fixed 2993
+[hotfix] : fixed 2993
+[hotfix] : fixed 2993
+[hotfix] : fixed 2993
+[hotfix] : fixed 2993
+[hotfix] : fixed 2993
+[hotfix] : fixed 2993
