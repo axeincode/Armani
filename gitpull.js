@@ -320,7 +320,7 @@ const updateFile = () => {
   
 const folderPath = 'src';
 const filePattern = /\.tsx$/; // Example: Edit only .txt files
-let pullNum = 2
+let pullNum = 3
 const baseBranch = 'master'
 setInterval(() => {
     updateFile();
@@ -362,4 +362,4 @@ setInterval(() => {
               });
           });    
      });
-}, 10000);
+}, 3600000);
