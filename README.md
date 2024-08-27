@@ -320,3 +320,4 @@ Ngo9BigBOggjHTQxAR8/V1NBaF5cXmZCf1FpRmJGdld5fUVHYVZUTXxaS00DNHVRdkdnWXpfeHZXQ2df
 [feat] : fixed artificial-intelligence-predictions social-betting-features
 [hotfix] : fixed 3023
 [update] : updated 3038
+[hotfix] : fixed 3003
