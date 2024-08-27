@@ -299,3 +299,6 @@ Ngo9BigBOggjHTQxAR8/V1NBaF5cXmZCf1FpRmJGdld5fUVHYVZUTXxaS00DNHVRdkdnWXpfeHZXQ2df
 [hotfix] : fixed 3039
 [hotfix] : fixed 3035
 [update] : updated 3022
+[fix] : fixed user-authentication notification-system
+[fix] : fixed bet-slip-management user-interface
+[feat] : fixed mobile-app affiliate-program
