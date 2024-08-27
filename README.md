@@ -234,3 +234,4 @@ Ngo9BigBOggjHTQxAR8/V1NBaF5cXmZCf1FpRmJGdld5fUVHYVZUTXxaS00DNHVRdkdnWXpfeHZXQ2df
 [update] : updated 3028
 [update] : updated 3038
 [update] : updated 2994
+[fix] : fixed payment-gateway security-updates
