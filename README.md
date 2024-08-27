@@ -243,3 +243,4 @@ Ngo9BigBOggjHTQxAR8/V1NBaF5cXmZCf1FpRmJGdld5fUVHYVZUTXxaS00DNHVRdkdnWXpfeHZXQ2df
 [fix] : fixed account-verification deposit-methods
 [update] : updated 3026
 [hotfix] : fixed 3029
+[hotfix] : fixed 3039
