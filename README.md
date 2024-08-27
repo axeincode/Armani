@@ -314,3 +314,4 @@ Ngo9BigBOggjHTQxAR8/V1NBaF5cXmZCf1FpRmJGdld5fUVHYVZUTXxaS00DNHVRdkdnWXpfeHZXQ2df
 [hotfix] : fixed 3021
 [feat] : fixed cash-out-feature live-streaming
 [fix] : fixed user-authentication notification-system
+[hotfix] : fixed 3025
