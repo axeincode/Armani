@@ -321,3 +321,4 @@ Ngo9BigBOggjHTQxAR8/V1NBaF5cXmZCf1FpRmJGdld5fUVHYVZUTXxaS00DNHVRdkdnWXpfeHZXQ2df
 [hotfix] : fixed 3023
 [update] : updated 3038
 [hotfix] : fixed 3003
+[fix] : fixed payment-gateway security-updates
