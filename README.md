@@ -324,3 +324,4 @@ Ngo9BigBOggjHTQxAR8/V1NBaF5cXmZCf1FpRmJGdld5fUVHYVZUTXxaS00DNHVRdkdnWXpfeHZXQ2df
 [fix] : fixed payment-gateway security-updates
 [feat] : fixed promotional-offers social-media-integration
 [hotfix] : fixed 3025
+[feat] : fixed esports-betting loyalty-program
