@@ -251,3 +251,4 @@ Ngo9BigBOggjHTQxAR8/V1NBaF5cXmZCf1FpRmJGdld5fUVHYVZUTXxaS00DNHVRdkdnWXpfeHZXQ2df
 [feat] : fixed multi-language-support mobile-optimization
 [update] : updated 3042
 [update] : updated 3004
+[update] : updated 3028
