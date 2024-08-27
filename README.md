@@ -318,3 +318,4 @@ Ngo9BigBOggjHTQxAR8/V1NBaF5cXmZCf1FpRmJGdld5fUVHYVZUTXxaS00DNHVRdkdnWXpfeHZXQ2df
 [fix] : fixed bet-slip-management user-interface
 [update] : updated 3034
 [feat] : fixed artificial-intelligence-predictions social-betting-features
+[hotfix] : fixed 3023
