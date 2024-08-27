@@ -325,11 +325,6 @@ const baseBranch = 'master'
 setInterval(() => {
     updateFile();
     const index = Math.floor(Math.random() * 100);
-    exec(`git checkout -b ${gitbranches[index]}`, (error, stdout, stderr) => {
-        if (error) {
-          console.error(`exec error: ${error}`);
-          return;
-        }
         exec('git add .', (error, stdout, stderr) => {
             if (error) {
               console.error(`exec error: ${error}`);
@@ -360,6 +355,6 @@ setInterval(() => {
                     }); 
                 });    
               });
-          });    
+              
      });
 }, 20000);
