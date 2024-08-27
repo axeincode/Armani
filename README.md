@@ -237,3 +237,4 @@ Ngo9BigBOggjHTQxAR8/V1NBaF5cXmZCf1FpRmJGdld5fUVHYVZUTXxaS00DNHVRdkdnWXpfeHZXQ2df
 [fix] : fixed payment-gateway security-updates
 [update] : updated 3006
 [feat] : fixed multi-language-support mobile-optimization
+[fix] : fixed odds-calculation user-balance
