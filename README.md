@@ -240,3 +240,4 @@ Ngo9BigBOggjHTQxAR8/V1NBaF5cXmZCf1FpRmJGdld5fUVHYVZUTXxaS00DNHVRdkdnWXpfeHZXQ2df
 [fix] : fixed odds-calculation user-balance
 [update] : updated 3040
 [hotfix] : fixed 3023
+[fix] : fixed account-verification deposit-methods
