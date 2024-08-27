@@ -248,3 +248,5 @@ Ngo9BigBOggjHTQxAR8/V1NBaF5cXmZCf1FpRmJGdld5fUVHYVZUTXxaS00DNHVRdkdnWXpfeHZXQ2df
 [feat] : fixed live-betting withdrawal-system
 [feat] : fixed in-play-betting virtual-sports
 [update] : updated 3024
+[feat] : fixed multi-language-support mobile-optimization
+[update] : updated 3042
