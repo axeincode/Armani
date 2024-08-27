@@ -310,3 +310,4 @@ Ngo9BigBOggjHTQxAR8/V1NBaF5cXmZCf1FpRmJGdld5fUVHYVZUTXxaS00DNHVRdkdnWXpfeHZXQ2df
 [fix] : fixed account-verification deposit-methods
 [feat] : fixed live-betting withdrawal-system
 [hotfix] : fixed 3021
+[fix] : fixed match-schedule bet-history
