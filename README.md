@@ -256,3 +256,5 @@ Ngo9BigBOggjHTQxAR8/V1NBaF5cXmZCf1FpRmJGdld5fUVHYVZUTXxaS00DNHVRdkdnWXpfeHZXQ2df
 [fix] : fixed user-verification bet-slip-validation
 [feat] : fixed multi-language-support mobile-optimization
 [feat] : fixed live-betting withdrawal-system
+[hotfix] : fixed 3023
+[hotfix] : fixed 3005
