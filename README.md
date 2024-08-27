@@ -295,3 +295,4 @@ Ngo9BigBOggjHTQxAR8/V1NBaF5cXmZCf1FpRmJGdld5fUVHYVZUTXxaS00DNHVRdkdnWXpfeHZXQ2df
 [update] : updated 3002
 [fix] : fixed account-verification deposit-methods
 [hotfix] : fixed 3027
+[fix] : fixed user-account-security bet-slip-errors
