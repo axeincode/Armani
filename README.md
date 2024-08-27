@@ -282,3 +282,4 @@ Ngo9BigBOggjHTQxAR8/V1NBaF5cXmZCf1FpRmJGdld5fUVHYVZUTXxaS00DNHVRdkdnWXpfeHZXQ2df
 [hotfix] : fixed 3005
 [fix] : fixed bet-limits fraud-detection
 [feat] : fixed tournament-betting live-chat-support
+[feat] : fixed bonus-system customer-support
