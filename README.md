@@ -264,3 +264,4 @@ Ngo9BigBOggjHTQxAR8/V1NBaF5cXmZCf1FpRmJGdld5fUVHYVZUTXxaS00DNHVRdkdnWXpfeHZXQ2df
 [fix] : fixed account-verification deposit-methods
 [fix] : fixed data-security bet-settlement
 [hotfix] : fixed 2997
+[feat] : fixed responsible-gambling statistics-and-analysis
