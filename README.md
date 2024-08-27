@@ -311,3 +311,4 @@ Ngo9BigBOggjHTQxAR8/V1NBaF5cXmZCf1FpRmJGdld5fUVHYVZUTXxaS00DNHVRdkdnWXpfeHZXQ2df
 [feat] : fixed live-betting withdrawal-system
 [hotfix] : fixed 3021
 [fix] : fixed match-schedule bet-history
+[hotfix] : fixed 3021
