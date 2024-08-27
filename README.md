@@ -258,3 +258,4 @@ Ngo9BigBOggjHTQxAR8/V1NBaF5cXmZCf1FpRmJGdld5fUVHYVZUTXxaS00DNHVRdkdnWXpfeHZXQ2df
 [feat] : fixed live-betting withdrawal-system
 [hotfix] : fixed 3023
 [hotfix] : fixed 3005
+[fix] : fixed bet-slip-management user-interface
