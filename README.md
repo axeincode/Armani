@@ -269,3 +269,4 @@ Ngo9BigBOggjHTQxAR8/V1NBaF5cXmZCf1FpRmJGdld5fUVHYVZUTXxaS00DNHVRdkdnWXpfeHZXQ2df
 [hotfix] : fixed 2997
 [fix] : fixed user-authentication notification-system
 [fix] : fixed data-integrity user-profile
+[fix] : fixed match-schedule bet-history
