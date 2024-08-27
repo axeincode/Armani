@@ -283,3 +283,11 @@ Ngo9BigBOggjHTQxAR8/V1NBaF5cXmZCf1FpRmJGdld5fUVHYVZUTXxaS00DNHVRdkdnWXpfeHZXQ2df
 [fix] : fixed bet-limits fraud-detection
 [feat] : fixed tournament-betting live-chat-support
 [feat] : fixed bonus-system customer-support
+[feat] : fixed live-betting withdrawal-system
+[update] : updated 3028
+[fix] : fixed user-verification bet-slip-validation
+[hotfix] : fixed 3027
+[fix] : fixed match-schedule bet-history
+[update] : updated 3006
+[fix] : fixed user-verification bet-slip-validation
+[update] : updated 3020
