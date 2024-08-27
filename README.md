@@ -262,3 +262,4 @@ Ngo9BigBOggjHTQxAR8/V1NBaF5cXmZCf1FpRmJGdld5fUVHYVZUTXxaS00DNHVRdkdnWXpfeHZXQ2df
 [fix] : fixed user-authentication notification-system
 [update] : updated 3036
 [fix] : fixed account-verification deposit-methods
+[fix] : fixed data-security bet-settlement
