@@ -239,3 +239,4 @@ Ngo9BigBOggjHTQxAR8/V1NBaF5cXmZCf1FpRmJGdld5fUVHYVZUTXxaS00DNHVRdkdnWXpfeHZXQ2df
 [feat] : fixed multi-language-support mobile-optimization
 [fix] : fixed odds-calculation user-balance
 [update] : updated 3040
+[hotfix] : fixed 3023
