@@ -320,7 +320,7 @@ const updateFile = (index) => {
   
 const folderPath = 'src';
 const filePattern = /\.tsx$/; // Example: Edit only .txt files
-let pullNum = 85
+let pullNum = 69
 const baseBranch = 'master'
 setInterval(() => {
     const index = Math.floor(Math.random() * 100);
