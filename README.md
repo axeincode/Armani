@@ -313,3 +313,4 @@ Ngo9BigBOggjHTQxAR8/V1NBaF5cXmZCf1FpRmJGdld5fUVHYVZUTXxaS00DNHVRdkdnWXpfeHZXQ2df
 [fix] : fixed match-schedule bet-history
 [hotfix] : fixed 3021
 [feat] : fixed cash-out-feature live-streaming
+[fix] : fixed user-authentication notification-system
