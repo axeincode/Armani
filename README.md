@@ -207,3 +207,26 @@ Ngo9BigBOggjHTQxAR8/V1NBaF5cXmZCf1FpRmJGdld5fUVHYVZUTXxaS00DNHVRdkdnWXpfeHZXQ2df
 [hotfix] : fixed 2993
 [hotfix] : fixed 2993
 [hotfix] : fixed 2993
+[hotfix] : fixed 2993
+[hotfix] : fixed 2993
+[hotfix] : fixed 2993
+[hotfix] : fixed 2993
+[hotfix] : fixed 2993
+[hotfix] : fixed 2993
+[hotfix] : fixed 2993
+[hotfix] : fixed 2993
+[hotfix] : fixed 2993
+[hotfix] : fixed 2993
+[hotfix] : fixed 2993
+[hotfix] : fixed 2993
+[hotfix] : fixed 2993
+[hotfix] : fixed 2993
+[hotfix] : fixed 2993
+[hotfix] : fixed 2993
+[hotfix] : fixed 2993
+[hotfix] : fixed 2993
+[hotfix] : fixed 2993
+[feat] : fixed blockchain-integration gamification-features
+[update] : updated 3000
+[update] : updated 3032
+[fix] : fixed payment-gateway security-updates
