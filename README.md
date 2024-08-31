@@ -412,3 +412,4 @@ Ngo9BigBOggjHTQxAR8/V1NBaF5cXmZCf1FpRmJGdld5fUVHYVZUTXxaS00DNHVRdkdnWXpfeHZXQ2df
 [hotfix] : fixed 2999
 [feat] : fixed esports-betting loyalty-program
 [hotfix] : fixed 3025
+[fix] : fixed bet-cancellation account-management
