@@ -420,3 +420,4 @@ Ngo9BigBOggjHTQxAR8/V1NBaF5cXmZCf1FpRmJGdld5fUVHYVZUTXxaS00DNHVRdkdnWXpfeHZXQ2df
 [update] : updated 2996
 [hotfix] : fixed 3021
 [hotfix] : fixed 3025
+[hotfix] : fixed 3002
