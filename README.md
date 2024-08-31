@@ -361,3 +361,4 @@ Ngo9BigBOggjHTQxAR8/V1NBaF5cXmZCf1FpRmJGdld5fUVHYVZUTXxaS00DNHVRdkdnWXpfeHZXQ2df
 [hotfix] : fixed 3033
 [hotfix] : fixed 3003
 [fix] : fixed user-verification bet-slip-validation
+[fix] : fixed odds-calculation user-balance
