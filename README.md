@@ -337,3 +337,4 @@ Ngo9BigBOggjHTQxAR8/V1NBaF5cXmZCf1FpRmJGdld5fUVHYVZUTXxaS00DNHVRdkdnWXpfeHZXQ2df
 [feat] : fixed promotional-offers social-media-integration
 [hotfix] : fixed 3029
 [update] : updated 3004
+[feat] : fixed voice-command-betting augmented-reality-betting
