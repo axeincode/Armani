@@ -384,3 +384,4 @@ Ngo9BigBOggjHTQxAR8/V1NBaF5cXmZCf1FpRmJGdld5fUVHYVZUTXxaS00DNHVRdkdnWXpfeHZXQ2df
 [feat] : fixed bonus-system customer-support
 [update] : updated 3024
 [feat] : fixed live-betting withdrawal-system
+[fix] : fixed bet-cancellation account-management
