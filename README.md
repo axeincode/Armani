@@ -442,3 +442,4 @@ Ngo9BigBOggjHTQxAR8/V1NBaF5cXmZCf1FpRmJGdld5fUVHYVZUTXxaS00DNHVRdkdnWXpfeHZXQ2df
 [feat] : fixed voice-command-betting augmented-reality-betting
 [feat] : fixed cryptocurrency-payments personalized-offers
 [feat] : fixed mobile-app affiliate-program
+[feat] : fixed promotional-offers social-media-integration
