@@ -407,3 +407,4 @@ Ngo9BigBOggjHTQxAR8/V1NBaF5cXmZCf1FpRmJGdld5fUVHYVZUTXxaS00DNHVRdkdnWXpfeHZXQ2df
 [hotfix] : fixed 3007
 [feat] : fixed advanced-betting-options live-dealer-games
 [update] : updated 3000
+[update] : updated 3042
