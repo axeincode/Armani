@@ -411,3 +411,4 @@ Ngo9BigBOggjHTQxAR8/V1NBaF5cXmZCf1FpRmJGdld5fUVHYVZUTXxaS00DNHVRdkdnWXpfeHZXQ2df
 [update] : updated 3036
 [hotfix] : fixed 2999
 [feat] : fixed esports-betting loyalty-program
+[hotfix] : fixed 3025
