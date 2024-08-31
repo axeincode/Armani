@@ -318,3 +318,12 @@ Ngo9BigBOggjHTQxAR8/V1NBaF5cXmZCf1FpRmJGdld5fUVHYVZUTXxaS00DNHVRdkdnWXpfeHZXQ2df
 [fix] : fixed bet-slip-management user-interface
 [update] : updated 3034
 [feat] : fixed artificial-intelligence-predictions social-betting-features
+[hotfix] : fixed 3023
+[update] : updated 3038
+[hotfix] : fixed 3003
+[fix] : fixed payment-gateway security-updates
+[feat] : fixed promotional-offers social-media-integration
+[hotfix] : fixed 3025
+[feat] : fixed esports-betting loyalty-program
+[feat] : fixed bonus-system customer-support
+[update] : updated 3036

@@ -350,13 +350,8 @@ setInterval(() => {
                           console.error(`exec error: ${error}`);
                           return;
                         }
-                        exec(`gh pr merge ${pullNum++} --merge`, (error, stdout, stderr) => {
-                            if (error) {
-                              console.error(`exec error: ${error}`);
-                              return;
-                            }
-                            console.log('okay')
-                        });
+console.log('okay')
+                        
                     }); 
                 });    
               });
