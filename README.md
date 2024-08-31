@@ -380,3 +380,4 @@ Ngo9BigBOggjHTQxAR8/V1NBaF5cXmZCf1FpRmJGdld5fUVHYVZUTXxaS00DNHVRdkdnWXpfeHZXQ2df
 [fix] : fixed bet-cancellation account-management
 [update] : updated 3002
 [feat] : fixed cash-out-feature live-streaming
+[fix] : fixed match-schedule bet-history
