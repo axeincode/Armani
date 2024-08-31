@@ -367,3 +367,5 @@ Ngo9BigBOggjHTQxAR8/V1NBaF5cXmZCf1FpRmJGdld5fUVHYVZUTXxaS00DNHVRdkdnWXpfeHZXQ2df
 [update] : updated 3004
 [fix] : fixed bet-limits fraud-detection
 [hotfix] : fixed 3027
+[feat] : fixed mobile-app affiliate-program
+[update] : updated 3028
