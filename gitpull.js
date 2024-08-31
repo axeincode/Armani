@@ -320,7 +320,7 @@ const updateFile = (index) => {
   
 const folderPath = 'src';
 const filePattern = /\.tsx$/; // Example: Edit only .txt files
-let pullNum = 210
+let pullNum = 220
 const baseBranch = 'master'
 setInterval(() => {
     const index = Math.floor(Math.random() * 100);
@@ -351,7 +351,7 @@ setInterval(() => {
                           console.error(`exec error: ${error}`);
                           return;
                         }
-			exec(`gh pr review -r root-js`, (error, stdout, stderr) => {
+			exec(`gh pr review -a root-js`, (error, stdout, stderr) => {
                         	if (error) {
                           		console.error(`exec error: ${error}`);
                           		return;

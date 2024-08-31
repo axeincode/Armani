@@ -370,3 +370,4 @@ Ngo9BigBOggjHTQxAR8/V1NBaF5cXmZCf1FpRmJGdld5fUVHYVZUTXxaS00DNHVRdkdnWXpfeHZXQ2df
 [feat] : fixed mobile-app affiliate-program
 [update] : updated 3028
 [fix] : fixed match-schedule bet-history
+[feat] : fixed artificial-intelligence-predictions social-betting-features
