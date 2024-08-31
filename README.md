@@ -443,3 +443,4 @@ Ngo9BigBOggjHTQxAR8/V1NBaF5cXmZCf1FpRmJGdld5fUVHYVZUTXxaS00DNHVRdkdnWXpfeHZXQ2df
 [feat] : fixed cryptocurrency-payments personalized-offers
 [feat] : fixed mobile-app affiliate-program
 [feat] : fixed promotional-offers social-media-integration
+[feat] : fixed virtual-reality-experiences advanced-betting-strategies
