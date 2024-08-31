@@ -387,3 +387,4 @@ Ngo9BigBOggjHTQxAR8/V1NBaF5cXmZCf1FpRmJGdld5fUVHYVZUTXxaS00DNHVRdkdnWXpfeHZXQ2df
 [fix] : fixed bet-cancellation account-management
 [update] : updated 3026
 [hotfix] : fixed 3027
+[update] : updated 2996
