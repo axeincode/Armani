@@ -345,3 +345,6 @@ Ngo9BigBOggjHTQxAR8/V1NBaF5cXmZCf1FpRmJGdld5fUVHYVZUTXxaS00DNHVRdkdnWXpfeHZXQ2df
 [feat] : fixed referral-system personalized-recommendations
 [update] : updated 3004
 [fix] : fixed payment-gateway security-updates
+[feat] : fixed blockchain-integration gamification-features
+[feat] : fixed game-result
+[update] : updated 3006
