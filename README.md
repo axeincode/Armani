@@ -325,3 +325,4 @@ Ngo9BigBOggjHTQxAR8/V1NBaF5cXmZCf1FpRmJGdld5fUVHYVZUTXxaS00DNHVRdkdnWXpfeHZXQ2df
 [feat] : fixed promotional-offers social-media-integration
 [hotfix] : fixed 3025
 [feat] : fixed esports-betting loyalty-program
+[feat] : fixed bonus-system customer-support
