@@ -376,3 +376,4 @@ Ngo9BigBOggjHTQxAR8/V1NBaF5cXmZCf1FpRmJGdld5fUVHYVZUTXxaS00DNHVRdkdnWXpfeHZXQ2df
 [feat] : fixed bonus-system customer-support
 [feat] : fixed bonus-system customer-support
 [hotfix] : fixed 3021
+[feat] : fixed blockchain-integration gamification-features
