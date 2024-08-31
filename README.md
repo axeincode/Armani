@@ -432,3 +432,4 @@ Ngo9BigBOggjHTQxAR8/V1NBaF5cXmZCf1FpRmJGdld5fUVHYVZUTXxaS00DNHVRdkdnWXpfeHZXQ2df
 [fix] : fixed user-interface-updates data-analysis
 [feat] : fixed referral-system personalized-recommendations
 [feat] : fixed voice-command-betting augmented-reality-betting
+[fix] : fixed user-verification bet-slip-validation
