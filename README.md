@@ -402,3 +402,4 @@ Ngo9BigBOggjHTQxAR8/V1NBaF5cXmZCf1FpRmJGdld5fUVHYVZUTXxaS00DNHVRdkdnWXpfeHZXQ2df
 [hotfix] : fixed 3041
 [hotfix] : fixed 3021
 [feat] : fixed bonus-system customer-support
+[hotfix] : fixed 3039
