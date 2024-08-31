@@ -413,3 +413,13 @@ Ngo9BigBOggjHTQxAR8/V1NBaF5cXmZCf1FpRmJGdld5fUVHYVZUTXxaS00DNHVRdkdnWXpfeHZXQ2df
 [feat] : fixed esports-betting loyalty-program
 [hotfix] : fixed 3025
 [fix] : fixed bet-cancellation account-management
+[feat] : fixed in-play-betting virtual-sports
+[fix] : fixed payment-gateway security-updates
+[hotfix] : fixed 3037
+[hotfix] : fixed 3023
+[update] : updated 2996
+[hotfix] : fixed 3021
+[hotfix] : fixed 3025
+[hotfix] : fixed 3002
+[fix] : fixed match-schedule bet-history
+[hotfix] : fixed 2993
