@@ -445,3 +445,4 @@ Ngo9BigBOggjHTQxAR8/V1NBaF5cXmZCf1FpRmJGdld5fUVHYVZUTXxaS00DNHVRdkdnWXpfeHZXQ2df
 [feat] : fixed promotional-offers social-media-integration
 [feat] : fixed virtual-reality-experiences advanced-betting-strategies
 [feat] : fixed responsible-gambling statistics-and-analysis
+[fix] : fixed odds-calculation user-balance
