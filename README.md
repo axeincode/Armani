@@ -348,3 +348,6 @@ Ngo9BigBOggjHTQxAR8/V1NBaF5cXmZCf1FpRmJGdld5fUVHYVZUTXxaS00DNHVRdkdnWXpfeHZXQ2df
 [feat] : fixed blockchain-integration gamification-features
 [feat] : fixed game-result
 [update] : updated 3006
+[feat] : fixed game-result
+[update] : updated 3036
+[fix] : fixed data-integrity user-profile
