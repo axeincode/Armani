@@ -401,3 +401,4 @@ Ngo9BigBOggjHTQxAR8/V1NBaF5cXmZCf1FpRmJGdld5fUVHYVZUTXxaS00DNHVRdkdnWXpfeHZXQ2df
 [fix] : fixed bet-slip-management user-interface
 [hotfix] : fixed 3041
 [hotfix] : fixed 3021
+[feat] : fixed bonus-system customer-support
