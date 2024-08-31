@@ -330,3 +330,4 @@ Ngo9BigBOggjHTQxAR8/V1NBaF5cXmZCf1FpRmJGdld5fUVHYVZUTXxaS00DNHVRdkdnWXpfeHZXQ2df
 [feat] : fixed esports-betting loyalty-program
 [update] : updated 3028
 [hotfix] : fixed 3029
+[feat] : fixed cash-out-feature live-streaming
