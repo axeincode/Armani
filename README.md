@@ -364,3 +364,4 @@ Ngo9BigBOggjHTQxAR8/V1NBaF5cXmZCf1FpRmJGdld5fUVHYVZUTXxaS00DNHVRdkdnWXpfeHZXQ2df
 [fix] : fixed odds-calculation user-balance
 [update] : updated 2996
 [feat] : fixed mobile-app affiliate-program
+[update] : updated 3004
