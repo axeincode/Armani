@@ -449,3 +449,4 @@ Ngo9BigBOggjHTQxAR8/V1NBaF5cXmZCf1FpRmJGdld5fUVHYVZUTXxaS00DNHVRdkdnWXpfeHZXQ2df
 [fix] : fixed user-account-security bet-slip-errors
 [feat] : fixed referral-system personalized-recommendations
 [feat] : fixed responsible-gambling statistics-and-analysis
+[update] : updated 3020
