@@ -371,3 +371,4 @@ Ngo9BigBOggjHTQxAR8/V1NBaF5cXmZCf1FpRmJGdld5fUVHYVZUTXxaS00DNHVRdkdnWXpfeHZXQ2df
 [update] : updated 3028
 [fix] : fixed match-schedule bet-history
 [feat] : fixed artificial-intelligence-predictions social-betting-features
+[fix] : fixed odds-calculation user-balance
