@@ -353,3 +353,6 @@ Ngo9BigBOggjHTQxAR8/V1NBaF5cXmZCf1FpRmJGdld5fUVHYVZUTXxaS00DNHVRdkdnWXpfeHZXQ2df
 [fix] : fixed data-integrity user-profile
 [hotfix] : fixed 3002
 [feat] : fixed in-play-betting virtual-sports
+[hotfix] : fixed 3002
+[update] : updated 3006
+[feat] : fixed tournament-betting live-chat-support

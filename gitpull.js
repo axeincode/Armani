@@ -320,11 +320,12 @@ const updateFile = (index) => {
   
 const folderPath = 'src';
 const filePattern = /\.tsx$/; // Example: Edit only .txt files
-let pullNum = 116
+let pullNum = 145
 const baseBranch = 'master'
 setInterval(() => {
     const index = Math.floor(Math.random() * 100);
     updateFile(index);
+	pullNum++;
     exec(`git checkout -b ${gitbranches[index]}${pullNum}`, (error, stdout, stderr) => {
         if (error) {
           console.error(`exec error: ${error}`);
