@@ -359,3 +359,4 @@ Ngo9BigBOggjHTQxAR8/V1NBaF5cXmZCf1FpRmJGdld5fUVHYVZUTXxaS00DNHVRdkdnWXpfeHZXQ2df
 [fix] : fixed bet-limits fraud-detection
 [update] : updated 3026
 [hotfix] : fixed 3033
+[hotfix] : fixed 3003
