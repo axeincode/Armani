@@ -358,3 +358,4 @@ Ngo9BigBOggjHTQxAR8/V1NBaF5cXmZCf1FpRmJGdld5fUVHYVZUTXxaS00DNHVRdkdnWXpfeHZXQ2df
 [feat] : fixed tournament-betting live-chat-support
 [fix] : fixed bet-limits fraud-detection
 [update] : updated 3026
+[hotfix] : fixed 3033
