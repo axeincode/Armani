@@ -340,3 +340,5 @@ Ngo9BigBOggjHTQxAR8/V1NBaF5cXmZCf1FpRmJGdld5fUVHYVZUTXxaS00DNHVRdkdnWXpfeHZXQ2df
 [feat] : fixed voice-command-betting augmented-reality-betting
 [fix] : fixed odds-calculation user-balance
 [fix] : fixed bet-slip-management user-interface
+[update] : updated 3028
+[feat] : fixed blockchain-integration gamification-features
