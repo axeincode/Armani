@@ -415,3 +415,4 @@ Ngo9BigBOggjHTQxAR8/V1NBaF5cXmZCf1FpRmJGdld5fUVHYVZUTXxaS00DNHVRdkdnWXpfeHZXQ2df
 [fix] : fixed bet-cancellation account-management
 [feat] : fixed in-play-betting virtual-sports
 [fix] : fixed payment-gateway security-updates
+[hotfix] : fixed 3037
