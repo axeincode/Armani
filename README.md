@@ -426,3 +426,4 @@ Ngo9BigBOggjHTQxAR8/V1NBaF5cXmZCf1FpRmJGdld5fUVHYVZUTXxaS00DNHVRdkdnWXpfeHZXQ2df
 [hotfix] : fixed 3027
 [hotfix] : fixed 3023
 [fix] : fixed user-interface-improvements system-stability
+[feat] : fixed mobile-app affiliate-program
