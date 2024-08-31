@@ -353,3 +353,43 @@ Ngo9BigBOggjHTQxAR8/V1NBaF5cXmZCf1FpRmJGdld5fUVHYVZUTXxaS00DNHVRdkdnWXpfeHZXQ2df
 [fix] : fixed data-integrity user-profile
 [hotfix] : fixed 3002
 [feat] : fixed in-play-betting virtual-sports
+[hotfix] : fixed 3002
+[update] : updated 3006
+[feat] : fixed tournament-betting live-chat-support
+[fix] : fixed bet-limits fraud-detection
+[update] : updated 3026
+[hotfix] : fixed 3033
+[hotfix] : fixed 3003
+[fix] : fixed user-verification bet-slip-validation
+[fix] : fixed odds-calculation user-balance
+[update] : updated 2996
+[feat] : fixed mobile-app affiliate-program
+[update] : updated 3004
+[fix] : fixed bet-limits fraud-detection
+[hotfix] : fixed 3027
+[feat] : fixed mobile-app affiliate-program
+[update] : updated 3028
+[fix] : fixed match-schedule bet-history
+[feat] : fixed artificial-intelligence-predictions social-betting-features
+[fix] : fixed odds-calculation user-balance
+[update] : updated 3038
+[feat] : fixed bonus-system customer-support
+[feat] : fixed bonus-system customer-support
+[hotfix] : fixed 3021
+[feat] : fixed blockchain-integration gamification-features
+[fix] : fixed bet-cancellation account-management
+[update] : updated 3002
+[feat] : fixed cash-out-feature live-streaming
+[fix] : fixed match-schedule bet-history
+[feat] : fixed bonus-system customer-support
+[update] : updated 3024
+[feat] : fixed live-betting withdrawal-system
+[fix] : fixed bet-cancellation account-management
+[update] : updated 3026
+[hotfix] : fixed 3027
+[update] : updated 2996
+[hotfix] : fixed 3039
+[hotfix] : fixed 3033
+[fix] : fixed account-verification deposit-methods
+[update] : updated 3024
+[update] : updated 2998

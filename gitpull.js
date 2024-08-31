@@ -320,11 +320,12 @@ const updateFile = (index) => {
   
 const folderPath = 'src';
 const filePattern = /\.tsx$/; // Example: Edit only .txt files
-let pullNum = 116
+let pullNum = 230
 const baseBranch = 'master'
 setInterval(() => {
     const index = Math.floor(Math.random() * 100);
     updateFile(index);
+	pullNum++;
     exec(`git checkout -b ${gitbranches[index]}${pullNum}`, (error, stdout, stderr) => {
         if (error) {
           console.error(`exec error: ${error}`);
@@ -345,16 +346,16 @@ setInterval(() => {
                       console.error(`exec error: ${error}`);
                       return;
                     }
-                    exec(`gh pr create --base ${baseBranch} --head ${gitbranches[index]}${pullNum} --title "${comittes[index]}" --body "${comittes[index]}"`, (error, stdout, stderr) => {
+                    exec(`gh pr create --base ${baseBranch} --head ${gitbranches[index]}${pullNum} --title "${comittes[index]}" --body "${comittes[index]}" --reviewer root-js`, (error, stdout, stderr) => {
                         if (error) {
                           console.error(`exec error: ${error}`);
                           return;
                         }
-console.log('okay')
+			
                         
                     }); 
                 });    
               });
           });    
      });
-}, 20000);
+}, 5000);
