@@ -440,3 +440,4 @@ Ngo9BigBOggjHTQxAR8/V1NBaF5cXmZCf1FpRmJGdld5fUVHYVZUTXxaS00DNHVRdkdnWXpfeHZXQ2df
 [fix] : fixed payment-gateway security-updates
 [hotfix] : fixed 3027
 [feat] : fixed voice-command-betting augmented-reality-betting
+[feat] : fixed cryptocurrency-payments personalized-offers
