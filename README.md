@@ -424,3 +424,4 @@ Ngo9BigBOggjHTQxAR8/V1NBaF5cXmZCf1FpRmJGdld5fUVHYVZUTXxaS00DNHVRdkdnWXpfeHZXQ2df
 [fix] : fixed match-schedule bet-history
 [hotfix] : fixed 2993
 [hotfix] : fixed 3027
+[hotfix] : fixed 3023
