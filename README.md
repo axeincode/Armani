@@ -479,3 +479,4 @@ Ngo9BigBOggjHTQxAR8/V1NBaF5cXmZCf1FpRmJGdld5fUVHYVZUTXxaS00DNHVRdkdnWXpfeHZXQ2df
 [feat] : fixed cryptocurrency-payments personalized-offers
 [hotfix] : fixed 3031
 [update] : updated 3020
+[update] : updated 2994
