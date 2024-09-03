@@ -468,3 +468,4 @@ Ngo9BigBOggjHTQxAR8/V1NBaF5cXmZCf1FpRmJGdld5fUVHYVZUTXxaS00DNHVRdkdnWXpfeHZXQ2df
 [feat] : fixed tournament-betting live-chat-support
 [hotfix] : fixed 3029
 [fix] : fixed bet-cancellation account-management
+[fix] : fixed user-authentication notification-system
