@@ -470,3 +470,4 @@ Ngo9BigBOggjHTQxAR8/V1NBaF5cXmZCf1FpRmJGdld5fUVHYVZUTXxaS00DNHVRdkdnWXpfeHZXQ2df
 [fix] : fixed bet-cancellation account-management
 [fix] : fixed user-authentication notification-system
 [hotfix] : fixed 3021
+[update] : updated 3028
