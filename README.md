@@ -489,3 +489,4 @@ Ngo9BigBOggjHTQxAR8/V1NBaF5cXmZCf1FpRmJGdld5fUVHYVZUTXxaS00DNHVRdkdnWXpfeHZXQ2df
 [hotfix] : fixed 3035
 [hotfix] : fixed 3007
 [fix] : fixed bet-slip-management user-interface
+[hotfix] : fixed 3029
