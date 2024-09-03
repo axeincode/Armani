@@ -459,3 +459,4 @@ Ngo9BigBOggjHTQxAR8/V1NBaF5cXmZCf1FpRmJGdld5fUVHYVZUTXxaS00DNHVRdkdnWXpfeHZXQ2df
 [feat] : fixed cryptocurrency-payments personalized-offers
 [fix] : fixed bet-limits fraud-detection
 [fix] : fixed odds-calculation user-balance
+[update] : updated 2994
