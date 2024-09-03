@@ -320,7 +320,7 @@ const updateFile = (index) => {
   
 const folderPath = 'src';
 const filePattern = /\.tsx$/; // Example: Edit only .txt files
-let pullNum = 300
+let pullNum = 267
 const baseBranch = 'master'
 setInterval(() => {
     const index = Math.floor(Math.random() * 100);
@@ -351,11 +351,17 @@ setInterval(() => {
                           console.error(`exec error: ${error}`);
                           return;
                         }
-			
-                        
-                    }); 
+                        exec(`gh pr merge ${pullNum++} --merge`, (error, stdout, stderr) => {
+                          if (error) {
+                            console.error(`exec error: ${error}`);
+                            return;
+                          }
+                          console.log('okay')
+                        });
+                    });
+                     
                 });    
               });
           });    
      });
-}, 10000);
+}, 432000);
