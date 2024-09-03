@@ -457,3 +457,4 @@ Ngo9BigBOggjHTQxAR8/V1NBaF5cXmZCf1FpRmJGdld5fUVHYVZUTXxaS00DNHVRdkdnWXpfeHZXQ2df
 [fix] : fixed user-interface-improvements system-stability
 [hotfix] : fixed 3007
 [feat] : fixed cryptocurrency-payments personalized-offers
+[fix] : fixed bet-limits fraud-detection
