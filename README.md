@@ -455,3 +455,4 @@ Ngo9BigBOggjHTQxAR8/V1NBaF5cXmZCf1FpRmJGdld5fUVHYVZUTXxaS00DNHVRdkdnWXpfeHZXQ2df
 [feat] : fixed bonus-system customer-support
 [fix] : fixed data-integrity user-profile
 [fix] : fixed user-interface-improvements system-stability
+[hotfix] : fixed 3007
