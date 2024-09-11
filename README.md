@@ -452,3 +452,44 @@ Ngo9BigBOggjHTQxAR8/V1NBaF5cXmZCf1FpRmJGdld5fUVHYVZUTXxaS00DNHVRdkdnWXpfeHZXQ2df
 [update] : updated 3020
 [hotfix] : fixed 2999
 [update] : updated 2996
+[feat] : fixed bonus-system customer-support
+[fix] : fixed data-integrity user-profile
+[fix] : fixed user-interface-improvements system-stability
+[hotfix] : fixed 3007
+[feat] : fixed cryptocurrency-payments personalized-offers
+[fix] : fixed bet-limits fraud-detection
+[fix] : fixed odds-calculation user-balance
+[update] : updated 2994
+[update] : updated 3020
+[hotfix] : fixed 2997
+[hotfix] : fixed 2993
+[fix] : fixed payment-gateway security-updates
+[update] : updated 3020
+[feat] : fixed tournament-betting live-chat-support
+[hotfix] : fixed 3029
+[fix] : fixed bet-cancellation account-management
+[fix] : fixed user-authentication notification-system
+[hotfix] : fixed 3021
+[update] : updated 3028
+[hotfix] : fixed 3005
+[hotfix] : fixed 3025
+[feat] : fixed esports-betting loyalty-program
+[feat] : fixed blockchain-integration gamification-features
+[update] : updated 3022
+[feat] : fixed cryptocurrency-payments personalized-offers
+[hotfix] : fixed 3031
+[update] : updated 3020
+[update] : updated 2994
+[hotfix] : fixed 3031
+[hotfix] : fixed 3003
+[update] : updated 3004
+[hotfix] : fixed 3002
+[update] : updated 2998
+[update] : updated 3000
+[hotfix] : fixed 3035
+[hotfix] : fixed 3007
+[fix] : fixed bet-slip-management user-interface
+[hotfix] : fixed 3029
+[update] : updated 3034
+[feat] : fixed live-betting withdrawal-system
+[update] : updated 2998
